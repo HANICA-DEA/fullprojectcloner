@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MainComponent } from './main/main.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+import { CloneComponent } from './clone/clone.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
-  {path: 'main', component: MainComponent},
-  {path: 'home', component: HomeComponent}
+  {path: '', component: HomeComponent},
+  {path: 'about', component: AboutComponent},
+  {path: 'clone', component: CloneComponent},
+  {path: 'contact', component: ContactComponent}
 ];
 
 @NgModule({
