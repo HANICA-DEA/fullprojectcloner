@@ -19,11 +19,7 @@
     "@angular/core": "~7.0.0",
     "@angular/forms": "~7.0.0",
     "@angular/http": "~7.0.0",
-<<<<<<< HEAD
     "@angular/material": "^7.0.4",
-=======
-    "@angular/material": "7.0.4",
->>>>>>> d7ee7cfb3e090b81a35d9bdfc360dd640fb1560d
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
