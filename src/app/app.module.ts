@@ -9,6 +9,11 @@ import { AboutComponent } from './about/about.component';
 import { CloneComponent } from './clone/clone.component';
 import { ContactComponent } from './contact/contact.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +25,12 @@ import { ContactComponent } from './contact/contact.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
