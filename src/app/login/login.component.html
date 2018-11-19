@@ -1,9 +1,14 @@
-<div *ngIf= "authService.isLoggedIn; else loginTemplate">
-  <button (click)="logout()">uitloggen</button>
+
+<mat-card>
+  <h1>Fullprojectcloner</h1>
+
+  <div *ngIf= "authService.isLoggedIn; else loginTemplate">
+  <button mat-flat-button class="btn-github" (click)="logout()"> Stop authentication github</button>
 </div>
 
 
 <ng-template #loginTemplate>
-  <button (click)="signInWithGithub()">Authenticate met github</button>
+  <button mat-flat-button class="btn-github" (click)="signInWithGithub()">
+   Authenticate met github</button>
 </ng-template>
-
+</mat-card>
