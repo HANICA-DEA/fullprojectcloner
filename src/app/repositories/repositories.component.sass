@@ -1,10 +1,9 @@
-//@import "~@angular/material/prebuilt-themes/indigo-pink.css"
+.radio-button-hidden
+  visibility: hidden
 
-.example-form
-  min-width: 150px
-  max-width: 500px
-  width: 100%
+input[type="radio"] + label mat-card
+  cursor: pointer
 
-.example-full-width
-  width: 100%
-
+input[type="radio"]:checked + label mat-card
+  background-color: #0D353F
+  color: white
