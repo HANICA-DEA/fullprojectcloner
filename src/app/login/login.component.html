@@ -3,9 +3,9 @@
   <h1>Fullprojectcloner</h1>
 
   <div *ngIf= "authService.isLoggedIn; else loginTemplate">
-    <img src="{{ authService.userDetails.photoURL }} ">
+
   <pre>
-    {{ authService.userDetails| json }}
+
   </pre>
 
   <button mat-flat-button class="btn-github" (click)="logout()"> Stop authentication github</button>

@@ -9,9 +9,8 @@
 
 
 <form>
+  <div *ngFor="let repository of repositories">
   <input id="radio1" name="radio" type="radio" class="radio-button-hidden"/>
-  <label for="radio1"><mat-card>Spotitube</mat-card></label>
-
-  <input id="radio2" name="radio" type="radio" class="radio-button-hidden"/>
-  <label for="radio2"><mat-card>Beyblade Simulator</mat-card></label>
+  <label for="radio1"><mat-card>{{ repository.full_name }}</mat-card></label>
+  </div>
 </form>
