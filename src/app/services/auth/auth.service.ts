@@ -9,7 +9,6 @@ import {Observable, throwError} from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
@@ -20,7 +19,6 @@ export class AuthService {
       (user) => {
         if (user) {
           this.userDetails = user;
-          console.log(this.userDetails);
         } else {
           this.userDetails = null;
         }
@@ -39,11 +37,15 @@ export class AuthService {
         .catch((err) => throwError('signout failed')));
   }
 
-  get isLoggedIn() {
+  public get isLoggedIn() {
     if (this.userDetails == null) {
       return false;
     } else {
       return true;
     }
+  }
+
+  public get getUserData() {
+    return this.userDetails;
   }
 }
