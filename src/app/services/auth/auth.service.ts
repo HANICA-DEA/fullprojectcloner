@@ -3,49 +3,58 @@ import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
+import {UserDto} from '../dto/user.dto';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
+  private _user: Observable<firebase.User>;
+  private _userDetails: firebase.User = null;
+  private _userdata: UserDto;
 
   constructor(public afAuth: AngularFireAuth, private router: Router) {
 
-    this.user = afAuth.authState;
-    this.user.subscribe(
+    this._user = afAuth.authState;
+    this._user.subscribe(
       (user) => {
         if (user) {
-          this.userDetails = user;
+          this._userDetails = user;
         } else {
-          this.userDetails = null;
+          this._userDetails = null;
         }
       }
     );
   }
 
-  public loginwithGithub() {
+  public loginwithGithub(): Promise<firebase.auth.UserCredential> {
     return this.afAuth.auth.signInWithPopup(
       new firebase.auth.GithubAuthProvider());
   }
 
-  public logout() {
+  public logout(): Promise<boolean | Observable<never> | never> {
     return this.afAuth.auth.signOut()
       .then((res) => this.router.navigate(['/'])
         .catch((err) => throwError('signout failed')));
   }
 
-  public get isLoggedIn() {
-    if (this.userDetails == null) {
+  public get isLoggedIn(): boolean {
+    if (this._userDetails == null) {
       return false;
     } else {
       return true;
     }
   }
+  get user(): Observable<firebase.User> {
+    return this._user;
+  }
 
-  public get getUserData() {
-    return this.userDetails;
+  get userDetails(): firebase.User {
+    return this._userDetails;
+  }
+
+  getUserData() {
+    return this._userDetails;
   }
 }
