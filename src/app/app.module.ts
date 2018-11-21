@@ -15,6 +15,7 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -43,6 +44,7 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatCardModule,
+    ScrollDispatchModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
