@@ -12,7 +12,7 @@ import {UserDto} from '../dto/user.dto';
 export class AuthService {
   private _user: Observable<firebase.User>;
   private _userDetails: firebase.User = null;
-  private _userdata: Observable<UserDto>;
+  private _userdata: UserDto;
 
   constructor(public afAuth: AngularFireAuth, private router: Router) {
     this._user = afAuth.authState;
