@@ -30,6 +30,7 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.loginwithGithubProvider().then(
         res => {
+          this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
           resolve(res);
         }, err => {
           console.log(err);
