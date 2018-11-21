@@ -30,7 +30,7 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.loginwithGithubProvider().then(
         res => {
-          this.userdata = new UserDto().deserialize(JSON.stringify(this.userDetails) );
+          this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
           console.log(this.userdata);
           resolve(res);
         }, err => {
@@ -41,6 +41,7 @@ export class AuthService {
   }
 
 // ff afmaken (*kevin*)
+
   public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithPopup(

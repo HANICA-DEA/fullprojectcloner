@@ -10,13 +10,6 @@ export class StsTokenManager implements Serializable<StsTokenManager> {
   constructor() {
   }
 
-  public deserialize(input): this {
-    this.apiKey = input.apiKey;
-    this.refreshToken = input.refreshToken;
-    this.accessToken = input.accessToken;
-    this.expirationTime = input.expirationTime;
-    return this;
-  }
 
 
   get apiKey(): string {
@@ -49,6 +42,14 @@ export class StsTokenManager implements Serializable<StsTokenManager> {
 
   set expirationTime(value: number) {
     this._expirationTime = value;
+  }
+
+  deserialize(input: object): StsTokenManager {
+      this.apiKey = input.apiKey;
+      this.refreshToken = input.refreshToken;
+      this.accessToken = input.accessToken;
+      this.expirationTime = input.expirationTime;
+      return this;
   }
 }
 

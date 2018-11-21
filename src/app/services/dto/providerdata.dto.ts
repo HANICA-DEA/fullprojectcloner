@@ -1,6 +1,6 @@
 import {Serializable} from './serializable';
 
-export class ProviderdataDto implements Serializable<ProviderdataDto>{
+export class ProviderdataDto implements Serializable<ProviderdataDto> {
   private _uid: string;
   private _displayName: string;
   private _photoURL: string;
@@ -8,10 +8,10 @@ export class ProviderdataDto implements Serializable<ProviderdataDto>{
   private _phoneNumber: string;
   private _providerId: string;
 
-  public  deserialize(input): this {
+  public  deserialize(input: object): ProviderdataDto {
   this._uid = input.uid;
   this._displayName = input.displayName;
-  this._photoURL = input.photoURLl;
+  this._photoURL = input.photoURL;
   this._email = input.email;
   this._phoneNumber = input.phoneNumber;
   this._providerId = input.providerId;

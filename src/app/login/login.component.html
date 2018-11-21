@@ -5,9 +5,9 @@
     <h1>Welkom {{authService.userDetails.displayName}}</h1>
     <img src="{{ authService.userDetails.photoURL }} ">
 
-    <!--<pre>-->
-      <!--{{ authService.userDetails| json }}-->
-    <!--</pre>-->
+
+    {{ authService.userDetails| json }}
+
 
     <p>Hieronder vindt u uw repositories. Klik op een repository om deze te kopiëren.</p>
 

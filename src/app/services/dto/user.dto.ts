@@ -21,13 +21,14 @@ export class UserDto implements Serializable<UserDto> {
   private _createdAt: string;
 
 
-  public deserialize(input): this {
+  public deserialize(input: object): this {
+    console.log(input.providerData);
    this._uid = input.uid;
    this._displayName = input.displayName;
    this._photoURL = input.photoURL;
    this._email = input.email;
    this._emailVerified = input.emailVerified;
-   this._phoneNumber = input.inputphoneNumber;
+   this._phoneNumber = input.phoneNumber;
    this._isAnonymous = input.isAnonymous;
    this._providerData = new ProviderdataDto().deserialize(input.providerData);
    this._apiKey = input.apiKey;
