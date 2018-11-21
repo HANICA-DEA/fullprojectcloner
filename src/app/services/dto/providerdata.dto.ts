@@ -8,7 +8,7 @@ export class ProviderdataDto implements Serializable<ProviderdataDto> {
   private _phoneNumber: string;
   private _providerId: string;
 
-  public  deserialize(input: object): ProviderdataDto {
+  public  deserialize(input: any): ProviderdataDto {
   this._uid = input.uid;
   this._displayName = input.displayName;
   this._photoURL = input.photoURL;
