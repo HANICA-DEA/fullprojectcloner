@@ -8,7 +8,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
   getrepositories() {
-    const url: String =  'https://api.github.com/users/TimMaasGeesteranus/repos?access_token=&scope=user%20public_repo'
+    const url: string =  'https://api.github.com/users/TimMaasGeesteranus/repos?access_token=&scope=user%20public_repo';
     return this.http.get(url);
   }
 }
