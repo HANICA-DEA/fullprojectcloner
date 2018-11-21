@@ -12,7 +12,7 @@ import {UserDto} from '../dto/user.dto';
 export class AuthService {
   private _user: Observable<firebase.User>;
   private _userDetails: firebase.User = null;
-  private _userdata: UserDto;
+  private _userdata: Observable<UserDto>;
 
   constructor(public afAuth: AngularFireAuth, private router: Router) {
     this._user = afAuth.authState;
@@ -30,8 +30,6 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.loginwithGithubProvider().then(
         res => {
-          this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
-          console.log(this.userdata);
           resolve(res);
         }, err => {
           console.log(err);

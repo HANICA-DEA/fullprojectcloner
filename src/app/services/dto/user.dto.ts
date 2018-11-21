@@ -22,7 +22,6 @@ export class UserDto implements Serializable<UserDto> {
 
 
   public deserialize(input: object): this {
-    console.log(input.providerData);
    this._uid = input.uid;
    this._displayName = input.displayName;
    this._photoURL = input.photoURL;
@@ -30,7 +29,7 @@ export class UserDto implements Serializable<UserDto> {
    this._emailVerified = input.emailVerified;
    this._phoneNumber = input.phoneNumber;
    this._isAnonymous = input.isAnonymous;
-   this._providerData = new ProviderdataDto().deserialize(input.providerData);
+   this._providerData = new ProviderdataDto().deserialize(input.providerData[0]);
    this._apiKey = input.apiKey;
    this._appName = input.appName;
    this._authDomain = input.authDomain;
@@ -40,6 +39,7 @@ export class UserDto implements Serializable<UserDto> {
    this._createdAt = input.createdAt;
    return this;
  }
+
 
   get uid(): string {
     return this._uid;
@@ -97,11 +97,11 @@ export class UserDto implements Serializable<UserDto> {
     this._isAnonymous = value;
   }
 
-  get providerData(): ProviderdataDto[] {
+  get providerData(): ProviderdataDto {
     return this._providerData;
   }
 
-  set providerData(value: ProviderdataDto[]) {
+  set providerData(value: ProviderdataDto) {
     this._providerData = value;
   }
 

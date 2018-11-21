@@ -18,6 +18,7 @@ export class ProviderdataDto implements Serializable<ProviderdataDto> {
   return this;
   }
 
+
   get uid(): string {
     return this._uid;
   }
