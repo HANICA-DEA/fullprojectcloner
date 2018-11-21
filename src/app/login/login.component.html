@@ -1,18 +1,23 @@
 
 <mat-card>
-  <h1>Fullprojectcloner</h1>
 
   <div *ngIf= "authService.isLoggedIn; else loginTemplate">
+    <h1>Welkom {{authService.userDetails.displayName}}</h1>
+    <img src="{{ authService.userDetails.photoURL }} ">
 
   <pre>
-
+    <!--{{ authService.userDetails| json }}-->
   </pre>
+
+  <p>Hieronder vindt u uw repositories. Klik op een repository om deze te kopiëren.</p>
 
   <button mat-flat-button class="btn-github" (click)="logout()"> Stop authentication github</button>
 </div>
 
 
 <ng-template #loginTemplate>
+  <h1>FullProjectCloner</h1>
+
   <button mat-flat-button class="btn-github" (click)="signInWithGithub()">
    Authenticate met github</button>
 </ng-template>
