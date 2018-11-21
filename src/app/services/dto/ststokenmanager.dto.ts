@@ -1,15 +1,21 @@
-export class StsTokenManager {
+import {Serializable} from './serializable';
+
+export class StsTokenManager implements Serializable<StsTokenManager> {
   private _apiKey: string;
   private _refreshToken: string;
   private _accessToken: string;
   private _expirationTime: number;
 
 
-  constructor(apiKey: string, refreshToken: string, accessToken: string, expirationTime: number) {
-    this._apiKey = apiKey;
-    this._refreshToken = refreshToken;
-    this._accessToken = accessToken;
-    this._expirationTime = expirationTime;
+  constructor() {
+  }
+
+  public deserialize(input): this {
+    this.apiKey = input.apiKey;
+    this.refreshToken = input.refreshToken;
+    this.accessToken = input.accessToken;
+    this.expirationTime = input.expirationTime;
+    return this;
   }
 
 

@@ -15,7 +15,6 @@ export class AuthService {
   private _userdata: UserDto;
 
   constructor(public afAuth: AngularFireAuth, private router: Router) {
-
     this._user = afAuth.authState;
     this._user.subscribe(
       (user) => {
@@ -27,10 +26,32 @@ export class AuthService {
       }
     );
   }
+  public loginwithGithub() {
+    return new Promise<any>((resolve, reject) => {
+      this.loginwithGithubProvider().then(
+        res => {
+          this.userdata = new UserDto().deserialize(JSON.stringify(this.userDetails) );
+          console.log(this.userdata);
+          resolve(res);
+        }, err => {
+          console.log(err);
+          reject(err);
+        });
+    });
+  }
 
-  public loginwithGithub(): Promise<firebase.auth.UserCredential> {
-    return this.afAuth.auth.signInWithPopup(
-      new firebase.auth.GithubAuthProvider());
+// ff afmaken (*kevin*)
+  public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.signInWithPopup(
+        new firebase.auth.GithubAuthProvider()).then(
+        res => {
+          resolve(res);
+        }, err => {
+          console.log(err);
+          reject(err);
+        });
+    });
   }
 
   public logout(): Promise<boolean | Observable<never> | never> {
@@ -46,6 +67,7 @@ export class AuthService {
       return true;
     }
   }
+
   get user(): Observable<firebase.User> {
     return this._user;
   }
@@ -54,7 +76,13 @@ export class AuthService {
     return this._userDetails;
   }
 
-  getUserData() {
-    return this._userDetails;
+
+  get userdata(): UserDto {
+    return this._userdata;
   }
+
+  set userdata(value: UserDto) {
+    this._userdata = value;
+  }
+
 }

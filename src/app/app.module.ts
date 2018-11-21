@@ -33,6 +33,7 @@ import {HttpClientModule} from '@angular/common/http';
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
+
   ],
   imports: [
     BrowserModule,

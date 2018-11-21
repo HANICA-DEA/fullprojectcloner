@@ -1,4 +1,6 @@
-export class ProviderdataDto {
+import {Serializable} from './serializable';
+
+export class ProviderdataDto implements Serializable<ProviderdataDto>{
   private _uid: string;
   private _displayName: string;
   private _photoURL: string;
@@ -6,13 +8,14 @@ export class ProviderdataDto {
   private _phoneNumber: string;
   private _providerId: string;
 
-  constructor(uid: string, displayName: string, photoURL: string, email: string, phoneNumber: string, providerId: string) {
-    this._uid = uid;
-    this._displayName = displayName;
-    this._photoURL = photoURL;
-    this._email = email;
-    this._phoneNumber = phoneNumber;
-    this._providerId = providerId;
+  public  deserialize(input): this {
+  this._uid = input.uid;
+  this._displayName = input.displayName;
+  this._photoURL = input.photoURLl;
+  this._email = input.email;
+  this._phoneNumber = input.phoneNumber;
+  this._providerId = input.providerId;
+  return this;
   }
 
   get uid(): string {
