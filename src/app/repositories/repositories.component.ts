@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../services/data/data.service';
+import {AuthService} from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-repositories',
@@ -10,7 +11,7 @@ export class RepositoriesComponent implements OnInit {
 
   repositories: Object;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, public authService: AuthService) { }
 
   ngOnInit() {
     this.data.getrepositories().subscribe(data => {

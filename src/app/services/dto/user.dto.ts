@@ -1,8 +1,9 @@
 import {ProviderdataDto} from './providerdata.dto';
 import {StsTokenManager} from './ststokenmanager.dto';
+import {Serializable} from './serializable';
 
 
-export class UserDto {
+export class UserDto implements Serializable<UserDto> {
   private _uid: string;
   private _displayName: string;
   private _photoURL: string;
@@ -10,7 +11,7 @@ export class UserDto {
   private _emailVerified: boolean;
   private _phoneNumber: string;
   private _isAnonymous: boolean;
-  private _providerData: ProviderdataDto[];
+  private _providerData: ProviderdataDto;
   private _apiKey: string;
   private _appName: string;
   private _authDomain: string;
@@ -19,23 +20,25 @@ export class UserDto {
   private _lastLoginAt: string;
   private _createdAt: string;
 
-  constructor(uid: string, displayName: string, photoURL: string, email: string, emailVerified: boolean, phoneNumber: string, isAnonymous: boolean, providerData: ProviderdataDto[], apiKey: string, appName: string, authDomain: string, stsTokenManager: StsTokenManager, redirectEventId: number, lastLoginAt: string, createdAt: string) {
-    this._uid = uid;
-    this._displayName = displayName;
-    this._photoURL = photoURL;
-    this._email = email;
-    this._emailVerified = emailVerified;
-    this._phoneNumber = phoneNumber;
-    this._isAnonymous = isAnonymous;
-    this._providerData = providerData;
-    this._apiKey = apiKey;
-    this._appName = appName;
-    this._authDomain = authDomain;
-    this._stsTokenManager = stsTokenManager;
-    this._redirectEventId = redirectEventId;
-    this._lastLoginAt = lastLoginAt;
-    this._createdAt = createdAt;
-  }
+
+  public deserialize(input: object): this {
+   this._uid = input.uid;
+   this._displayName = input.displayName;
+   this._photoURL = input.photoURL;
+   this._email = input.email;
+   this._emailVerified = input.emailVerified;
+   this._phoneNumber = input.phoneNumber;
+   this._isAnonymous = input.isAnonymous;
+   this._providerData = new ProviderdataDto().deserialize(input.providerData[0]);
+   this._apiKey = input.apiKey;
+   this._appName = input.appName;
+   this._authDomain = input.authDomain;
+   this._stsTokenManager =  new StsTokenManager().deserialize(input.stsTokenManager);
+   this._redirectEventId = input.redirectEventId;
+   this._lastLoginAt = input.lastLoginAt;
+   this._createdAt = input.createdAt;
+   return this;
+ }
 
 
   get uid(): string {
@@ -94,11 +97,11 @@ export class UserDto {
     this._isAnonymous = value;
   }
 
-  get providerData(): ProviderdataDto[] {
+  get providerData(): ProviderdataDto {
     return this._providerData;
   }
 
-  set providerData(value: ProviderdataDto[]) {
+  set providerData(value: ProviderdataDto) {
     this._providerData = value;
   }
 
