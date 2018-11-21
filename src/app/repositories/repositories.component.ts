@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DataService} from '../services/data/data.service';
 
 @Component({
   selector: 'app-repositories',
@@ -7,9 +8,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class RepositoriesComponent implements OnInit {
 
-  constructor() { }
+  repositories: Object;
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.getrepositories().subscribe(data => {
+      this.repositories = data;
+    });
   }
 
 }
