@@ -21,7 +21,7 @@ export class UserDto implements Serializable<UserDto> {
   private _createdAt: string;
 
 
-  public deserialize(input: object): this {
+  public deserialize(input: any): this {
    this._uid = input.uid;
    this._displayName = input.displayName;
    this._photoURL = input.photoURL;

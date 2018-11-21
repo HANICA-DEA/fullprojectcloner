@@ -10,7 +10,7 @@ export class StsTokenManager implements Serializable<StsTokenManager> {
   constructor() {
   }
 
-  deserialize(input: object): StsTokenManager {
+  deserialize(input: any): StsTokenManager {
       this.apiKey = input.apiKey;
       this.refreshToken = input.refreshToken;
       this.accessToken = input.accessToken;
