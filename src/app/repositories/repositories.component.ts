@@ -9,7 +9,7 @@ import {AuthService} from '../services/auth/auth.service';
 })
 export class RepositoriesComponent implements OnInit {
 
-  repositories: Object;
+  repositories: any;
 
   constructor(private data: DataService, public authService: AuthService) { }
 
