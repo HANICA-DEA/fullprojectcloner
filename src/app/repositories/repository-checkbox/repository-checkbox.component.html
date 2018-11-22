@@ -10,7 +10,16 @@
 
 <div *ngIf="!geefAlleRepositories">
   <mat-card>
-    <p>You chose to copy this repository: <br><br></p>
+    <p>You chose to clone this repository: <br><br></p>
     <p class="boldText">{{getRepository()}}</p>
+
+    <form [formGroup]="checkboxForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Search user by username">
+      </mat-form-field>
+    </form>
+
+
+
   </mat-card>
 </div>
