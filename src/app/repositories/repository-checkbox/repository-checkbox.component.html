@@ -1,0 +1,14 @@
+<form>
+  <div *ngFor="let repository of repositories; index as i">
+
+  <input id="radio{{i+1}}" name="radio" type="checkbox" required ng-model="all" class="radio-button-hidden"/>
+    <label for="radio{{i+1}}" >
+      <mat-card>
+        {{ repository.full_name }}
+        <div class="next-button-space">
+          <button class="next-button" mat-flat-button (click)="logout()"> Next</button>
+        </div>
+      </mat-card>
+    </label>
+  </div>
+</form>

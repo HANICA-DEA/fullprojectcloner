@@ -8,12 +8,5 @@
 </div>
 
 <div *ngIf="authService.isLoggedIn">
-  <form>
-    <div *ngFor="let repository of repositories; index as i">
-      <input id="radio{{i+1}}" name="radio" type="radio" class="radio-button-hidden"/>
-      <label for="radio{{i+1}}">
-        <mat-card>{{ repository.full_name }}</mat-card>
-      </label>
-    </div>
-  </form>
+      <app-repository-checkbox [repositories]="repositories"></app-repository-checkbox>
 </div>
