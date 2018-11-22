@@ -8,16 +8,17 @@ import {AuthService} from '../services/auth/auth.service';
   styleUrls: ['./repositories.component.sass']
 })
 export class RepositoriesComponent implements OnInit {
-
   repositories: Object;
 
-  constructor(private data: DataService, public authService: AuthService) { }
+  constructor(private data: DataService, public authService: AuthService) {
+  }
 
   ngOnInit() {
     this.data.getrepositories().subscribe(data => {
       this.repositories = data;
     });
   }
-
 }
+
+
 

@@ -23,6 +23,7 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import { RepositoryCheckboxComponent } from './repositories/repository-checkbox/repository-checkbox.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -49,6 +50,8 @@ import { RepositoryCheckboxComponent } from './repositories/repository-checkbox/
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     HttpClientModule,
+    ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

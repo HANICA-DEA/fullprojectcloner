@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-repository-checkbox',
@@ -8,10 +9,28 @@ import {Component, Input, OnInit} from '@angular/core';
 export class RepositoryCheckboxComponent implements OnInit {
 
   @Input() repositories: Object;
+  checkboxForm: FormGroup;
+  geefAlleRepositories: Boolean;
+  chosenRepository: String;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) {
+    this.geefAlleRepositories = true;
+    this.chosenRepository = null;
+    this.checkboxForm = this.formBuilder.group({
+
+    });
+  }
 
   ngOnInit() {
+  }
+
+  doeietsmoois(iets: String){
+    this.geefAlleRepositories = false;
+    this.chosenRepository = iets;
+  }
+
+  getRepository(){
+    return this.chosenRepository;
   }
 
 }

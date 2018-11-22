@@ -1,14 +1,16 @@
-<form>
-  <div *ngFor="let repository of repositories; index as i">
+<div *ngIf="geefAlleRepositories">
+  <form [formGroup]="checkboxForm">
+    <div *ngFor="let repository of repositories; index as i">
+      <button class="repository-button" mat-flat-button (click)="doeietsmoois(repository.full_name)">
+        {{repository.full_name}}
+      </button>
+    </div>
+  </form>
+</div>
 
-  <input id="radio{{i+1}}" name="radio" type="checkbox" required ng-model="all" class="radio-button-hidden"/>
-    <label for="radio{{i+1}}" >
-      <mat-card>
-        {{ repository.full_name }}
-        <div class="next-button-space">
-          <button class="next-button" mat-flat-button (click)="logout()"> Next</button>
-        </div>
-      </mat-card>
-    </label>
-  </div>
-</form>
+<div *ngIf="!geefAlleRepositories">
+  <mat-card>
+    <p>You chose to copy this repository: <br><br></p>
+    <p class="boldText">{{getRepository()}}</p>
+  </mat-card>
+</div>
