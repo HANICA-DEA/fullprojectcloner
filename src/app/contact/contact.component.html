@@ -21,7 +21,7 @@
   </div>
 
   <mat-form-field class="field">
-    <input matInput placeholder="Message" formControlName="message">
+    <textarea matInput placeholder="Message" formControlName="message"></textarea>
   </mat-form-field>
   <div *ngIf="submitted && contactForm.controls.message.errors" class="error">
     <div *ngIf="contactForm.controls.message.errors.required">Please fill in a message</div>
