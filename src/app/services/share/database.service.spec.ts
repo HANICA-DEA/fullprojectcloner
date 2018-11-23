@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShareService } from './share.service';
+import { DatabaseService } from './database.service';
 
-describe('ShareService', () => {
+describe('DatabaseService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ShareService = TestBed.get(ShareService);
+    const service: DatabaseService = TestBed.get(DatabaseService);
     expect(service).toBeTruthy();
   });
 });
