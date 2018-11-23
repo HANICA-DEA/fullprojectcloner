@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AuthService} from '../services/auth/auth.service';
+import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
-import {UserDto} from '../services/dto/user.dto';
+import {UserDto} from '../../services/dto/user.dto';
+import {delay} from 'rxjs/operators';
 
 
 @Component({

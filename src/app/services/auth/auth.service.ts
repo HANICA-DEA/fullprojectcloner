@@ -4,6 +4,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {UserDto} from '../dto/user.dto';
+import {ShareService} from '../share/share.service';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AuthService {
   private _userDetails: firebase.User = null;
   private _userdata: UserDto;
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router) {
     this._user = afAuth.authState;
     this._user.subscribe(
       (user) => {
@@ -39,8 +40,6 @@ export class AuthService {
     });
   }
 
-// ff afmaken (*kevin*)
-
   public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithPopup(
@@ -61,13 +60,8 @@ export class AuthService {
   }
 
   public get isLoggedIn(): boolean {
-    if (this._userDetails == null) {
-      return false;
-    } else {
-      return true;
-    }
+    return this._userDetails != null;
   }
-
   get user(): Observable<firebase.User> {
     return this._user;
   }
@@ -84,5 +78,4 @@ export class AuthService {
   set userdata(value: UserDto) {
     this._userdata = value;
   }
-
 }

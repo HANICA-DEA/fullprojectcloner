@@ -18,7 +18,6 @@ export class StsTokenManager implements Serializable<StsTokenManager> {
       return this;
   }
 
-
   get apiKey(): string {
     return this._apiKey;
   }
