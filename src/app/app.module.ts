@@ -49,7 +49,7 @@ import {HttpClientModule} from '@angular/common/http';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

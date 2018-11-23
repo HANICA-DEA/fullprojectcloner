@@ -4,6 +4,7 @@
 </p>
 <mat-card>
 
+
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
 
     <mat-form-field class="field">
@@ -29,11 +30,14 @@
     </div>
 
     <div class="button_div">
-      <button mat-raised-button class="send-button">Submit form</button>
+      <button type="submit" mat-raised-button class="send-button">Submit form</button>
     </div>
 
   </form>
 
 </mat-card>
+
+<!--<script data-cfasync="false" type="text/javascript"-->
+<!--src="form-submission-handler.js"></script>-->
 
 
