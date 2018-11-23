@@ -4,8 +4,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {UserDto} from '../dto/user.dto';
-import {ShareService} from '../share/share.service';
-
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,10 @@ export class AuthService {
   private _userDetails: firebase.User = null;
   private _userdata: UserDto;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  postsCol: AngularFirestoreCollection<UserDto>;
+  private Users: Observable<UserDto>;
+
+  constructor(private afAuth: AngularFireAuth, private router: Router, private afs: AngularFirestore) {
     this._user = afAuth.authState;
     this._user.subscribe(
       (user) => {
@@ -32,6 +34,7 @@ export class AuthService {
       this.loginwithGithubProvider().then(
         res => {
           this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
+          this.afs.collection('users').doc('kevin').set({'title': 'test', 'content': JSON.parse(JSON.stringify(this.userdata))});
           resolve(res);
         }, err => {
           console.log(err);
