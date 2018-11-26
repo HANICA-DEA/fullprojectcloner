@@ -8,7 +8,7 @@ import {HomeComponent} from './components/home/home.component';
 import {AboutComponent} from './components/about/about.component';
 import {RepositoriesComponent} from './components/repositories/repositories.component';
 import {ContactComponent} from './components/contact/contact.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
@@ -21,7 +21,10 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {LoginComponent} from './components/login/login.component';
+import { RepositoryCheckboxComponent } from './components/repositories/repository-checkbox/repository-checkbox.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -33,7 +36,7 @@ import {HttpModule} from '@angular/http';
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
-
+    RepositoryCheckboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import {HttpModule} from '@angular/http';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     HttpModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule
   ],

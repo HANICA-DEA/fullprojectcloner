@@ -1,0 +1,25 @@
+<div *ngIf="geefAlleRepositories">
+  <form [formGroup]="checkboxForm">
+    <div *ngFor="let repository of repositories; index as i">
+      <button class="repository-button" mat-flat-button (click)="doeietsmoois(repository.full_name)">
+        {{repository.full_name}}
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!geefAlleRepositories">
+  <mat-card>
+    <p>You chose to clone this repository: <br><br></p>
+    <p class="boldText">{{getRepository()}}</p>
+
+    <form [formGroup]="checkboxForm" class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Search user by username">
+      </mat-form-field>
+    </form>
+
+
+
+  </mat-card>
+</div>

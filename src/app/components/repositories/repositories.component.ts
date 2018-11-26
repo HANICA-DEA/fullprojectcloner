@@ -10,7 +10,7 @@ import {AuthService} from '../../services/auth/auth.service';
 
 export class RepositoriesComponent implements OnInit {
 
-  repositories: any;
+  repositories: any; //TODO moet Object zijn?
 
   public searchedUserExists: boolean;
 
