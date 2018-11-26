@@ -1,0 +1,28 @@
+<p class="title">
+  Repositories
+  <span class="line"></span>
+</p>
+
+<div class="auth_button">
+  <app-login></app-login>
+</div>
+
+<div *ngIf="authService.isLoggedIn">
+  <form>
+    <div *ngFor="let repository of repositories; index as i">
+      <input id="radio{{i+1}}" name="radio" type="radio" class="radio-button-hidden"/>
+      <label for="radio{{i+1}}">
+        <mat-card>{{ repository.full_name }}</mat-card>
+      </label>
+    </div>
+  </form>
+</div>
+
+<input #inputUser>
+<button type="button" #verifyButton (click)="doesUserExist(inputUser.value)">submit</button>
+<p *ngIf="searchedUserExists">
+  True
+</p>
+<p *ngIf="!searchedUserExists">
+  false
+</p>

@@ -3,12 +3,12 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HeaderComponent} from './components/header/header.component';
-import {HomeComponent} from './components/home/home.component';
-import {AboutComponent} from './components/about/about.component';
-import {RepositoriesComponent} from './components/repositories/repositories.component';
-import {ContactComponent} from './components/contact/contact.component';
-import {FormsModule} from '@angular/forms';
+import {SidemenuComponent} from './sidemenu/sidemenu.component';
+import {HomeComponent} from './home/home.component';
+import {AboutComponent} from './about/about.component';
+import {RepositoriesComponent} from './repositories/repositories.component';
+import {ContactComponent} from './contact/contact.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
@@ -16,26 +16,24 @@ import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { environment } from '../environments/environment';
-import { LoginComponent } from './components/login/login.component';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {environment} from '../environments/environment';
+import {LoginComponent} from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
-import { RepositoryCheckboxComponent } from './components/repositories/repository-checkbox/repository-checkbox.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    SidemenuComponent,
     HomeComponent,
     AboutComponent,
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
-    RepositoryCheckboxComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -51,7 +49,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     HttpClientModule,
     ReactiveFormsModule,
-
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

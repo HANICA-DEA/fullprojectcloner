@@ -7,11 +7,15 @@ import {AuthService} from '../../services/auth/auth.service';
   templateUrl: './repositories.component.html',
   styleUrls: ['./repositories.component.sass']
 })
+
 export class RepositoriesComponent implements OnInit {
 
-  repositories: Object;
+  repositories: any;
 
-  constructor(private data: DataService, public authService: AuthService) { }
+  private searchedUserExists: boolean;
+
+  constructor(private data: DataService, public authService: AuthService) {
+  }
 
   ngOnInit() {
     this.data.getrepositories().subscribe(data => {
@@ -19,5 +23,14 @@ export class RepositoriesComponent implements OnInit {
     });
   }
 
+  doesUserExist(username: string) {
+    this.data.getUser(username).subscribe(data => {
+      this.searchedUserExists = true;
+    }, err => {
+      this.searchedUserExists = false;
+    });
+  }
+
 }
+
 
