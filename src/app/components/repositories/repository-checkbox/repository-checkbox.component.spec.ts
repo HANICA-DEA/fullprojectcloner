@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContactComponent } from './contact.component';
+import { RepositoryCheckboxComponent } from './repository-checkbox.component';
 
-describe('ContactComponent', () => {
-  let component: ContactComponent;
-  let fixture: ComponentFixture<ContactComponent>;
+describe('RepositoryCheckboxComponent', () => {
+  let component: RepositoryCheckboxComponent;
+  let fixture: ComponentFixture<RepositoryCheckboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContactComponent ]
+      declarations: [ RepositoryCheckboxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContactComponent);
+    fixture = TestBed.createComponent(RepositoryCheckboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
