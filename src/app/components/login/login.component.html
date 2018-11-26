@@ -4,6 +4,7 @@
   <div *ngIf= "authService.isLoggedIn; else loginTemplate">
     <h1>Welcome {{authService.userdata.displayName}}</h1>
     <img src="{{ authService.userdata.photoURL }} ">
+    <p> </p>
 
     <!--<pre>-->
       <!--{{ authService.userDetails| json }}-->

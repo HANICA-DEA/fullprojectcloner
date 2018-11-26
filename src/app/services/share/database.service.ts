@@ -9,12 +9,16 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class DatabaseService {
-  postsCol: AngularFirestoreCollection<UserDto>;
-  private Users: Observable<UserDto>;
+  usercol: AngularFirestoreCollection<any>;
+  private Users: Observable<any>;
   constructor(private afs: AngularFirestore) {
   }
 
-  pushToDatabase(title: string, object: Object) {
-    this.afs.collection('users').doc('kevin').set({'title': 'test', 'content': JSON.parse(JSON.stringify(object))});
+  pushToDatabase(subject: string, key: string, object: Object) {
+    this.afs.collection(subject).doc(key).set({'title': key, 'content': JSON.parse(JSON.stringify(object))});
+  }
+
+  getFromDatabase(subject: string, key: string) {
+    return this.afs.doc(subject + '/' + key).collection('content').valueChanges();
   }
 }

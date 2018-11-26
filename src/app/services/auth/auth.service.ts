@@ -13,6 +13,7 @@ export class AuthService {
   private _user: Observable<firebase.User>;
   private _userDetails: firebase.User = null;
   private _userdata: UserDto;
+  private _token;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
     this._user = afAuth.authState;
@@ -31,7 +32,8 @@ export class AuthService {
       this.loginwithGithubProvider().then(
         res => {
           this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
-          this.databaseService.pushToDatabase('user', this.userdata);
+          this.databaseService.pushToDatabase('user', 'tim', this.userdata);
+          console.log(this.databaseService.getFromDatabase('user', 'kevin'));
           resolve(res);
         }, err => {
           console.log(err);
@@ -43,10 +45,10 @@ export class AuthService {
   public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithPopup(
-        new firebase.auth.GithubAuthProvider()).then(
-        res => {
-          resolve(res);
-        }, err => {
+        new firebase.auth.GithubAuthProvider()).then(res => {
+      const AccessToken = res.credential['accessToken'];
+      console.log('Access token', AccessToken);
+      }, err => {
           console.log(err);
           reject(err);
         });
