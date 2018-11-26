@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../services/data/data.service';
 import {AuthService} from '../services/auth/auth.service';
-import Any = jasmine.Any;
 
 @Component({
   selector: 'app-repositories',
@@ -12,10 +11,11 @@ import Any = jasmine.Any;
 export class RepositoriesComponent implements OnInit {
 
   repositories: Object;
-  user: Object;
-  name: string;
-  validUser: boolean;
-  constructor(private data: DataService, public authService: AuthService) { }
+
+  private searchedUserExists: boolean;
+
+  constructor(private data: DataService, public authService: AuthService) {
+  }
 
   ngOnInit() {
     this.data.getrepositories().subscribe(data => {
@@ -25,11 +25,12 @@ export class RepositoriesComponent implements OnInit {
 
   doesUserExist(username: string) {
     this.data.getUser(username).subscribe(data => {
-        return true;
+      this.searchedUserExists = true;
     }, err => {
-      return false;
+      this.searchedUserExists = false;
     });
-}
+  }
+
 }
 
 

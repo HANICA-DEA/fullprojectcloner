@@ -13,15 +13,16 @@
       <input id="radio{{i+1}}" name="radio" type="radio" class="radio-button-hidden"/>
       <label for="radio{{i+1}}">
         <mat-card>{{ repository.full_name }}</mat-card>
-        <input #inputUser>
-        <button type="button" #verifyButton (click)="doesUserExist(inputUser.value)">submit</button>
-        <p *ngIf="doesUserExist(inputUser.value)">
-          True
-        </p>
-        <p *ngIf="!doesUserExist(inputUser.value)">
-          false
-        </p>
       </label>
     </div>
   </form>
 </div>
+
+<input #inputUser>
+<button type="button" #verifyButton (click)="doesUserExist(inputUser.value)">submit</button>
+<p *ngIf="searchedUserExists">
+  True
+</p>
+<p *ngIf="!searchedUserExists">
+  false
+</p>
