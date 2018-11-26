@@ -12,7 +12,7 @@ export class RepositoriesComponent implements OnInit {
 
   repositories: any;
 
-  private searchedUserExists: boolean;
+  public searchedUserExists: boolean;
 
   constructor(private data: DataService, public authService: AuthService) {
   }
