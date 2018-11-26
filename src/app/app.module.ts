@@ -21,7 +21,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {LoginComponent} from './login/login.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpModule} from "@angular/http";
 
 
 @NgModule({
@@ -47,7 +47,7 @@ import {HttpClientModule} from '@angular/common/http';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    HttpClientModule,
+    HttpModule,
     ReactiveFormsModule,
     FormsModule
   ],
