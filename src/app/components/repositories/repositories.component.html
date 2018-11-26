@@ -17,3 +17,12 @@
     </div>
   </form>
 </div>
+
+<input #inputUser>
+<button type="button" #verifyButton (click)="doesUserExist(inputUser.value)">submit</button>
+<p *ngIf="searchedUserExists">
+  True
+</p>
+<p *ngIf="!searchedUserExists">
+  false
+</p>
