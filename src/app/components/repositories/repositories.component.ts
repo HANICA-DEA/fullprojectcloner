@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from '../services/data/data.service';
-import {AuthService} from '../services/auth/auth.service';
+import {DataService} from '../../services/data/data.service';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-repositories',

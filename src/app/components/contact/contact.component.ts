@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ContactFormDto} from '../services/dto/contactform.dto';
+import {ContactFormDto} from '../../services/dto/contactform.dto';
 
 const headers = new HttpHeaders()
   .set('Content-Type', 'undefined')
