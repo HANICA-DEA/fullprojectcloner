@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-repository-checkbox',
-  templateUrl: './repository-checkbox.component.html',
-  styleUrls: ['./repository-checkbox.component.sass']
+  selector: 'app-repository-button',
+  templateUrl: './repository-button.component.html',
+  styleUrls: ['./repository-button.component.sass']
 })
-export class RepositoryCheckboxComponent implements OnInit {
+export class RepositoryButtonComponent implements OnInit {
 
   @Input() repositories: Object;
   checkboxForm: FormGroup;
@@ -24,12 +24,12 @@ export class RepositoryCheckboxComponent implements OnInit {
   ngOnInit() {
   }
 
-  doeietsmoois(iets: String){
+  doeietsmoois(iets: String) {
     this.geefAlleRepositories = false;
     this.chosenRepository = iets;
   }
 
-  getRepository(){
+  getRepository() {
     return this.chosenRepository;
   }
 
