@@ -4,7 +4,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {UserDto} from '../dto/user.dto';
-
+import {DatabaseService} from '../share/database.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,9 @@ export class AuthService {
   private _user: Observable<firebase.User>;
   private _userDetails: firebase.User = null;
   private _userdata: UserDto;
+  private _token;
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
     this._user = afAuth.authState;
     this._user.subscribe(
       (user) => {
@@ -31,6 +32,8 @@ export class AuthService {
       this.loginwithGithubProvider().then(
         res => {
           this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
+          this.databaseService.pushToDatabase('user', 'tim', this.userdata);
+          console.log(this.databaseService.getFromDatabase('user', 'kevin'));
           resolve(res);
         }, err => {
           console.log(err);
@@ -39,18 +42,16 @@ export class AuthService {
     });
   }
 
-// ff afmaken (*kevin*)
-
   public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithPopup(
-        new firebase.auth.GithubAuthProvider()).then(
-        res => {
-          resolve(res);
-        }, err => {
-          console.log(err);
-          reject(err);
-        });
+        new firebase.auth.GithubAuthProvider()).then(res => {
+        // const AccessToken = res.credential['accessToken'];
+        // console.log('Access token', AccessToken);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
     });
   }
 
@@ -61,13 +62,8 @@ export class AuthService {
   }
 
   public get isLoggedIn(): boolean {
-    if (this._userDetails == null) {
-      return false;
-    } else {
-      return true;
-    }
+    return this._userDetails != null;
   }
-
   get user(): Observable<firebase.User> {
     return this._user;
   }
@@ -84,5 +80,4 @@ export class AuthService {
   set userdata(value: UserDto) {
     this._userdata = value;
   }
-
 }
