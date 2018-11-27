@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {DataService} from '../../../services/data/data.service';
 
 @Component({
   selector: 'app-repository-checkbox',
@@ -9,16 +10,19 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class RepositoryCheckboxComponent implements OnInit {
 
   @Input() repositories: Object;
-  checkboxForm: FormGroup;
+  @Input() data: DataService;
   geefAlleRepositories: Boolean;
   chosenRepository: String;
 
+  checkboxForm: FormGroup;
+
+
   constructor(private formBuilder: FormBuilder) {
+    this.checkboxForm = this.formBuilder.group({});
     this.geefAlleRepositories = true;
     this.chosenRepository = null;
-    this.checkboxForm = this.formBuilder.group({
 
-    });
+
   }
 
   ngOnInit() {

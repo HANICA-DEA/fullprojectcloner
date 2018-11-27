@@ -25,6 +25,7 @@ import { RepositoryCheckboxComponent } from './components/repositories/repositor
 import { ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import { RepositorySearchuserComponent } from './components/repositories/repository-searchuser/repository-searchuser.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {HttpClientModule} from '@angular/common/http';
     ContactComponent,
     LoginComponent,
     RepositoryCheckboxComponent,
+    RepositorySearchuserComponent,
   ],
   imports: [
     BrowserModule,

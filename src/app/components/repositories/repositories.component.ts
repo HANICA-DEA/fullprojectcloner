@@ -11,10 +11,11 @@ import {AuthService} from '../../services/auth/auth.service';
 export class RepositoriesComponent implements OnInit {
 
   repositories: any; //TODO moet Object zijn?
-
   public searchedUserExists: boolean;
+  public data: DataService;
 
-  constructor(private data: DataService, public authService: AuthService) {
+  constructor(data: DataService, public authService: AuthService) {
+    this.data = data;
   }
 
   ngOnInit() {

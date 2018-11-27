@@ -1,0 +1,24 @@
+<mat-card>
+  <p>You chose to clone this repository: <br><br></p>
+  <p class="boldText">{{chosenRepository}}</p>
+</mat-card>
+
+<mat-card>
+  <p>Search an user to clone your repository to:</p>
+  <form [formGroup]="searchForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <input #inputUser matInput placeholder="Username">
+    </mat-form-field>
+  </form>
+
+  <!--<input #inputUser>-->
+  <button mat-flat-button class="btn-search" #verifyButton (click)="doesUserExist(inputUser.value)">submit</button>
+
+
+  <p *ngIf="searchedUserExists">
+    True
+  </p>
+  <p *ngIf="!searchedUserExists">
+    Gebruiker niet gevonden
+  </p>
+</mat-card>
