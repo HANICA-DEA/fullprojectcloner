@@ -1,10 +1,9 @@
-
 <mat-card>
 
   <div *ngIf= "authService.isLoggedIn; else loginTemplate">
-    <h1>Welcome {{authService.userdata.displayName}}</h1>
-    <img src="{{ authService.userdata.photoURL }} ">
-    <p> </p>
+    <h1>Welcome {{authService.userDetails.displayName}}</h1>
+    <img src="{{ authService.userDetails.photoURL }} ">
+    <p>{{authService.userDetails.refreshToken}}</p>
 
     <!--<pre>-->
       <!--{{ authService.userDetails| json }}-->
@@ -12,7 +11,7 @@
 
     <p>Here you can find your repositories. Select the repositories you want to clone and click next.</p>
 
-    <button mat-flat-button class="btn-github" (click)="logout()"> Stop authentication github</button><br>
+    <button mat-flat-button class="btn-github" (click)="logout()"><i class="fab fa-github"></i> Stop authentication github</button><br>
 
 
   </div>
@@ -22,6 +21,6 @@
   <h1>FullProjectCloner</h1>
 
   <button mat-flat-button class="btn-github" (click)="signInWithGithub()">
-   Authenticate with github</button>
+    <i class="fab fa-github"></i> Authenticate with github</button>
 </ng-template>
 </mat-card>

@@ -5,18 +5,21 @@ import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
 import {UserDto} from '../dto/user.dto';
 import {DatabaseService} from '../share/database.service';
+import {AuthdataDto} from '../dto/authdata.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private _user: Observable<firebase.User>;
-  private _userDetails: firebase.User = null;
   private _userdata: UserDto;
+  private _userDetails: firebase.User = null;
+  // De noodzakelijke gegevens
+  private _username;
   private _token;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
-    this._user = afAuth.authState;
+  constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
+    this._user = _afAuth.authState;
     this._user.subscribe(
       (user) => {
         if (user) {
@@ -27,6 +30,7 @@ export class AuthService {
       }
     );
   }
+
   public loginwithGithub() {
     return new Promise<any>((resolve, reject) => {
       this.loginwithGithubProvider().then(
@@ -44,19 +48,20 @@ export class AuthService {
 
   public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
     return new Promise<any>((resolve, reject) => {
-      this.afAuth.auth.signInWithPopup(
+      this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
-      const AccessToken = res.credential['accessToken'];
-      console.log('Access token', AccessToken);
+        const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken'])
+        this.databaseService.pushToDatabase('user', res.user.uid, data);
+        this.databaseService.getFromDatabase('user', res.user.uid);
       }, err => {
-          console.log(err);
-          reject(err);
-        });
+        console.log(err);
+        reject(err);
+      });
     });
   }
 
   public logout(): Promise<boolean | Observable<never> | never> {
-    return this.afAuth.auth.signOut()
+    return this._afAuth.auth.signOut()
       .then((res) => this.router.navigate(['/'])
         .catch((err) => throwError('signout failed')));
   }
@@ -64,6 +69,7 @@ export class AuthService {
   public get isLoggedIn(): boolean {
     return this._userDetails != null;
   }
+
   get user(): Observable<firebase.User> {
     return this._user;
   }
@@ -79,5 +85,32 @@ export class AuthService {
 
   set userdata(value: UserDto) {
     this._userdata = value;
+  }
+
+
+  get token() {
+    return this._token;
+  }
+
+  set token(value) {
+    this._token = value;
+  }
+
+
+  get username() {
+    return this._username;
+  }
+
+  set username(value) {
+    this._username = value;
+  }
+
+
+  get afAuth(): AngularFireAuth {
+    return this._afAuth;
+  }
+
+  set afAuth(value: AngularFireAuth) {
+    this._afAuth = value;
   }
 }
