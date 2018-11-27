@@ -8,7 +8,7 @@ import {HomeComponent} from './components/home/home.component';
 import {AboutComponent} from './components/about/about.component';
 import {RepositoriesComponent} from './components/repositories/repositories.component';
 import {ContactComponent} from './components/contact/contact.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
@@ -21,9 +21,11 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {LoginComponent} from './components/login/login.component';
-import {RepositoryButtonComponent} from './components/repositories/repository-button/repository-button.component';
+import { RepositoryCheckboxComponent } from './components/repositories/repository-checkbox/repository-checkbox.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
+import { RepositorySearchuserComponent } from './components/repositories/repository-searchuser/repository-searchuser.component';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import {HttpClientModule} from '@angular/common/http';
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
-    RepositoryButtonComponent,
+    RepositoryCheckboxComponent,
+    RepositorySearchuserComponent,
   ],
   imports: [
     BrowserModule,

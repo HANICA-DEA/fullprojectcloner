@@ -8,14 +8,5 @@
 </div>
 
 <div *ngIf="authService.isLoggedIn">
-  <app-repository-button [repositories]="repositories"></app-repository-button>
+  <app-repository-checkbox [repositories]="repositories" [data]="data"></app-repository-checkbox>
 </div>
-
-<input #inputUser>
-<button type="button" #verifyButton (click)="doesUserExist(inputUser.value)">submit</button>
-<p *ngIf="searchedUserExists">
-  True
-</p>
-<p *ngIf="!searchedUserExists">
-  false
-</p>
