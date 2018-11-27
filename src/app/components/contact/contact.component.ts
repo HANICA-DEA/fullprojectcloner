@@ -12,7 +12,7 @@ export class ContactComponent implements OnInit {
 
   contactForm: FormGroup;
   submitted = false;
-
+  data = {hi: 'hi', inside: 'example'};
   MAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrBysjuMbBGdWRyaOXpW2PwkavvyLePxSmQeJC5CdAQEHS3ys/exec';
 
   private body: string;
@@ -34,7 +34,7 @@ export class ContactComponent implements OnInit {
       this.contactForm.controls.email.value + '&message=' + this.contactForm.controls.message.value;
 
     const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-    this.http.post(this.MAIL_SCRIPT_URL, this.body, {headers: headers})
+    this.http.post(this.MAIL_SCRIPT_URL, this.data, {headers: headers})
       .subscribe((response) => {
         console.log(response);
       });
