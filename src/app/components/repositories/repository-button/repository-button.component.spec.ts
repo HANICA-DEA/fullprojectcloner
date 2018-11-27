@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RepositoryCheckboxComponent } from './repository-checkbox.component';
+import { RepositoryButtonComponent } from './repository-button.component';
 
-describe('RepositoryCheckboxComponent', () => {
-  let component: RepositoryCheckboxComponent;
-  let fixture: ComponentFixture<RepositoryCheckboxComponent>;
+describe('RepositoryButtonComponent', () => {
+  let component: RepositoryButtonComponent;
+  let fixture: ComponentFixture<RepositoryButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RepositoryCheckboxComponent ]
+      declarations: [ RepositoryButtonComponent ]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RepositoryCheckboxComponent);
+    fixture = TestBed.createComponent(RepositoryButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -21,7 +21,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {LoginComponent} from './components/login/login.component';
-import { RepositoryCheckboxComponent } from './components/repositories/repository-checkbox/repository-checkbox.component';
+import { RepositoryButtonComponent } from './components/repositories/repository-button/repository-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
@@ -37,7 +37,7 @@ import { RepositorySearchuserComponent } from './components/repositories/reposit
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
-    RepositoryCheckboxComponent,
+    RepositoryButtonComponent,
     RepositorySearchuserComponent,
   ],
   imports: [
