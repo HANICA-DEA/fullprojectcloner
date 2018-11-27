@@ -11,7 +11,7 @@ export class RepositoryCheckboxComponent implements OnInit {
 
   @Input() repositories: Object;
   @Input() data: DataService;
-  geefAlleRepositories: Boolean;
+  public geefAlleRepositories: Boolean;
   chosenRepository: String;
 
   checkboxForm: FormGroup;
@@ -33,8 +33,8 @@ export class RepositoryCheckboxComponent implements OnInit {
     this.chosenRepository = iets;
   }
 
-  getRepository(){
-    return this.chosenRepository;
+  setGeefAlleRepositories(geefAlleRepositories: boolean){
+    this.geefAlleRepositories = geefAlleRepositories;
   }
 
 }

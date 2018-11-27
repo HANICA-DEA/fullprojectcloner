@@ -9,5 +9,5 @@
 </div>
 
 <div *ngIf="!geefAlleRepositories">
-  <app-repository-searchuser [data]="data" [chosenRepository]="chosenRepository"></app-repository-searchuser>
+  <app-repository-searchuser (valueChange)="setGeefAlleRepositories(true)" [data]="data" [chosenRepository]="chosenRepository"></app-repository-searchuser>
 </div>

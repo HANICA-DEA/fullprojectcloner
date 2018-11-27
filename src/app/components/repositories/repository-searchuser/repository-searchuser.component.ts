@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DataService} from '../../../services/data/data.service';
 
@@ -12,6 +12,9 @@ export class RepositorySearchuserComponent implements OnInit {
   @Input() data: DataService;
   searchForm: FormGroup;
   public searchedUserExists: boolean;
+  @Output() valueChange = new EventEmitter();
+  goBackValue: boolean;
+
 
 
 
@@ -31,6 +34,8 @@ export class RepositorySearchuserComponent implements OnInit {
     });
   }
 
-
-
+  goBack() {
+    this.goBackValue = true;
+    this.valueChange.emit(this.goBackValue);
+  }
 }
