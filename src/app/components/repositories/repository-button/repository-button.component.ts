@@ -3,11 +3,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {DataService} from '../../../services/data/data.service';
 
 @Component({
-  selector: 'app-repository-checkbox',
-  templateUrl: './repository-checkbox.component.html',
-  styleUrls: ['./repository-checkbox.component.sass']
+  selector: 'app-repository-button',
+  templateUrl: './repository-button.component.html',
+  styleUrls: ['./repository-button.component.sass']
 })
-export class RepositoryCheckboxComponent implements OnInit {
+export class RepositoryButtonComponent implements OnInit {
 
   @Input() repositories: Object;
   @Input() data: DataService;
