@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Headers, Http} from '@angular/http';
+import {ContactFormDto} from '../../services/dto/contactform.dto';
 
 @Component({
   selector: 'app-contact',
@@ -10,12 +11,10 @@ import {Headers, Http} from '@angular/http';
 
 export class ContactComponent implements OnInit {
 
+  private contactFormDto: ContactFormDto;
   contactForm: FormGroup;
   submitted = false;
-  data = {hi: 'hi', inside: 'example'};
   MAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrBysjuMbBGdWRyaOXpW2PwkavvyLePxSmQeJC5CdAQEHS3ys/exec';
-
-  private body: string;
 
   constructor(private formBuilder: FormBuilder, private http: Http) {
     this.contactForm = this.formBuilder.group({
@@ -27,17 +26,25 @@ export class ContactComponent implements OnInit {
 
   onSubmit() {
 
-
     this.submitted = true;
 
-    this.body = '&name=' + this.contactForm.controls.fullName.value + '&email=' +
-      this.contactForm.controls.email.value + '&message=' + this.contactForm.controls.message.value;
+    if (this.contactForm.invalid) {
+      return;
+    }
 
-    const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-    this.http.post(this.MAIL_SCRIPT_URL, this.data, {headers: headers})
-      .subscribe((response) => {
-        console.log(response);
-      });
+    if (this.contactForm.valid) {
+      this.contactFormDto = new ContactFormDto(
+        this.contactForm.controls.fullName.value,
+        this.contactForm.controls.email.value,
+        this.contactForm.controls.message.value
+      );
+
+      const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+      this.http.post(this.MAIL_SCRIPT_URL, this.contactFormDto, {headers: headers})
+        .subscribe((response) => {
+          console.log(response);
+        });
+    }
     }
 
   ngOnInit() {
