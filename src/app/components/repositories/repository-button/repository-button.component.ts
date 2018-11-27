@@ -28,12 +28,12 @@ export class RepositoryButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-  doeietsmoois(iets: String){
+  doeietsmoois(iets: String) {
     this.geefAlleRepositories = false;
     this.chosenRepository = iets;
   }
 
-  setGeefAlleRepositories(geefAlleRepositories: boolean){
+  setGeefAlleRepositories(geefAlleRepositories: boolean) {
     this.geefAlleRepositories = geefAlleRepositories;
   }
 
