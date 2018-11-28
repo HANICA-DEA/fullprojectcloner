@@ -15,15 +15,19 @@ export class RepositoriesComponent implements OnInit {
   authData: AuthdataDto;
   loggedin: boolean;
 
-  constructor(private data: DataService, public authService: AuthService, private dbService: DatabaseService) { }
-
+  constructor(private data: DataService, public authService: AuthService, private dbService: DatabaseService) {
+  }
   ngOnInit() {
-    this.dbService.getFromDatabase('user', this.authService.userDetails.uid).subscribe(data => {
-      this.authData = data;
+    this.authService.user.subscribe(auth => {
+      if (auth) {
+        this.dbService.getFromDatabase('user', this.authService.userDetails.uid).subscribe(result => {
+          this.authData = new AuthdataDto(result._username, result._token );  });
+        if (this.authData) {
+        this.data.getrepositories(this.authData.token, this.authData.username).subscribe(data => {
+          this.repositories = data;
+        });
+        }}
     });
-    this.data.getrepositories(this.authService.token, this.authService.username).subscribe(data => {
-      this.repositories = data;
-    });
-    }
+  }
 }
 

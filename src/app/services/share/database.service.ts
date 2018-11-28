@@ -20,19 +20,19 @@ export class DatabaseService {
     this.afs.collection(subject).doc(key).set(JSON.parse(JSON.stringify(object)));
   }
 
-  getFromDatabase(subject: string, key: string): Observable <AuthdataDto> {
-   let data = null;
-    this.afs.collection('user')
+   getFromDatabase(subject: string, key: string): Observable <any> {
+   let docdata = null;
+    this.afs.collection(subject)
       .doc(key).ref.get().then(function(doc) {
       if (doc.exists) {
-        const docdata = doc.data();
-        data = new AuthdataDto( docdata._username, docdata._token);
+        docdata = doc.data();
+        console.log(docdata._username);
       } else {
         console.log('No such document!');
       }
     }).catch(function(error) {
       console.log('Error getting document:', error);
     });
-    return data;
+    return docdata;
   }
 }

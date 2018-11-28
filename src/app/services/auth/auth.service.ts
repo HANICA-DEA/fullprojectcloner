@@ -30,14 +30,10 @@ export class AuthService {
       }
     );
   }
-
-  public loginwithGithub() {
+  public loginwithGithub(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.loginwithGithubProvider().then(
         res => {
-          this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
-          this.databaseService.pushToDatabase('user', 'tim', this.userdata);
-          console.log(this.databaseService.getFromDatabase('user', 'kevin'));
           resolve(res);
         }, err => {
           console.log(err);
@@ -52,7 +48,6 @@ export class AuthService {
         new firebase.auth.GithubAuthProvider()).then(res => {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken'])
         this.databaseService.pushToDatabase('user', res.user.uid, data);
-        this.databaseService.getFromDatabase('user', res.user.uid);
       }, err => {
         console.log(err);
         reject(err);
