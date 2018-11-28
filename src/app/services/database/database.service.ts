@@ -1,8 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFireDatabase, AngularFireObject} from '@angular/fire/database';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
-import {UserDto} from '../dto/user.dto';
 import {Observable} from 'rxjs';
 
 @Injectable({
