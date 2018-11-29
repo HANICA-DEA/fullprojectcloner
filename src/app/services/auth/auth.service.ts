@@ -20,24 +20,54 @@ export class AuthService {
 
   constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
-    this._user.subscribe(
-      (user) => {
-        if (user) {
-          this._userDetails = user;
-        } else {
-          this._userDetails = null;
-        }
-      }
-    );
+    this.checkLoginStatus();
+
+
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user) {
+    //     this._userDetails = user;
+    //     console.log("user is signed in")
+    //   } else {
+    //     this._userDetails = null;
+    //     console.log("no user is signed in")
+    //   }
+    // });
+
+
+    // this._user.subscribe(
+    //   (user) => {
+    //     if (user) {
+    //       this._userDetails = user;
+    //     }
+    // else {
+    //   this._userDetails = null;
+    // }
+    //   }
+    // );
   }
+
+  public checkLoginStatus() {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        this._userDetails = user;
+        console.log(this._userDetails.uid + ' 7');
+        unsubscribe();
+        resolve(user);
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
+
+
 
   public loginwithGithub() {
     return new Promise<any>((resolve, reject) => {
       this.loginwithGithubProvider().then(
         res => {
           this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
-          this.databaseService.pushToDatabase('user', 'tim', this.userdata);
-          console.log(this.databaseService.getFromDatabase('user', 'kevin'));
+          this.databaseService.pushToDatabase(this._username, 'tim', this.userdata);
           resolve(res);
         }, err => {
           console.log(err);
@@ -50,9 +80,8 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
-        const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken'])
+        const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
-        this.databaseService.getFromDatabase('user', res.user.uid);
       }, err => {
         console.log(err);
         reject(err);

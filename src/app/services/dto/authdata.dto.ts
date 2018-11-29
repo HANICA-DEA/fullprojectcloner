@@ -1,6 +1,7 @@
 export class AuthdataDto implements Authdata {
-  private _token: String;
-  private _username: string;
+  public _token: String;
+  public _username: string;
+
   constructor(username, token) {
     this._username = username;
     this._token = token;

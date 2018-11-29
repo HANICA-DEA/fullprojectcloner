@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFireDatabase, AngularFireObject} from '@angular/fire/database';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
-import {UserDto} from '../dto/user.dto';
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {AuthdataDto} from '../dto/authdata.dto';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DatabaseService {
   private tokencollection: AngularFirestoreCollection<AuthdataDto>;
   private token: Observable<AuthdataDto>;
@@ -20,19 +18,29 @@ export class DatabaseService {
     this.afs.collection(subject).doc(key).set(JSON.parse(JSON.stringify(object)));
   }
 
-  getFromDatabase(subject: string, key: string): Observable <AuthdataDto> {
-   let data = null;
-    this.afs.collection('user')
-      .doc(key).ref.get().then(function(doc) {
-      if (doc.exists) {
-        const docdata = doc.data();
-        data = new AuthdataDto( docdata._username, docdata._token);
-      } else {
-        console.log('No such document!');
-      }
-    }).catch(function(error) {
-      console.log('Error getting document:', error);
-    });
+  // getFromDatabase(subject: string, key: string): Observable<AuthdataDto> {
+  //   let data;
+  //   this.afs.collection(subject)
+  //     .doc(key).ref.get().then(function (doc) {
+  //     if (doc.exists) {
+  //       const docdata = doc.data();
+  //       data = new AuthdataDto(docdata._username, docdata._token);
+  //       console.log(data._username + ' 5');
+  //       return data;
+  //     } else {
+  //       console.log('No such document!');
+  //     }
+  //   }).catch(function (error) {
+  //     console.log('Error getting document:', error);
+  //   });
+  //   return null;
+  // }
+
+  async getData(subject: string, key: string): AuthdataDto {
+    let document = await this.afs.collection(subject).doc(key).ref.get();
+    const docdata = document.data();
+    let data = new AuthdataDto(docdata._username, docdata._token);
+    console.log(data._username + ' 5');
     return data;
   }
 }
