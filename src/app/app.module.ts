@@ -26,8 +26,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { RepositorySearchuserComponent } from './components/repositories/repository-searchuser/repository-searchuser.component';
-import { SendinvitemailComponent } from './components/repositories/repository-sendinvitemail/repository-sendinvitemail.component';
-
 
 @NgModule({
   declarations: [
@@ -40,7 +38,6 @@ import { SendinvitemailComponent } from './components/repositories/repository-se
     LoginComponent,
     RepositoryButtonComponent,
     RepositorySearchuserComponent,
-    SendinvitemailComponent,
   ],
   imports: [
     BrowserModule,
