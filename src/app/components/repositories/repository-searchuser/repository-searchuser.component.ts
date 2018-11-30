@@ -11,12 +11,8 @@ export class RepositorySearchuserComponent implements OnInit {
   @Input() chosenRepository: String;
   @Input() data: DataService;
   searchForm: FormGroup;
-  public searchedUserExists: boolean;
   @Output() valueChange = new EventEmitter();
   goBackValue: boolean;
-
-
-
 
   constructor(private formBuilder: FormBuilder) {
     this.searchForm = this.formBuilder.group({});
@@ -26,16 +22,12 @@ export class RepositorySearchuserComponent implements OnInit {
   ngOnInit() {
   }
 
-  doesUserExist(username: string) {
-    this.data.getUser(username).subscribe(data => {
-      this.searchedUserExists = true;
-    }, err => {
-      this.searchedUserExists = false;
-    });
-  }
-
   goBack() {
     this.goBackValue = true;
     this.valueChange.emit(this.goBackValue);
+  }
+
+  sendInviteMail(searchedUser: String) {
+    console.log('email send to ' , searchedUser);
   }
 }

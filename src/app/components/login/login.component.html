@@ -2,8 +2,8 @@
 <mat-card>
 
   <div *ngIf= "authService.isLoggedIn; else loginTemplate">
-    <h1>Welcome {{authService.userdata.displayName}}</h1>
-    <img src="{{ authService.userdata.photoURL }} ">
+    <h1>Welcome {{authService.userDetails.displayName}}</h1>
+    <img src="{{ authService.userDetails.photoURL }} ">
 
     <!--<pre>-->
       <!--{{ authService.userDetails| json }}-->

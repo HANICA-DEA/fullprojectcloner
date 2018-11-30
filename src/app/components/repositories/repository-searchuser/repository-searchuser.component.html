@@ -10,16 +10,9 @@
   <p>Search an user to clone your repository to:</p>
   <form [formGroup]="searchForm" class="example-form">
     <mat-form-field>
-      <input #inputUser matInput placeholder="Username">
+      <input #inputUser matInput placeholder="user e-mail">
     </mat-form-field>
   </form>
+  <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value)" class="send-button">Send invite</button>
 
-  <!--<input #inputUser>-->
-  <button mat-flat-button class="btn-search" #verifyButton (click)="doesUserExist(inputUser.value)">Check user</button>
-
-
-  <p *ngIf="searchedUserExists">
-    User found </p>
-  <p *ngIf="!searchedUserExists">
-    User not found </p>
 </mat-card>
