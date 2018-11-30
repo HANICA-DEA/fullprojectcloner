@@ -6,10 +6,10 @@ import {InviteFormDto} from '../../../services/dto/inviteform.dto';
 
 @Component({
   selector: 'app-repository-searchuser',
-  templateUrl: './repository-searchuser.component.html',
-  styleUrls: ['./repository-searchuser.component.sass']
+  templateUrl: './repository-sendinvite.component.html',
+  styleUrls: ['./repository-sendinvite.component.sass']
 })
-export class RepositorySearchuserComponent implements OnInit {
+export class RepositorySendinviteComponent implements OnInit {
   @Input() chosenRepository: String;
   @Input() data: DataService;
   searchForm: FormGroup;
@@ -34,13 +34,12 @@ export class RepositorySearchuserComponent implements OnInit {
 
   sendInviteMail(searchedUser: string) {
     console.log('email send to ' , searchedUser);
-    this.sendInviteToUser(searchedUser, 'http://localhost:4200/test');
-
+    this.sendInviteToUser(searchedUser, 'http://localhost:4200/test', 'Beyblade simulator', 'mailchimp');
   }
 
-  sendInviteToUser(emailaddress: string, url: string) {
+  sendInviteToUser(emailaddress: string, url: string, repositoryname: string, invitator: string) {
     const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-    this.inviteFormDto = new InviteFormDto(emailaddress, url);
+    this.inviteFormDto = new InviteFormDto(emailaddress, url, repositoryname, invitator);
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
         console.log(response);
