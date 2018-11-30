@@ -26,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { RepositorySearchuserComponent } from './components/repositories/repository-searchuser/repository-searchuser.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { RepositorySearchuserComponent } from './components/repositories/reposit
     LoginComponent,
     RepositoryButtonComponent,
     RepositorySearchuserComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
