@@ -14,6 +14,7 @@ export class RepositorySearchuserComponent implements OnInit {
   public searchedUserExists: boolean;
   @Output() valueChange = new EventEmitter();
   goBackValue: boolean;
+  searchedUser: String = '';
 
 
 
@@ -27,6 +28,7 @@ export class RepositorySearchuserComponent implements OnInit {
   }
 
   doesUserExist(username: string) {
+    this.searchedUser = username;
     this.data.getUser(username).subscribe(data => {
       this.searchedUserExists = true;
     }, err => {

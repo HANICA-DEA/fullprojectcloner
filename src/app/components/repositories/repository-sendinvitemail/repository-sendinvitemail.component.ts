@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sendinvitemail',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./repository-sendinvitemail.component.sass']
 })
 export class SendinvitemailComponent implements OnInit {
+  @Input() searchedUser: String;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  sendInviteMail() {
+    console.log('email send to ' , this.searchedUser);
   }
 
 }

@@ -18,8 +18,11 @@
   <button mat-flat-button class="btn-search" #verifyButton (click)="doesUserExist(inputUser.value)">Check user</button>
 
 
-  <p *ngIf="searchedUserExists">
-    User found </p>
+  <!--<div *ngIf="searchedUserExists">-->
+    <p>
+      User found </p>
+    <app-sendinvitemail [searchedUser]="searchedUser"></app-sendinvitemail>
+  <!--</div>-->
   <p *ngIf="!searchedUserExists">
     User not found </p>
 </mat-card>
