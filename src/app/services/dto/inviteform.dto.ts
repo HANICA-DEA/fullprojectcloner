@@ -4,7 +4,6 @@ export class InviteFormDto {
   constructor(email: string) {
     this.email = email;
   }
-
-  constructor() {
-  }
 }
+
+
