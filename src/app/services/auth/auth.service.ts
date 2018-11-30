@@ -20,30 +20,14 @@ export class AuthService {
 
   constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
-    this.checkLoginStatus();
-
-
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   if (user) {
-    //     this._userDetails = user;
-    //     console.log("user is signed in")
-    //   } else {
-    //     this._userDetails = null;
-    //     console.log("no user is signed in")
-    //   }
-    // });
-
-
-    // this._user.subscribe(
-    //   (user) => {
-    //     if (user) {
-    //       this._userDetails = user;
-    //     }
-    // else {
-    //   this._userDetails = null;
-    // }
-    //   }
-    // );
+    this._user.subscribe(
+      (user) => {
+        if (user) {
+          this._userDetails = user;
+        } else {
+          this._userDetails = null;
+        }
+      });
   }
 
   public checkLoginStatus() {
@@ -142,4 +126,6 @@ export class AuthService {
   set afAuth(value: AngularFireAuth) {
     this._afAuth = value;
   }
+
+
 }

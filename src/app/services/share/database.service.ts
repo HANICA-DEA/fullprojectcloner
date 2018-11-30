@@ -8,14 +8,18 @@ import {AuthdataDto} from '../dto/authdata.dto';
 })
 
 export class DatabaseService {
-  private tokencollection: AngularFirestoreCollection<AuthdataDto>;
-  private token: Observable<AuthdataDto>;
-
   constructor(private afs: AngularFirestore) {
   }
 
-  pushToDatabase(subject: string, key: string, object: Object) {
+  pushToDatabase(subject: string, key: string, object: Object): void {
     this.afs.collection(subject).doc(key).set(JSON.parse(JSON.stringify(object)));
+  }
+
+  async getData(subject: string, key: string): Promise<AuthdataDto> {
+    const document = await this.afs.collection(subject).doc(key).ref.get();
+    const docdata = document.data();
+    const data = new AuthdataDto(docdata._username, docdata._token);
+    return data;
   }
 
   // getFromDatabase(subject: string, key: string): Observable<AuthdataDto> {
@@ -35,12 +39,4 @@ export class DatabaseService {
   //   });
   //   return null;
   // }
-
-  async getData(subject: string, key: string): AuthdataDto {
-    let document = await this.afs.collection(subject).doc(key).ref.get();
-    const docdata = document.data();
-    let data = new AuthdataDto(docdata._username, docdata._token);
-    console.log(data._username + ' 5');
-    return data;
-  }
 }

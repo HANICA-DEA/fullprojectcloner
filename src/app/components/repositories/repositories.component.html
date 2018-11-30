@@ -7,7 +7,6 @@
   <app-login></app-login>
 </div>
 
-<div *ngIf="authService.isLoggedIn">
-  <!--<p>{{authData.username}}</p>-->
+<div *ngIf="repoInfoReady();">
   <app-repository-checkbox [repositories]="repositories"></app-repository-checkbox>
 </div>

@@ -3,7 +3,6 @@
   <div *ngIf= "authService.isLoggedIn; else loginTemplate">
     <h1>Welcome {{authService.userDetails.displayName}}</h1>
     <img src="{{ authService.userDetails.photoURL }} ">
-    <p>{{authService.userDetails.refreshToken}}</p>
 
     <!--<pre>-->
       <!--{{ authService.userDetails| json }}-->
