@@ -1,0 +1,18 @@
+<mat-card>
+  <button mat-flat-button class="btn-back" (click)="goBack()" #backButton>Back</button>
+
+  <p>You chose to clone this repository: <br><br></p>
+  <p class="boldText">{{chosenRepository}}</p>
+
+</mat-card>
+
+<mat-card>
+  <p>Search an user to clone your repository to:</p>
+  <form [formGroup]="searchForm" class="example-form">
+    <mat-form-field>
+      <input #inputUser matInput placeholder="user e-mail">
+    </mat-form-field>
+  </form>
+  <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value)" class="send-button">Send invite</button>
+
+</mat-card>
