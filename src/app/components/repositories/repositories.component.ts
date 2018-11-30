@@ -22,13 +22,18 @@ export class RepositoriesComponent implements OnInit {
   }
 
   async initialiserepos() {
-    this.authService.user.subscribe(async () => {
-      this.authData = await this.dbService.getData('user', this.authService.userDetails.uid);
-     this.data.getrepositories(this.authData.token, this.authData.username)
-      .subscribe(data => {this.repositories = data; });
+    this.authService.user.subscribe(async user => {
+      if (user) {
+        this.authData = await this.dbService.getData('user', this.authService.userDetails.uid);
+        this.data.getrepositories(this.authData.token, this.authData.username)
+          .subscribe(data => {
+            this.repositories = data;
+          });
+      }
     });
   }
+
   repoInfoReady() {
-    return this.repositories != null  && this.authData != null;
+    return this.repositories != null && this.authData != null;
   }
 }
