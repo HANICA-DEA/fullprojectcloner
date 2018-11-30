@@ -37,6 +37,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-src/app/sidemenu/sidemenu.component.html
-src/app/sidemenu/sidemenu.component.html
-src/app/sidemenu/sidemenu.component.sass
