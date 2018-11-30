@@ -45,7 +45,7 @@ export class ContactComponent implements OnInit {
           console.log(response);
         });
     }
-    }
+  }
 
   ngOnInit() {
   }
