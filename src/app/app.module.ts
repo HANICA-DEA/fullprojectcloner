@@ -25,7 +25,6 @@ import {RepositoryButtonComponent} from './components/repositories/repository-bu
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
-import {TestComponent} from './components/test/test.component';
 import {CloneinviteComponent} from './components/cloneinvite/cloneinvite.component';
 
 @NgModule({
@@ -39,7 +38,6 @@ import {CloneinviteComponent} from './components/cloneinvite/cloneinvite.compone
     LoginComponent,
     RepositoryButtonComponent,
     RepositorySendinviteComponent,
-    TestComponent,
     CloneinviteComponent,
   ],
   imports: [
