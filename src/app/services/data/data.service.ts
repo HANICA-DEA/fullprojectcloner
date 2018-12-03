@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,12 @@ import {HttpClient} from '@angular/common/http';
 export class DataService {
 
   constructor(private http: HttpClient) { }
-  getrepositories() {
-    const url = 'https://api.github.com/users/TimMaasGeesteranus/repos?access_token=&scope=user%20public_repo';
+  getUser(token: String) {
+    const url =  'https://api.github.com/user?access_token=' + token;
     return this.http.get(url);
   }
-  getUser(username: string) {
-    const url: string =  'https://api.github.com/users/' + username;
+  getrepositories(token: String, username: String): Observable<Object> {
+    const url =  'https://api.github.com/users/' + username + '/repos?access_token=' + token;
     return this.http.get(url);
   }
 }

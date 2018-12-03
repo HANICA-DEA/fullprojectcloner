@@ -7,6 +7,6 @@
   <app-login></app-login>
 </div>
 
-<div *ngIf="authService.isLoggedIn">
-  <app-repository-button [repositories]="repositories" [data]="data"></app-repository-button>
+<div *ngIf="repoInfoReady();">
+  <app-repository-button [repositories]="repositories"></app-repository-button>
 </div>
