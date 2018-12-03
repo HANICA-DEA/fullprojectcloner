@@ -11,7 +11,7 @@ import {AuthService} from '../../../services/auth/auth.service';
   styleUrls: ['./repository-sendinvite.component.sass']
 })
 export class RepositorySendinviteComponent implements OnInit {
-  @Input() chosenRepository: String;
+  @Input() chosenRepository: string;
   @Input() data: DataService;
   searchForm: FormGroup;
   @Output() valueChange = new EventEmitter();
