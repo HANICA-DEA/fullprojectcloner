@@ -37,7 +37,7 @@ export class RepositorySendinviteComponent implements OnInit {
   sendInviteMail(searchedUser: string) {
     console.log('email send to ' , searchedUser);
     this.inviteID = 1;
-    this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.authService.userDetails.displayName);
+    this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.chosenRepository.split("/")[0]);
   }
 
   sendInviteToUser(emailaddress: string, url: string, repositoryname: string, invitator: string) {
