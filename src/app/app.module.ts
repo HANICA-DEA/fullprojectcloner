@@ -26,6 +26,7 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
 import {TestComponent} from './components/test/test.component';
+import {CloneinviteComponent} from './components/cloneinvite/cloneinvite.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {TestComponent} from './components/test/test.component';
     RepositoryButtonComponent,
     RepositorySendinviteComponent,
     TestComponent,
+    CloneinviteComponent,
   ],
   imports: [
     BrowserModule,
