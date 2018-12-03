@@ -48,7 +48,7 @@ export class RepositorySendinviteComponent implements OnInit {
       this.inviteID = 1;
       this.sendInviteToUser(
         searchedUser,
-        'http://localhost:4200/cloneinvite/' + this.inviteID,
+        'http://localhost:4200/clone/' + this.inviteID,
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
