@@ -44,6 +44,12 @@ export class ContactComponent implements OnInit {
         .subscribe((response) => {
           console.log(response);
         });
+      this.contactForm.reset();
+
+      Object.keys(this.contactForm.controls).forEach(key => {
+        this.contactForm.controls[key].setErrors(null)
+      });
+
     }
   }
 

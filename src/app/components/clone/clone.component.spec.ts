@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CloneinviteComponent} from './cloneinvite.component';
+import {CloneComponent} from './clone.component';
 
-describe('CloneinviteComponent', () => {
-  let component: CloneinviteComponent;
-  let fixture: ComponentFixture<CloneinviteComponent>;
+describe('CloneComponent', () => {
+  let component: CloneComponent;
+  let fixture: ComponentFixture<CloneComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CloneinviteComponent]
+      declarations: [CloneComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CloneinviteComponent);
+    fixture = TestBed.createComponent(CloneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

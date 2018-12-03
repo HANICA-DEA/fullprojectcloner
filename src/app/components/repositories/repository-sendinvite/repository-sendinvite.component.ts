@@ -43,9 +43,17 @@ export class RepositorySendinviteComponent implements OnInit {
     if (this.searchForm.invalid) {
       return;
     }
-    console.log('email send to ' , searchedUser);
-    this.inviteID = 1;
-    this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.chosenRepository.split("/")[0]);
+
+    if (this.searchForm.valid) {
+      this.inviteID = 1;
+      this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.chosenRepository.split("/")[0]);
+      this.searchForm.reset();
+
+      Object.keys(this.searchForm.controls).forEach(key => {
+        this.searchForm.controls[key].setErrors(null)
+      });
+    }
+
   }
 
   sendInviteToUser(emailaddress: string, url: string, repositoryname: string, invitator: string) {

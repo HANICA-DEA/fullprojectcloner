@@ -3,10 +3,10 @@ import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-cloneinvite',
-  templateUrl: './cloneinvite.component.html',
-  styleUrls: ['./cloneinvite.component.sass']
+  templateUrl: './clone.component.html',
+  styleUrls: ['./clone.component.sass']
 })
-export class CloneinviteComponent implements OnInit {
+export class CloneComponent implements OnInit {
 
   private cloneID: string;
 

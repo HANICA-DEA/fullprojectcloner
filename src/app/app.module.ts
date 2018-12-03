@@ -25,7 +25,7 @@ import {RepositoryButtonComponent} from './components/repositories/repository-bu
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
-import {CloneinviteComponent} from './components/cloneinvite/cloneinvite.component';
+import {CloneComponent} from './components/clone/clone.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import {CloneinviteComponent} from './components/cloneinvite/cloneinvite.compone
     LoginComponent,
     RepositoryButtonComponent,
     RepositorySendinviteComponent,
-    CloneinviteComponent,
+    CloneComponent,
   ],
   imports: [
     BrowserModule,
