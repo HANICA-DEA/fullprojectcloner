@@ -8,7 +8,7 @@ import {HomeComponent} from './components/home/home.component';
 import {AboutComponent} from './components/about/about.component';
 import {RepositoriesComponent} from './components/repositories/repositories.component';
 import {ContactComponent} from './components/contact/contact.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
@@ -21,11 +21,11 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {LoginComponent} from './components/login/login.component';
-import { RepositoryButtonComponent } from './components/repositories/repository-button/repository-button.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {RepositoryButtonComponent} from './components/repositories/repository-button/repository-button.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
-import { RepositorySearchuserComponent } from './components/repositories/repository-searchuser/repository-searchuser.component';
+import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
+import {CloneinviteComponent} from './components/cloneinvite/cloneinvite.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { RepositorySearchuserComponent } from './components/repositories/reposit
     ContactComponent,
     LoginComponent,
     RepositoryButtonComponent,
-    RepositorySearchuserComponent,
+    RepositorySendinviteComponent,
+    CloneinviteComponent,
   ],
   imports: [
     BrowserModule,

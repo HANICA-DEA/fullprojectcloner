@@ -10,9 +10,17 @@
   <p>Search an user to clone your repository to:</p>
   <form [formGroup]="searchForm" class="example-form">
     <mat-form-field>
-      <input #inputUser matInput placeholder="user e-mail">
+
+      <input #inputUser matInput placeholder="user e-mail" formControlName="email">
+
     </mat-form-field>
+    <div *ngIf="submitted && searchForm.controls.email.errors" class="error">
+      <div *ngIf="searchForm.controls.email.errors.required">Your e-mail is required</div>
+      <div *ngIf="searchForm.controls.email.errors.email">E-mail is not valid</div>
+    </div>
+
   </form>
+  <br>
   <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value)" class="send-button">Send invite</button>
 
 </mat-card>

@@ -14,11 +14,14 @@ export class RepositoriesComponent implements OnInit {
   repositories: Object;
   authData: AuthdataDto;
 
+
   constructor(private data: DataService, public authService: AuthService, private dbService: DatabaseService) {
+  this.data = data;
   }
 
   async ngOnInit() {
     this.initialiserepos();
+
   }
 
   async initialiserepos() {
