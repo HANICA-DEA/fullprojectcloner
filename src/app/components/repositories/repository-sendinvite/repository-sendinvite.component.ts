@@ -46,11 +46,15 @@ export class RepositorySendinviteComponent implements OnInit {
 
     if (this.searchForm.valid) {
       this.inviteID = 1;
-      this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.chosenRepository.split("/")[0]);
+      this.sendInviteToUser(
+        searchedUser,
+        'http://localhost:4200/cloneinvite/' + this.inviteID,
+        this.chosenRepository,
+        this.chosenRepository.split('/')[0]
+      );
       this.searchForm.reset();
-
       Object.keys(this.searchForm.controls).forEach(key => {
-        this.searchForm.controls[key].setErrors(null)
+        this.searchForm.controls[key].setErrors(null);
       });
     }
 
