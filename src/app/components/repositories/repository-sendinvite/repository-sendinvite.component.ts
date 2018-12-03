@@ -18,6 +18,7 @@ export class RepositorySendinviteComponent implements OnInit {
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
+  private inviteID: number;
 
   constructor(private formBuilder: FormBuilder, private http: Http) {
     this.searchForm = this.formBuilder.group({});
@@ -34,7 +35,8 @@ export class RepositorySendinviteComponent implements OnInit {
 
   sendInviteMail(searchedUser: string) {
     console.log('email send to ' , searchedUser);
-    this.sendInviteToUser(searchedUser, 'http://localhost:4200/test', 'Beyblade simulator', 'mailchimp');
+    this.inviteID = 1;
+    this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, 'Beyblade simulator', 'mailchimp');
   }
 
   sendInviteToUser(emailaddress: string, url: string, repositoryname: string, invitator: string) {
