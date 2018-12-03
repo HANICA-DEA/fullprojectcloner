@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CloneComponent implements OnInit {
 
-  private cloneID: string;
+  cloneID: string;
 
   constructor(private route: ActivatedRoute) {
   }
