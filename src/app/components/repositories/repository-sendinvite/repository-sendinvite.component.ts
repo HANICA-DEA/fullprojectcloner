@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {DataService} from '../../../services/data/data.service';
 import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-repository-sendinvite',
@@ -20,7 +21,7 @@ export class RepositorySendinviteComponent implements OnInit {
   private inviteFormDto: InviteFormDto;
   private inviteID: number;
 
-  constructor(private formBuilder: FormBuilder, private http: Http) {
+  constructor(private formBuilder: FormBuilder, private http: Http, public authService: AuthService) {
     this.searchForm = this.formBuilder.group({});
 
   }
@@ -36,7 +37,7 @@ export class RepositorySendinviteComponent implements OnInit {
   sendInviteMail(searchedUser: string) {
     console.log('email send to ' , searchedUser);
     this.inviteID = 1;
-    this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, 'Beyblade simulator', 'mailchimp');
+    this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.authService.userDetails.displayName);
   }
 
   sendInviteToUser(emailaddress: string, url: string, repositoryname: string, invitator: string) {
