@@ -5,7 +5,7 @@ import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
 
 @Component({
-  selector: 'app-repository-searchuser',
+  selector: 'app-repository-sendinvite',
   templateUrl: './repository-sendinvite.component.html',
   styleUrls: ['./repository-sendinvite.component.sass']
 })
