@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataService} from '../../../services/data/data.service';
 import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
@@ -20,9 +20,12 @@ export class RepositorySendinviteComponent implements OnInit {
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: number;
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder, private http: Http, public authService: AuthService) {
-    this.searchForm = this.formBuilder.group({});
+    this.searchForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
 
   }
 
@@ -35,6 +38,11 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   sendInviteMail(searchedUser: string) {
+    this.submitted = true;
+
+    if (this.searchForm.invalid) {
+      return;
+    }
     console.log('email send to ' , searchedUser);
     this.inviteID = 1;
     this.sendInviteToUser(searchedUser, 'http://localhost:4200/cloneinvite/' + this.inviteID, this.chosenRepository, this.chosenRepository.split("/")[0]);
