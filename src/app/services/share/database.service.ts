@@ -21,22 +21,4 @@ export class DatabaseService {
     const data = new AuthdataDto(docdata._username, docdata._token);
     return data;
   }
-
-  // getFromDatabase(subject: string, key: string): Observable<AuthdataDto> {
-  //   let data;
-  //   this.afs.collection(subject)
-  //     .doc(key).ref.get().then(function (doc) {
-  //     if (doc.exists) {
-  //       const docdata = doc.data();
-  //       data = new AuthdataDto(docdata._username, docdata._token);
-  //       console.log(data._username + ' 5');
-  //       return data;
-  //     } else {
-  //       console.log('No such document!');
-  //     }
-  //   }).catch(function (error) {
-  //     console.log('Error getting document:', error);
-  //   });
-  //   return null;
-  // }
 }
