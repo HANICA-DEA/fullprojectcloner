@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithGithub() {
-    this.authService.loginwithGithub();
+    this.authService.loginwithGithubProvider();
   }
 
   public logout() {

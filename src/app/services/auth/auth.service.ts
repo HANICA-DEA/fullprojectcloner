@@ -43,22 +43,17 @@ export class AuthService {
       });
     });
   }
-
-
-
-  public loginwithGithub() {
-    return new Promise<any>((resolve, reject) => {
-      this.loginwithGithubProvider().then(
-        res => {
-          this.userdata = new UserDto().deserialize(JSON.parse(JSON.stringify(this.userDetails)));
-          this.databaseService.pushToDatabase(this._username, 'tim', this.userdata);
-          resolve(res);
-        }, err => {
-          console.log(err);
-          reject(err);
-        });
-    });
-  }
+  // public loginwithGithub() {
+  //   return new Promise<any>((resolve, reject) => {
+  //     this.loginwithGithubProvider().then(
+  //       res => {
+  //         resolve(res);
+  //       }, err => {
+  //         console.log(err);
+  //         reject(err);
+  //       });
+  //   });
+  // }
 
   public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
     return new Promise<any>((resolve, reject) => {
