@@ -1,8 +1,8 @@
 <div *ngIf="geefAlleRepositories">
   <form [formGroup]="checkboxForm">
     <div *ngFor="let repository of repositories; index as i">
-      <button class="repository-button" mat-flat-button (click)="doeietsmoois(repository.full_name)">
-        {{repository.full_name}}
+      <button class="repository-button" mat-flat-button (click)="doeietsmoois(repository?.full_name)">
+        {{repository?.full_name}}
       </button>
     </div>
   </form>

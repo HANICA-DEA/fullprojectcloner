@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../../services/data/data.service';
 import {AuthService} from '../../services/auth/auth.service';
-import {DatabaseService} from '../../services/share/database.service';
 import {AuthdataDto} from '../../services/dto/authdata.dto';
+import {DatabaseService} from '../../services/database/database.service';
 
 @Component({
   selector: 'app-repositories',
@@ -28,7 +28,7 @@ export class RepositoriesComponent implements OnInit {
     this.authService.user.subscribe(async user => {
       if (user) {
         this.authData = await this.dbService.getData('user', this.authService.userDetails.uid);
-        this.data.getrepositories(this.authData.token, this.authData.username)
+        this.data.getRepositories(this.authData.token, this.authData.username)
           .subscribe(data => {
             this.repositories = data;
           });

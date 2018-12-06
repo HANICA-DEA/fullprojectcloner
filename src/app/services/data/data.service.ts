@@ -12,8 +12,16 @@ export class DataService {
     const url =  'https://api.github.com/user?access_token=' + token;
     return this.http.get(url);
   }
-  getrepositories(token: String, username: String): Observable<Object> {
+  getRepositories(token: String, username: String): Observable<Object> {
     const url =  'https://api.github.com/users/' + username + '/repos?access_token=' + token;
     return this.http.get(url);
+  }
+  getRepositoryIssues(token: String, username: String , repository: String ): Observable<Object> {
+    const url = 'https://api.github.com/repos/' + username + '/' + repository + 'test/issues?access_token=' + token;
+    return this.http.get(url);
+  }
+
+  importRepository() {
+    // repo import
   }
 }

@@ -1,21 +1,23 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
+import {AuthdataDto} from '../dto/authdata.dto';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DatabaseService {
-  usercol: AngularFirestoreCollection<any>;
-  private Users: Observable<any>;
   constructor(private afs: AngularFirestore) {
   }
 
-  pushToDatabase(subject: string, key: string, object: Object) {
-    this.afs.collection(subject).doc(key).set({'title': key, 'content': JSON.parse(JSON.stringify(object))});
+  pushToDatabase(subject: string, key: string, object: Object): void {
+    this.afs.collection(subject).doc(key).set(JSON.parse(JSON.stringify(object)));
   }
 
-  getFromDatabase(subject: string, key: string) {
-    return this.afs.doc(subject + '/' + key).collection('content').valueChanges();
+  async getData(subject: string, key: string): Promise<AuthdataDto> {
+    const document = await this.afs.collection(subject).doc(key).ref.get();
+    const data = new AuthdataDto(document.data()._username, document.data()._token);
+    return data;
   }
 }
