@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router, private data: DataService) {
   }
 
-  signInWithGithub() {
+  public signInWithGithub(): void {
     this.authService.loginwithGithubProvider();
   }
 
-  public logout() {
+  public logout(): void {
     this.authService.logout();
   }
 
