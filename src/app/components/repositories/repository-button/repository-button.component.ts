@@ -11,7 +11,7 @@ export class RepositoryButtonComponent implements OnInit {
 
   @Input() repositories: Object;
   @Input() data: DataService;
-  public geefAlleRepositories: Boolean;
+  public showAllRepositories: Boolean;
   chosenRepository: String;
 
   checkboxForm: FormGroup;
@@ -19,7 +19,7 @@ export class RepositoryButtonComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {
     this.checkboxForm = this.formBuilder.group({});
-    this.geefAlleRepositories = true;
+    this.showAllRepositories = true;
     this.chosenRepository = null;
 
 
@@ -28,13 +28,13 @@ export class RepositoryButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-  doeietsmoois(iets: String) {
-    this.geefAlleRepositories = false;
-    this.chosenRepository = iets;
+  chooseRepository(repositoryName: String) {
+    this.showAllRepositories = false;
+    this.chosenRepository = repositoryName;
   }
 
-  setGeefAlleRepositories(geefAlleRepositories: boolean) {
-    this.geefAlleRepositories = geefAlleRepositories;
+  setShowAllRepositories(showAllRepositories: boolean) {
+    this.showAllRepositories = showAllRepositories;
   }
 
 }
