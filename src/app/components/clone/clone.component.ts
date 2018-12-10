@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-cloneinvite',
@@ -10,7 +11,7 @@ export class CloneComponent implements OnInit {
 
   cloneID: string;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private authService: AuthService) {
   }
 
   ngOnInit() {

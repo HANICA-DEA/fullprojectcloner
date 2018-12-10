@@ -1,3 +1,9 @@
-<p>
-  ID entered in the URL: {{cloneID}}
-</p>
+<div class="auth_button">
+  <app-login></app-login>
+</div>
+
+<div *ngIf="authService.isLoggedIn">
+  <mat-card>
+    HIER MOET DE HELE ZOOI OM TE CLONEN: {{cloneID}}
+  </mat-card>
+</div>
