@@ -76,8 +76,6 @@ export class RepositorySendinviteComponent implements OnInit {
     this.inviteID = this.randomStringGenerator();
     if (this.getData(this.inviteID)) {
       this.inviteID = this.randomStringGenerator();
-    } else if (!this.getData(this.inviteID)) {
-      return this.inviteID;
     }
     return this.inviteID;
   }
