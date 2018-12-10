@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DataService} from '../../../services/data/data.service';
+import {AuthdataDto} from '../../../services/dto/authdata.dto';
 
 @Component({
   selector: 'app-repository-button',
@@ -11,6 +12,7 @@ export class RepositoryButtonComponent implements OnInit {
 
   @Input() repositories: Object;
   @Input() data: DataService;
+  @Input() authData: AuthdataDto;
   public showAllRepositories: Boolean;
   chosenRepository: String;
 

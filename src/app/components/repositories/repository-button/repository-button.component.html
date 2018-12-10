@@ -10,5 +10,5 @@
 
 <div *ngIf="!showAllRepositories">
   <app-repository-sendinvite (valueChange)="setShowAllRepositories(true)" [data]="data"
-                             [chosenRepository]="chosenRepository"></app-repository-sendinvite>
+                             [chosenRepository]="chosenRepository" [authData]="authData"></app-repository-sendinvite>
 </div>
