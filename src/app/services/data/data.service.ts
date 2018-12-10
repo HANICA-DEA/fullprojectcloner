@@ -12,22 +12,22 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  getUser(token: String) {
+  getUser(token: string) {
     const url = 'https://api.github.com/user?access_token=' + token;
     return this.http.get(url);
   }
 
-  getRepositories(token: String, username: String): Observable<Object> {
+  getRepositories(token: string, username: string): Observable<Object> {
     const url = 'https://api.github.com/users/' + username + '/repos?access_token=' + token;
     return this.http.get(url);
   }
 
-  getRepositoryIssues(token: String, username: String, repository: String): Observable<Object> {
+  getRepositoryIssues(token: string, username: string, repository: string): Observable<Object> {
     const url = 'https://api.github.com/repos/' + username + '/' + repository + 'test/issues?access_token=' + token;
     return this.http.get(url);
   }
 
-  importRepository(token: String, username: String, repository: String, content: Object) {
+  importRepository(token: string, username: string, repository: string, content: Object) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'application/vnd.github.barred-rock-preview'
@@ -36,7 +36,7 @@ export class DataService {
     this.http.post(url, content, {headers: headers});
   }
 
-  persistIssue(token: String, username: String, repository: String, content: Object) {
+  persistIssue(token: string, username: string, repository: string, content: Object) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'application/vnd.github.barred-rock-preview'
@@ -45,7 +45,7 @@ export class DataService {
     this.http.post(url, content, {headers: headers});
   }
 
-  persistRepository(token: String, name: String) {
+  persistRepository(token: string, name: string) {
     {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'
