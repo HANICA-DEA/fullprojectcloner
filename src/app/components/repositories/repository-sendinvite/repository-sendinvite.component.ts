@@ -37,12 +37,14 @@ export class RepositorySendinviteComponent implements OnInit {
   ngOnInit() {
   }
 
-  static randomStringGenerator() {
+  randomStringGenerator() {
     return Math.random().toString(36).substring(7);
   }
 
   pushToDatabase(randomString: string) {
-    this.db.collection("request").doc(this.hashRandomString(randomString)).set(JSON.parse(JSON.stringify({'URL': 'HIER KOMT EEN URL'})));
+    this.db.collection('request')
+      .doc(this.hashRandomString(randomString))
+      .set(JSON.parse(JSON.stringify({'URL': 'https://github.com/' + this.chosenRepository})));
   }
 
   goBack() {
@@ -52,7 +54,7 @@ export class RepositorySendinviteComponent implements OnInit {
 
   async getData(randomString: string) {
     let checkValidation = false;
-    await this.db.collection("request")
+    await this.db.collection('request')
       .doc(this.hashRandomString(randomString))
       .ref
       .get().then(function (doc) {
@@ -60,7 +62,7 @@ export class RepositorySendinviteComponent implements OnInit {
           checkValidation = true;
         }
       }).catch(function (error) {
-        console.log("Error getting document:", error);
+        console.log('Error getting document:', error);
       });
     return checkValidation;
   }
@@ -71,11 +73,9 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   inviteIdGenerator(): string {
-    this.inviteID = RepositorySendinviteComponent.randomStringGenerator();
+    this.inviteID = this.randomStringGenerator();
     if (this.getData(this.inviteID)) {
-      this.inviteID = RepositorySendinviteComponent.randomStringGenerator();
-    } else if (!this.getData(this.inviteID)) {
-      return this.inviteID;
+      this.inviteID = this.randomStringGenerator();
     }
     return this.inviteID;
   }

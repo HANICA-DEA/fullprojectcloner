@@ -4,6 +4,9 @@
 
 <div *ngIf="authService.isLoggedIn">
   <mat-card>
-    HIER MOET DE HELE ZOOI OM TE CLONEN: {{cloneID}}
+    <p>Weet je zeker dat je de volgende repository wilt clonen:</p>
+    getRepositoryName({{cloneID}});
+    <br><br>
+    <button (click)="clone()">Clonen!</button>
   </mat-card>
 </div>
