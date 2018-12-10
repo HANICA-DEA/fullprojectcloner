@@ -27,7 +27,8 @@ export class RepositoriesComponent implements OnInit {
   async initialiserepos() {
     this.authService.user.subscribe(async user => {
       if (user) {
-        this.authData = await this.dbService.getData('user', this.authService.userDetails.uid);
+        const document = await this.dbService.getData('user', this.authService.userDetails.uid);
+        this.authData = new AuthdataDto(document._username, document._token);
         this.data.getRepositories(this.authData.token, this.authData.username)
           .subscribe(data => {
             this.repositories = data;
