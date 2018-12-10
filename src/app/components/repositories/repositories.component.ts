@@ -41,7 +41,7 @@ export class RepositoriesComponent implements OnInit {
   }
 
   saveRequest() {
-    this.dbService.pushToDatabase('request', '123', new Object);
+    this.dbService.pushToDatabase('request', '123', {});
     //
   }
 }

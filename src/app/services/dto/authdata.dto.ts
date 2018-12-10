@@ -1,5 +1,5 @@
 export class AuthdataDto implements Authdata {
-  public _token: String;
+  public _token: string;
   public _username: string;
 
   constructor(username, token) {
@@ -14,12 +14,11 @@ export class AuthdataDto implements Authdata {
     return this;
   }
 
-
-  get token(): String {
+  get token(): string {
     return this._token;
   }
 
-  set token(value: String) {
+  set token(value: string) {
     this._token = value;
   }
 
