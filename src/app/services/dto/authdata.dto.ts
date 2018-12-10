@@ -6,7 +6,8 @@ export class AuthdataDto implements Authdata {
     this._username = username;
     this._token = token;
   }
-  public  deserialize(input: any): AuthdataDto {
+
+  public deserialize(input: any): AuthdataDto {
     this._username = input.username;
     this._token = input.token;
 
