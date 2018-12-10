@@ -37,7 +37,7 @@ export class RepositorySendinviteComponent implements OnInit {
   ngOnInit() {
   }
 
-  static randomStringGenerator() {
+  randomStringGenerator() {
     return Math.random().toString(36).substring(7);
   }
 
@@ -73,9 +73,9 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   inviteIdGenerator(): string {
-    this.inviteID = RepositorySendinviteComponent.randomStringGenerator();
+    this.inviteID = this.randomStringGenerator();
     if (this.getData(this.inviteID)) {
-      this.inviteID = RepositorySendinviteComponent.randomStringGenerator();
+      this.inviteID = this.randomStringGenerator();
     } else if (!this.getData(this.inviteID)) {
       return this.inviteID;
     }

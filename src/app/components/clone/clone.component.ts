@@ -11,13 +11,17 @@ export class CloneComponent implements OnInit {
 
   cloneID: string;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, public authService: AuthService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(event => {
       this.cloneID = event.cloneID;
     });
+  }
+
+  clone() {
+    console.log('Clone: ' + this.cloneID);
   }
 
 }
