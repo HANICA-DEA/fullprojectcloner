@@ -27,9 +27,12 @@
     "@angular/router": "~7.0.0",
     "angularfire2": "^5.1.0",
     "core-js": "^2.5.4",
+    "fast-sha256": "^1.1.0",
     "firebase": "^5.5.9",
     "hammerjs": "^2.0.8",
+    "js-sha256": "^0.9.0",
     "rxjs": "~6.3.3",
+    "sha256": "^0.2.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
