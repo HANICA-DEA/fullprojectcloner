@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Headers, Http} from '@angular/http';
 import {ContactFormDto} from '../../services/dto/contactform.dto';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-contact',
@@ -16,13 +17,21 @@ export class ContactComponent implements OnInit {
   submitted = false;
   MAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrBysjuMbBGdWRyaOXpW2PwkavvyLePxSmQeJC5CdAQEHS3ys/exec';
 
-  constructor(private formBuilder: FormBuilder, private http: Http) {
+  constructor(private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar) {
     this.contactForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       message: ['', Validators.required],
     });
   }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      verticalPosition: 'top'
+    });
+  }
+
 
   onSubmit() {
 
@@ -44,6 +53,7 @@ export class ContactComponent implements OnInit {
         .subscribe((response) => {
           console.log(response);
         });
+      this.openSnackBar('Contact form has been sent!', 'close');
       this.contactForm.reset();
 
       Object.keys(this.contactForm.controls).forEach(key => {
