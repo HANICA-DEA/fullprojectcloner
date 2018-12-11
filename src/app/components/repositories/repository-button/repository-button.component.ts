@@ -38,5 +38,4 @@ export class RepositoryButtonComponent implements OnInit {
   setShowAllRepositories(showAllRepositories: boolean) {
     this.showAllRepositories = showAllRepositories;
   }
-
 }

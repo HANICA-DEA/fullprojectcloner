@@ -23,7 +23,7 @@ export class DataService {
   }
 
   getRepositoryIssues(token: string, username: string, repository: string): Observable<Object> {
-    const url = 'https://api.github.com/repos/' + username + '/' + repository + 'test/issues?access_token=' + token;
+    const url = 'https://api.github.com/repos/' + username + '/' + repository + '/issues?access_token=' + token;
     return this.http.get(url);
   }
 
