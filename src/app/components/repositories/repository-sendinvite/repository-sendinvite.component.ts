@@ -24,9 +24,9 @@ export class RepositorySendinviteComponent implements OnInit {
   submitted = false;
   private inviteID: string;
 
-  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore, private formBuilder: FormBuilder, private http: Http, public authService: AuthService,
+  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
+              private formBuilder: FormBuilder, private http: Http, public authService: AuthService, private dataService: DataService,
   ) {
-
     this.searchForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -61,7 +61,7 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-      this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID), this.chosenRepository);
+      this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID), this.chosenRepository, null);
       this.searchForm.reset();
       Object.keys(this.searchForm.controls).forEach(key => {
         this.searchForm.controls[key].setErrors(null);

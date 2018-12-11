@@ -43,6 +43,7 @@ export class AuthService {
       });
     });
   }
+
   // public loginwithGithub() {
   //   return new Promise<any>((resolve, reject) => {
   //     this.loginwithGithubProvider().then(
@@ -59,6 +60,7 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
+        this.username = res.additionalUserInfo.username;
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
       }, err => {

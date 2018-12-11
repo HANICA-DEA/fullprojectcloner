@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {sha256} from "js-sha256";
+import {AngularFirestore} from '@angular/fire/firestore';
+import {sha256} from 'js-sha256';
+import {SendinviteDto} from '../dto/sendinvite.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class SendinviteService {
     return this._hash;
   }
 
-  pushToDatabase(randomString: string, repo: string) {
+  pushToDatabase(randomString: string, repo: string, content: SendinviteDto) {
     this._db.collection('request')
       .doc(this.hashRandomString(randomString))
       .set(JSON.parse(JSON.stringify({'URL': 'https://github.com/' + repo})));
