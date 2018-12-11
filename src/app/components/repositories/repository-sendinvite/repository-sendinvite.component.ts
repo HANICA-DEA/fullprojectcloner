@@ -17,9 +17,10 @@ export class RepositorySendinviteComponent implements OnInit {
   @Input() data: DataService;
   @Input() chosenRepository: string;
   @Input() authData: AuthdataDto;
-  searchForm: FormGroup;
   @Output() valueChange = new EventEmitter();
+  searchForm: FormGroup;
   goBackValue: boolean;
+  issues: Object;
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
@@ -63,7 +64,8 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-      this.dataService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository )
+
+      this.issues = this.dataService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository);
       this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID), this.chosenRepository, null);
       this.searchForm.reset();
       Object.keys(this.searchForm.controls).forEach(key => {

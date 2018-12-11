@@ -9,6 +9,6 @@
 </div>
 
 <div *ngIf="!showAllRepositories">
-  <app-repository-sendinvite (valueChange)="setShowAllRepositories(true)" [data]="data"
+  <app-repository-sendinvite (valueChange)="setShowAllRepositories(true)" [data]="data" [authData]="authData"
                              [chosenRepository]="chosenRepository"></app-repository-sendinvite>
 </div>
