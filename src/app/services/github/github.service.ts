@@ -7,7 +7,7 @@ import {PostrequestDto} from '../dto/postrequest.dto';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class GithubService {
 
   constructor(private http: HttpClient) {
   }

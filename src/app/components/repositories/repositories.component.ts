@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from '../../services/data/data.service';
+import {GithubService} from '../../services/github/github.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {AuthdataDto} from '../../services/dto/authdata.dto';
 import {DatabaseService} from '../../services/database/database.service';
@@ -14,7 +14,7 @@ export class RepositoriesComponent implements OnInit {
   repositories: Object;
   authData: AuthdataDto;
 
-  constructor(private data: DataService, public authService: AuthService, private dbService: DatabaseService) {
+  constructor(private data: GithubService, public authService: AuthService, private dbService: DatabaseService) {
   }
 
   async ngOnInit() {

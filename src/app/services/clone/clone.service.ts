@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {DataService} from '../data/data.service';
+import {GithubService} from '../github/github.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CloneService {
 
-  constructor(private data: DataService) { }
+  constructor(private data: GithubService) { }
   cloneProject(requestData: Object) {
   //
   }

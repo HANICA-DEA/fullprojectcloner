@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DataService} from '../../../services/data/data.service';
+import {GithubService} from '../../../services/github/github.service';
 import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
 import {AuthService} from '../../../services/auth/auth.service';
@@ -14,7 +14,7 @@ import {AuthdataDto} from '../../../services/dto/authdata.dto';
   styleUrls: ['./repository-sendinvite.component.sass']
 })
 export class RepositorySendinviteComponent implements OnInit {
-  @Input() data: DataService;
+  @Input() data: GithubService;
   @Input() chosenRepository: string;
   @Input() authData: AuthdataDto;
   @Output() valueChange = new EventEmitter();
@@ -28,7 +28,7 @@ export class RepositorySendinviteComponent implements OnInit {
   private inviteID: string;
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
-              private formBuilder: FormBuilder, private http: Http, public authService: AuthService, private dataService: DataService,
+              private formBuilder: FormBuilder, private http: Http, public authService: AuthService, private dataService: GithubService,
   ) {
     this.searchForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
