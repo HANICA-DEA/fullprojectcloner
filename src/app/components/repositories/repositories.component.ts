@@ -15,7 +15,6 @@ export class RepositoriesComponent implements OnInit {
   authData: AuthdataDto;
 
   constructor(private data: DataService, public authService: AuthService, private dbService: DatabaseService) {
-  this.data = data;
   }
 
   async ngOnInit() {
