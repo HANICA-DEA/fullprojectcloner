@@ -17,10 +17,10 @@ export class SendinviteService {
     return this._hash;
   }
 
-  pushToDatabase(randomString: string, repo: string, content: SendinviteDto) {
+  pushToDatabase(randomString: string, content: SendinviteDto) {
     this._db.collection('request')
       .doc(this.hashRandomString(randomString))
-      .set(JSON.parse(JSON.stringify({'URL': 'https://github.com/' + repo})));
+      .set(JSON.parse(JSON.stringify(content)));
   }
 
   async getData(randomString: string) {

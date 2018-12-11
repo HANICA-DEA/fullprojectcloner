@@ -9,6 +9,9 @@ import {SendinviteService} from '../../../services/sendinvite/sendinvite.service
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 import {IssueDto} from '../../../services/dto/issueDto';
 import {MatSnackBar} from '@angular/material';
+import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
+import Database = firebase.database.Database;
+import {DatabaseService} from '../../../services/database/database.service';
 
 @Component({
   selector: 'app-repository-sendinvite',
@@ -22,14 +25,14 @@ export class RepositorySendinviteComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
   searchForm: FormGroup;
   goBackValue: boolean;
-
+  issues: Array<IssueDto> = [];
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   submitted = false;
   private inviteID: string;
 
-  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
+  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore, private databaseService: DatabaseService,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
   ) {
@@ -44,14 +47,17 @@ export class RepositorySendinviteComponent implements OnInit {
         this.initialiseIssues(data);
       });
   }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
-  initialiseIssues(issues: Object) {
-    for (let issue of issues) {
-      new IssueDto(issue.number, issue.title, issue.body);
+
+  initialiseIssues(issues: object) {
+    const issueObject = JSON.parse(JSON.stringify(issues));
+    for (const issue of issueObject) {
+      this.issues.push(new IssueDto(issue.number, issue.title, issue.body));
     }
   }
 
@@ -81,7 +87,13 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-      this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID), this.chosenRepository, null);
+      this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID),
+        new SendinviteDto(
+          'https://github.com/' + this.authData.username + '/' +  this.chosenRepository.split('/')[1] ,
+          this.issues,
+          this.authData.username,
+          this.chosenRepository.split('/')[1]
+        ));
       this.searchForm.reset();
       Object.keys(this.searchForm.controls).forEach(key => {
         this.searchForm.controls[key].setErrors(null);
