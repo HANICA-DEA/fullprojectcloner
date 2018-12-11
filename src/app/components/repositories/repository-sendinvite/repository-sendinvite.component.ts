@@ -110,7 +110,6 @@ export class RepositorySendinviteComponent implements OnInit {
     this.inviteFormDto = new InviteFormDto(emailaddress, url, repositoryname, invitator);
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
-        console.log(response);
       });
   }
 }
