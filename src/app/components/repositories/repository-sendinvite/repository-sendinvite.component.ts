@@ -5,8 +5,10 @@ import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
 import {AuthService} from '../../../services/auth/auth.service';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {SendinviteService} from "../../../services/sendinvite/sendinvite.service";
+import {SendinviteService} from '../../../services/sendinvite/sendinvite.service';
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
+import {IssueDto} from '../../../services/dto/issueDto';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-repository-sendinvite',
@@ -20,7 +22,7 @@ export class RepositorySendinviteComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
   searchForm: FormGroup;
   goBackValue: boolean;
-  issues: Object;
+
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
@@ -28,7 +30,8 @@ export class RepositorySendinviteComponent implements OnInit {
   private inviteID: string;
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
-              private formBuilder: FormBuilder, private http: Http, public authService: AuthService, private dataService: GithubService,
+              private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
+              public authService: AuthService, private githubService: GithubService,
   ) {
     this.searchForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
@@ -36,6 +39,20 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.githubService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository.split('/')[1])
+      .subscribe(data => {
+        this.initialiseIssues(data);
+      });
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+  initialiseIssues(issues: Object) {
+    for (let issue of issues) {
+      new IssueDto(issue.number, issue.title, issue.body);
+    }
   }
 
   goBack() {
@@ -64,8 +81,6 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-
-      this.issues = this.dataService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository);
       this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID), this.chosenRepository, null);
       this.searchForm.reset();
       Object.keys(this.searchForm.controls).forEach(key => {

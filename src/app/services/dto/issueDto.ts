@@ -1,11 +1,11 @@
-export class IssuesDto {
+export class IssueDto {
   private _number: number;
   private _title: string;
   private _body: string;
 
-  constructor(number: number, URL: string, body: string) {
+  constructor(number: number, title: string, body: string) {
     this._number = number;
-    this._title = URL;
+    this._title = title;
     this._body = body;
   }
   get number(): number {

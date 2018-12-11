@@ -12,7 +12,7 @@ export class GithubService {
   constructor(private http: HttpClient) {
   }
 
-  getUser(token: string) {
+  getUser(token: string): Observable<Object> {
     const url = 'https://api.github.com/user?access_token=' + token;
     return this.http.get(url);
   }

@@ -1,13 +1,13 @@
-import {IssuesDto} from './issues.dto';
+import {IssueDto} from './issueDto';
 
 
 export class SendinviteDto {
   private _URL: string;
-  private _issues: Array<IssuesDto>;
+  private _issues: Array<IssueDto>;
   private _username: string;
   private _repositoryName: string;
 
-  constructor(URL: string, issues: Array<IssuesDto>, username: string, repositoryName: string) {
+  constructor(URL: string, issues: Array<IssueDto>, username: string, repositoryName: string) {
     this._URL = URL;
     this._issues = issues;
     this._username = username;
@@ -22,11 +22,11 @@ export class SendinviteDto {
     this._URL = value;
   }
 
-  get issues(): Array<IssuesDto> {
+  get issues(): Array<IssueDto> {
     return this._issues;
   }
 
-  set issues(value: Array<IssuesDto>) {
+  set issues(value: Array<IssueDto>) {
     this._issues = value;
   }
 

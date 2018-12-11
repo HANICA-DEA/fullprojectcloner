@@ -8,7 +8,7 @@ export class CloneService {
 
   constructor(private data: GithubService) { }
   cloneProject(requestData: Object) {
-  //
+  console.log('iets');
   }
 
   // function to load request data from firestore

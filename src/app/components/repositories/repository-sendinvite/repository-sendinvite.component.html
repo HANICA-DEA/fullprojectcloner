@@ -21,6 +21,7 @@
 
   </form>
   <br>
-  <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value)" class="send-button">Send invite</button>
+  <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value); openSnackBar('Request has been sent!', 'close')"
+          class="send-button">Send invite</button>
 
 </mat-card>

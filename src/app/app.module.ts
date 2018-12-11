@@ -26,6 +26,7 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
 import {CloneComponent} from './components/clone/clone.component';
+import {MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {CloneComponent} from './components/clone/clone.component';
     HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
