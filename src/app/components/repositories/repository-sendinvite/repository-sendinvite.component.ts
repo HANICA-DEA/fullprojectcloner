@@ -6,6 +6,7 @@ import {InviteFormDto} from '../../../services/dto/inviteform.dto';
 import {AuthService} from '../../../services/auth/auth.service';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {SendinviteService} from "../../../services/sendinvite/sendinvite.service";
+import {AuthdataDto} from '../../../services/dto/authdata.dto';
 
 @Component({
   selector: 'app-repository-sendinvite',
@@ -15,6 +16,7 @@ import {SendinviteService} from "../../../services/sendinvite/sendinvite.service
 export class RepositorySendinviteComponent implements OnInit {
   @Input() data: DataService;
   @Input() chosenRepository: string;
+  @Input() authData: AuthdataDto;
   searchForm: FormGroup;
   @Output() valueChange = new EventEmitter();
   goBackValue: boolean;
@@ -61,6 +63,7 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
+      this.dataService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository )
       this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID), this.chosenRepository, null);
       this.searchForm.reset();
       Object.keys(this.searchForm.controls).forEach(key => {
