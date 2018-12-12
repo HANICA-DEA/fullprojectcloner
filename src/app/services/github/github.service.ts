@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Headers, Http} from '@angular/http';
 import {PostrequestDto} from '../dto/postrequest.dto';
+import {resolve} from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -27,17 +28,14 @@ export class GithubService {
     return this.http.get(url);
   }
 
-  importRepository(token: string, username: string, repository: string, content: Object) {
+  importRepository(token: string, username: string, repository: string, content: Object): Observable<Object> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
     const url = 'https://api.github.com/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
-    console.log(url);
-    console.log(JSON.stringify(content));
-    this.http.put(url, JSON.stringify(content), {headers: headers}).subscribe(response => {
-      console.log(response);
-    });
+    return this.http.put(url, JSON.stringify(content), {headers: headers});
+
   }
 
   persistIssue(token: string, username: string, repository: string, content: Object) {
@@ -45,18 +43,18 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
-    const url = 'https://api.github.com/repos/' + username + '/' + repository + '/import?access_token=' + token;
-    this.http.post(url, JSON.stringify(content), {headers: headers}).subscribe(response => {
-      console.log(response);
-    });
+    const url = 'https://api.github.com/repos/' + username + '/' + repository + '/issues?access_token=' + token;
+    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
 
-  persistRepository(token: string, name: string): Observable<Object> {
+  persistRepository(token: string, name: string): Promise<Object> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     const url = 'https://api.github.com/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
-    return this.http.post(url, JSON.stringify(content), {headers: headers});
+    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
+
+
 }
