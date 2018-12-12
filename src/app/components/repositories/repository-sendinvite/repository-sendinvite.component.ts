@@ -9,9 +9,7 @@ import {SendinviteService} from '../../../services/sendinvite/sendinvite.service
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 import {IssueDto} from '../../../services/dto/issueDto';
 import {MatSnackBar} from '@angular/material';
-import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
-import Database = firebase.database.Database;
-import {DatabaseService} from '../../../services/database/database.service';
+import {SendinviteDto} from "../../../services/dto/sendinvite.dto";
 
 @Component({
   selector: 'app-repository-sendinvite',
@@ -31,8 +29,9 @@ export class RepositorySendinviteComponent implements OnInit {
   private inviteFormDto: InviteFormDto;
   submitted = false;
   private inviteID: string;
+  private validator: boolean;
 
-  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore, private databaseService: DatabaseService,
+  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
   ) {
@@ -47,17 +46,27 @@ export class RepositorySendinviteComponent implements OnInit {
         this.initialiseIssues(data);
       });
   }
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
+      verticalPosition: 'top'
     });
   }
 
-  initialiseIssues(issues: object) {
-    const issueObject = JSON.parse(JSON.stringify(issues));
-    for (const issue of issueObject) {
-      this.issues.push(new IssueDto(issue.number, issue.title, issue.body));
+  initialiseIssues(issues: Object) {
+    for (let issue of issues) {
+      new IssueDto(issue.number, issue.title, issue.body);
+    }
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.validator = false;
+    if (this.searchForm.invalid) {
+      return;
+    }
+    if (this.searchForm.valid) {
+      this.validator = true;
     }
   }
 
@@ -76,11 +85,9 @@ export class RepositorySendinviteComponent implements OnInit {
 
   sendInviteMail(searchedUser: string) {
     this.submitted = true;
+    this.onSubmit();
 
-    if (this.searchForm.invalid) {
-      return;
-    }
-    if (this.searchForm.valid) {
+    if (this.validator == true) {
       this.sendInviteToUser(
         searchedUser,
         'http://localhost:4200/clone/' + this.inviteIdGenerator(),
@@ -90,11 +97,12 @@ export class RepositorySendinviteComponent implements OnInit {
       console.log(this.sendInviteData.hashRandomString(this.inviteID));
       this.sendInviteData.pushToDatabase(this.inviteID,
         new SendinviteDto(
-          'https://github.com/' + this.authData.username + '/' +  this.chosenRepository.split('/')[1] ,
+          'https://github.com/' + this.authData.username + '/' +  this.chosenRepository.split('/')[1],
           this.issues,
           this.authData.username,
           this.chosenRepository.split('/')[1]
         ));
+      this.openSnackBar('Request has been sent!', 'close');
       this.searchForm.reset();
       Object.keys(this.searchForm.controls).forEach(key => {
         this.searchForm.controls[key].setErrors(null);
@@ -111,6 +119,7 @@ export class RepositorySendinviteComponent implements OnInit {
     this.inviteFormDto = new InviteFormDto(emailaddress, url, repositoryname, invitator);
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
+        console.log(response);
       });
   }
 }
