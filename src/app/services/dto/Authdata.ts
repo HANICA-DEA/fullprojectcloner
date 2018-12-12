@@ -1,4 +1,5 @@
 interface Authdata {
-  token: String;
+  token: string;
   username: string;
 }
+///

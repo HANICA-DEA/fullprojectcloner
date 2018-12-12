@@ -87,7 +87,8 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-      this.sendInviteData.pushToDatabase(this.sendInviteData.hashRandomString(this.inviteID),
+      console.log(this.sendInviteData.hashRandomString(this.inviteID));
+      this.sendInviteData.pushToDatabase(this.inviteID,
         new SendinviteDto(
           'https://github.com/' + this.authData.username + '/' +  this.chosenRepository.split('/')[1] ,
           this.issues,
