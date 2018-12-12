@@ -13,9 +13,7 @@ export class CloneService {
 
   async cloneProject(auth: Authdata, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
-    console.log(request._repositoryName);
-    console.log(auth.token);
-    await this.github.persistRepository(auth.token, request._repositoryName + '-' + auth.username).subscribe();
+    await this.github.persistRepository(auth.token, request._repositoryName + '-' + auth.username);
     await this.github.importRepository(auth.token, auth.username, request._repositoryName, new ImportDto(request._URL));
     if (request._issues.length) {
       for (const issue in request._issues) {
@@ -23,7 +21,6 @@ export class CloneService {
           await this.github.persistIssue(auth.token, auth.username, request._repositoryName, issue);
         }
       }
-      console.log('done');
     }
   }
 

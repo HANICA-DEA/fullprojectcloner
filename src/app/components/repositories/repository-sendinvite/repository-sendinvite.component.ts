@@ -53,9 +53,10 @@ export class RepositorySendinviteComponent implements OnInit {
     });
   }
 
-  initialiseIssues(issues: Object) {
-    for (let issue of issues) {
-      new IssueDto(issue.number, issue.title, issue.body);
+  initialiseIssues(issues: object) {
+    const issueObject = JSON.parse(JSON.stringify(issues));
+    for (const issue of issueObject) {
+      this.issues.push(new IssueDto(issue.number, issue.title, issue.body));
     }
   }
 
@@ -87,7 +88,7 @@ export class RepositorySendinviteComponent implements OnInit {
     this.submitted = true;
     this.onSubmit();
 
-    if (this.validator == true) {
+    if (this.validator) {
       this.sendInviteToUser(
         searchedUser,
         'http://localhost:4200/clone/' + this.inviteIdGenerator(),
@@ -119,7 +120,6 @@ export class RepositorySendinviteComponent implements OnInit {
     this.inviteFormDto = new InviteFormDto(emailaddress, url, repositoryname, invitator);
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
-        console.log(response);
       });
   }
 }
