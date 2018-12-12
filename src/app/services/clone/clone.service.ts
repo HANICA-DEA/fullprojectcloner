@@ -13,21 +13,17 @@ export class CloneService {
 
   async cloneProject(auth: Authdata, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
-    await this.github.persistRepository(auth.token, request._repositoryName + '-' + auth.username);
-    await this.github.importRepository(auth.token, auth.username, request._repositoryName, new ImportDto(request._URL));
-    if (request._issues.length) {
-      for (const issue in request._issues) {
-        if (issue != null) {
-          await this.github.persistIssue(auth.token, auth.username, request._repositoryName, issue);
+    await this.github.persistRepository(auth.token, request._repositoryName + '-' + auth.username)
+      .subscribe(async response => {
+        await this.github.importRepository(auth.token, auth.username, request._repositoryName, new ImportDto(request._URL));
+        if (request._issues.length) {
+          for (const issue in request._issues) {
+            if (issue != null) {
+              await this.github.persistIssue(auth.token, auth.username, request._repositoryName, issue);
+            }
+          }
         }
-      }
-    }
+      });
   }
-
-
-  // if issues == true
-  // GetissuesfromFirestore
-  // for loop voor issues
-  // post issue in github
 }
 

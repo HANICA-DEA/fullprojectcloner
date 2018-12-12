@@ -52,17 +52,11 @@ export class GithubService {
   }
 
   persistRepository(token: string, name: string): Observable<Object> {
-    {
-      let res = null;
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-      });
-      const url = 'https://api.github.com/user/repos?access_token=' + token;
-      const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
-      this.http.post(url, JSON.stringify(content), {headers: headers}).subscribe(response => {
-        return res = response;
-      });
-      return res;
-    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const url = 'https://api.github.com/user/repos?access_token=' + token;
+    const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
+    return this.http.post(url, JSON.stringify(content), {headers: headers});
   }
 }
