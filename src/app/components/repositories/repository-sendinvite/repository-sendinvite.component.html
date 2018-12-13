@@ -7,20 +7,42 @@
 </mat-card>
 
 <mat-card>
-  <p>Enter the e-mail of the user you want to sent your repository to here:</p>
-  <form [formGroup]="searchForm" class="example-form">
-    <mat-form-field class="field">
+  <div class="box">
+    <div class="left">
+      <mat-card>
+        <p>Send one invite to a person here:</p>
+        <form [formGroup]="searchForm" class="example-form">
+          <mat-form-field class="field">
 
-      <input #inputUser matInput placeholder="user e-mail" formControlName="email">
+            <input #inputUser matInput placeholder="user e-mail" formControlName="email">
 
-    </mat-form-field>
-    <div *ngIf="submitted && searchForm.controls.email.errors" class="error">
-      <div *ngIf="searchForm.controls.email.errors.required">Your e-mail is required</div>
-      <div *ngIf="searchForm.controls.email.errors.email">E-mail is not valid</div>
+          </mat-form-field>
+          <div *ngIf="submitted && searchForm.controls.email.errors" class="error">
+            <div *ngIf="searchForm.controls.email.errors.required">Your e-mail is required</div>
+            <div *ngIf="searchForm.controls.email.errors.email">E-mail is not valid</div>
+          </div>
+
+        </form>
+        <br>
+        <div class="submitbtn">
+          <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value)"
+                  class="send-button">Send invite
+          </button>
+        </div>
+      </mat-card>
     </div>
-
-  </form>
-  <br>
-  <button type="submit" mat-raised-button (click)="sendInviteMail(inputUser.value)"
-          class="send-button">Send invite</button>
+    <div class="right">
+      <mat-card>
+        <p>Send multiple invites here:</p>
+        <br>
+        <div class="upload-btn-wrapper">
+          <button class="btn">Upload a CSV</button>
+          <input type="file" name="CSV"/>
+        </div>
+        <div class="submitbtn">
+          <button type="submit" mat-raised-button class="send-button">Send invite</button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 </mat-card>
