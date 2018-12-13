@@ -9,7 +9,7 @@ import {SendinviteService} from '../../../services/sendinvite/sendinvite.service
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 import {IssueDto} from '../../../services/dto/issueDto';
 import {MatSnackBar} from '@angular/material';
-import {SendinviteDto} from "../../../services/dto/sendinvite.dto";
+import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
 
 @Component({
   selector: 'app-repository-sendinvite',
