@@ -6,10 +6,12 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./sidemenu.component.sass']
 })
 export class SidemenuComponent implements OnInit {
+  currentYear;
 
   constructor() { }
 
   ngOnInit() {
+    this.currentYear = (new Date()).getFullYear();
   }
 
 }
