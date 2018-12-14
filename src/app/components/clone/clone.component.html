@@ -18,10 +18,18 @@
 
 <div *ngIf="authService.isLoggedIn">
   <mat-card>
-    <p>Weet je zeker dat je de volgende repository wilt clonen:</p>
-    getRepositoryName({{cloneID}});
+    <p>Are you sure you want to copy the following GitHub repository:</p>
+    <p>{{requestData._repositoryName}}</p>
+    <br>
+    <p>These issues will also be copied to your new repository:</p>
+
+    <div *ngFor="let issue of requestData._issues.reverse()">
+      <p class="issuehead">{{issue._number}}. {{issue._title}}</p>
+      <p class="issuebody">{{issue._body}}</p>
+      <br>
+    </div>
     <br><br>
-    <button (click)="clone()">Clonen!</button>
+    <button mat-flat-button (click)="clone()" class="clonebutton">Clonen!</button>
   </mat-card>
-  <pre> {{requestData | json }}</pre>
+
 </div>
