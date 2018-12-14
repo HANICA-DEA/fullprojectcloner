@@ -30,13 +30,14 @@ export class RepositorySendinviteComponent implements OnInit {
   submitted = false;
   private inviteID: string;
   private validator: boolean;
+  csvNewContent: string;
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
   ) {
     this.searchForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.email]]
     });
   }
 
@@ -90,12 +91,12 @@ export class RepositorySendinviteComponent implements OnInit {
 
     if (this.validator) {
       this.sendInviteToUser(
-        searchedUser,
+        this.csvNewContent,
         'http://localhost:4200/clone/' + this.inviteIdGenerator(),
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-      console.log(this.sendInviteData.hashRandomString(this.inviteID));
+      console.log(this.csvNewContent);
       this.sendInviteData.pushToDatabase(this.inviteID,
         new SendinviteDto(
           'https://github.com/' + this.authData.username + '/' +  this.chosenRepository.split('/')[1],
@@ -121,5 +122,22 @@ export class RepositorySendinviteComponent implements OnInit {
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
       });
+  }
+
+  onFileLoad(fileLoadedEvent) {
+    let csvContent = fileLoadedEvent.target.result;
+    let re = /;/gi;
+    this.csvNewContent = csvContent.toString().replace(re, ",");
+    alert('The given recipients are: \n\n' + this.csvNewContent + '\n\nPlease check if this is correct and correct your input if needed.');
+  }
+
+  onFileSelect(input: HTMLInputElement) {
+    const files = input.files;
+    if (files && files.length) {
+      const fileToRead = files[0];
+      const fileReader = new FileReader();
+      fileReader.onload = this.onFileLoad.bind(this);
+      fileReader.readAsText(fileToRead, "UTF-8");
+    }
   }
 }

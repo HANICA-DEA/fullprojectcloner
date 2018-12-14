@@ -15,8 +15,12 @@
 
     </mat-form-field>
     <div *ngIf="submitted && searchForm.controls.email.errors" class="error">
-      <div *ngIf="searchForm.controls.email.errors.required">Your e-mail is required</div>
       <div *ngIf="searchForm.controls.email.errors.email">E-mail is not valid</div>
+    </div>
+
+    <div class="form-group">
+      <input #inputUser type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
+             data-max-size="2048">
     </div>
 
   </form>
