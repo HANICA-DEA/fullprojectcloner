@@ -21,22 +21,23 @@ export class RepositorySendinviteComponent implements OnInit {
   @Input() chosenRepository: string;
   @Input() authData: AuthdataDto;
   @Output() valueChange = new EventEmitter();
-  searchForm: FormGroup;
+  singleRecipientForm: FormGroup;
+  multiRecipientForm: FormGroup;
   goBackValue: boolean;
   issues: Array<IssueDto> = [];
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
-  submitted = false;
   private inviteID: string;
-  private validator: boolean;
+  private singleValidator: boolean;
+  csvNewContent: string;
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
   ) {
-    this.searchForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+    this.singleRecipientForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -61,13 +62,10 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.validator = false;
-    if (this.searchForm.invalid) {
+    if (this.singleRecipientForm.invalid) {
       return;
-    }
-    if (this.searchForm.valid) {
-      this.validator = true;
+    } else if (this.singleRecipientForm.valid) {
+      this.singleValidator = true;
     }
   }
 
@@ -85,30 +83,32 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   sendInviteMail(searchedUser: string) {
-    this.submitted = true;
+    let recipient: string;
     this.onSubmit();
 
-    if (this.validator) {
+    if (this.singleValidator) {
+      recipient = searchedUser;
+    } else {
+      recipient = this.csvNewContent;
+    }
       this.sendInviteToUser(
-        searchedUser,
+        recipient,
         'http://localhost:4200/clone/' + this.inviteIdGenerator(),
         this.chosenRepository,
         this.chosenRepository.split('/')[0]
       );
-      console.log(this.sendInviteData.hashRandomString(this.inviteID));
       this.sendInviteData.pushToDatabase(this.inviteID,
         new SendinviteDto(
-          'https://github.com/' + this.authData.username + '/' +  this.chosenRepository.split('/')[1],
+          'https://github.com/' + this.authData.username + '/' + this.chosenRepository.split('/')[1],
           this.issues,
           this.authData.username,
           this.chosenRepository.split('/')[1]
         ));
       this.openSnackBar('Request has been sent!', 'close');
-      this.searchForm.reset();
-      Object.keys(this.searchForm.controls).forEach(key => {
-        this.searchForm.controls[key].setErrors(null);
+    this.singleRecipientForm.reset();
+    Object.keys(this.singleRecipientForm.controls).forEach(key => {
+      this.singleRecipientForm.controls[key].setErrors(null);
       });
-    }
   }
 
   private randomStringGenerator() {
@@ -121,5 +121,22 @@ export class RepositorySendinviteComponent implements OnInit {
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
       });
+  }
+
+  onFileLoad(fileLoadedEvent) {
+    let csvContent = fileLoadedEvent.target.result;
+    let re = /;/gi;
+    this.csvNewContent = csvContent.toString().replace(re, ",");
+    alert('The given recipients are: \n\n' + this.csvNewContent + '\n\nPlease check if this is correct and correct your input if needed.');
+  }
+
+  onFileSelect(input: HTMLInputElement) {
+    const files = input.files;
+    if (files && files.length) {
+      const fileToRead = files[0];
+      const fileReader = new FileReader();
+      fileReader.onload = this.onFileLoad.bind(this);
+      fileReader.readAsText(fileToRead, "UTF-8");
+    }
   }
 }
