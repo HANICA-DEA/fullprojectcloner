@@ -30,15 +30,14 @@ export class AuthService {
       });
   }
 
+  // word naar mijn idee geen gebruik van gemaakt |Kevin
   public checkLoginStatus() {
     return new Promise((resolve, reject) => {
       const unsubscribe = firebase.auth().onAuthStateChanged(user => {
         this._userDetails = user;
-        console.log(this._userDetails.uid + ' 7');
         unsubscribe();
         resolve(user);
       }, err => {
-        console.log(err);
         reject(err);
       });
     });
@@ -56,11 +55,10 @@ export class AuthService {
   //   });
   // }
 
-  public loginwithGithubProvider(): Promise<firebase.auth.UserCredential> {
+  public loginwithGithubProvider(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
-        this.username = res.additionalUserInfo.username;
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
       }, err => {
