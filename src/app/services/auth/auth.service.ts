@@ -62,8 +62,7 @@ export class AuthService {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
       }, err => {
-        console.log(err);
-        reject(err);
+          reject(err.code);
       });
     });
   }

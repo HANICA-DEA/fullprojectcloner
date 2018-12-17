@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {GithubService} from '../../services/github/github.service';
+import {Errorcode} from './errorcode.enum';
 
 
 @Component({
@@ -20,7 +21,12 @@ export class LoginComponent implements OnInit {
     this.authService.loginwithGithubProvider()
       .then(this.loginError = null)
       .catch(err => {
-        this.loginError = err;
+        if (err === Errorcode.FIREBASE_POPUP_CLOSED) {
+        this.loginError = 'The popup has been closed before authentication';
+        }
+        if (err === Errorcode.FIREBASE_REQUEST_EXESS) {
+          this.loginError = 'To many requests to the server';
+        }
       }
     );
   }

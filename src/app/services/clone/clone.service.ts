@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {GithubService} from '../github/github.service';
 import {ImportDto} from '../dto/import.dto';
-import {IssueDto} from '../dto/issueDto';
 import {IssuerequestDto} from '../dto/issuerequest.dto';
+import {AuthdataDto} from '../dto/authdata.dto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ export class CloneService {
   constructor(private github: GithubService) {
   }
 
-  async cloneProject(auth: Authdata, requestData: Object) {
+  async cloneProject(auth: AuthdataDto, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
-    await this.github.persistRepository(auth.token, request._repositoryName + '-' + auth.username)
+    await this.github.persistRepository(auth._token, request._repositoryName + '-' + auth.username)
       .then(async Reporesponse => {
         if (Reporesponse != null) {
           const impStarted = await this.github.importRepository
