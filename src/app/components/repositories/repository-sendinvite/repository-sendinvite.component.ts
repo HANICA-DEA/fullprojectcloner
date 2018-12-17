@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
 import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
@@ -24,12 +24,18 @@ export class RepositorySendinviteComponent implements OnInit {
   singleRecipientForm: FormGroup;
   multiRecipientForm: FormGroup;
   goBackValue: boolean;
+  formSent: boolean;
+  submitted: boolean;
   issues: Array<IssueDto> = [];
+
+  @ViewChild(FormGroupDirective)
+  formGroupDirective: FormGroupDirective;
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: string;
   private singleValidator: boolean;
+  private multiValidator: boolean;
   csvNewContent: string;
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
@@ -61,14 +67,6 @@ export class RepositorySendinviteComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    if (this.singleRecipientForm.invalid) {
-      return;
-    } else if (this.singleRecipientForm.valid) {
-      this.singleValidator = true;
-    }
-  }
-
   goBack() {
     this.goBackValue = true;
     this.valueChange.emit(this.goBackValue);
@@ -82,33 +80,46 @@ export class RepositorySendinviteComponent implements OnInit {
     return this.inviteID;
   }
 
-  sendInviteMail(searchedUser: string) {
+  sendToSelector(searchedUser: string) {
     let recipient: string;
-    this.onSubmit();
+
+    this.submitted = true;
+    this.formSent = false;
+    if (this.singleRecipientForm.invalid) {
+      return;
+    } else if (this.singleRecipientForm.valid) {
+      this.singleValidator = true;
+    } else if (this.multiRecipientForm.valid) {
+      this.multiValidator = true;
+    }
 
     if (this.singleValidator) {
       recipient = searchedUser;
-    } else {
+      this.sendInviteMail(recipient);
+    } else if (this.multiValidator) {
       recipient = this.csvNewContent;
+      this.sendInviteMail(recipient);
     }
-      this.sendInviteToUser(
-        recipient,
-        'http://localhost:4200/clone/' + this.inviteIdGenerator(),
-        this.chosenRepository,
-        this.chosenRepository.split('/')[0]
-      );
-      this.sendInviteData.pushToDatabase(this.inviteID,
-        new SendinviteDto(
-          'https://github.com/' + this.authData.username + '/' + this.chosenRepository.split('/')[1],
-          this.issues,
-          this.authData.username,
-          this.chosenRepository.split('/')[1]
-        ));
-      this.openSnackBar('Request has been sent!', 'close');
+  }
+
+  private sendInviteMail(recipient: string) {
+    this.sendInviteToUser(
+      recipient,
+      'http://localhost:4200/clone/' + this.inviteIdGenerator(),
+      this.chosenRepository,
+      this.chosenRepository.split('/')[0]
+    );
+    this.sendInviteData.pushToDatabase(this.inviteID,
+      new SendinviteDto(
+        'https://github.com/' + this.authData.username + '/' + this.chosenRepository.split('/')[1],
+        this.issues,
+        this.authData.username,
+        this.chosenRepository.split('/')[1]
+      ));
+    this.openSnackBar('Request has been sent!', 'close');
     this.singleRecipientForm.reset();
-    Object.keys(this.singleRecipientForm.controls).forEach(key => {
-      this.singleRecipientForm.controls[key].setErrors(null);
-      });
+    this.formGroupDirective.resetForm();
+    this.formSent = true;
   }
 
   private randomStringGenerator() {

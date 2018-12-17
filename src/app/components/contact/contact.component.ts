@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Headers, Http} from '@angular/http';
 import {ContactFormDto} from '../../services/dto/contactform.dto';
 import {MatSnackBar} from '@angular/material';
@@ -12,9 +12,13 @@ import {MatSnackBar} from '@angular/material';
 
 export class ContactComponent implements OnInit {
 
+  @ViewChild(FormGroupDirective)
+  formGroupDirective: FormGroupDirective;
+
   private contactFormDto: ContactFormDto;
   contactForm: FormGroup;
   submitted = false;
+  formSent = false;
   MAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrBysjuMbBGdWRyaOXpW2PwkavvyLePxSmQeJC5CdAQEHS3ys/exec';
 
   constructor(private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar) {
@@ -36,6 +40,7 @@ export class ContactComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
+    this.formSent = false;
 
     if (this.contactForm.invalid) {
       return;
@@ -55,10 +60,8 @@ export class ContactComponent implements OnInit {
         });
       this.openSnackBar('Contact form has been sent!', 'close');
       this.contactForm.reset();
-
-      Object.keys(this.contactForm.controls).forEach(key => {
-        this.contactForm.controls[key].setErrors(null);
-      });
+      this.formGroupDirective.resetForm();
+      this.formSent = true;
     }
   }
 
