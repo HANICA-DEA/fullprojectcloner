@@ -19,15 +19,7 @@ export class DatabaseService {
     return document.data();
   }
 
-  deleteData(subject: string, key: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.afs.collection(subject).doc(key).delete().then(
-        res => {
-          resolve(res);
-        }, err => {
-          console.log(err);
-          reject(err);
-        });
-    });
+  async deleteData(subject: string, key: string): void {
+    return await this.afs.collection('user').doc('YSMBUaJjjxS7wCCG7SxWyLqcpfI2').delete();
   }
 }

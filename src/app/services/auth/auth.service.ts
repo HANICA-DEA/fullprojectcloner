@@ -69,6 +69,7 @@ export class AuthService {
   }
 
   public logout(): Promise<boolean | Observable<never> | never> {
+    this.databaseService.deleteData('user', this.userDetails.uid);
     return this._afAuth.auth.signOut()
       .then((res) => this.router.navigate(['/'])
         .catch((err) => throwError('signout failed')));

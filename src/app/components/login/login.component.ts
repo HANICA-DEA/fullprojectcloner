@@ -17,12 +17,12 @@ export class LoginComponent implements OnInit {
   }
 
   public signInWithGithub(): void {
-    this.authService.loginwithGithubProvider().catch(err => {
+    this.authService.loginwithGithubProvider()
+      .then(this.loginError = null)
+      .catch(err => {
         this.loginError = err;
-        console.log('test' + err);
       }
     );
-
   }
 
   public logout(): void {
