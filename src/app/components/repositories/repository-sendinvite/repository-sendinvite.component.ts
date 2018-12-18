@@ -27,6 +27,7 @@ export class RepositorySendinviteComponent implements OnInit {
   formSent: boolean;
   submitted: boolean;
   issues: Array<IssueDto> = [];
+
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: string;
@@ -43,13 +44,21 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(CsvDialogComponent, {});
 
+    let dialogRef = this.dialog.open(CsvDialogComponent, {
+      data: {
+        textContent: this.stringReplace(this.textContent),
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      if (result) {
+        this.sendMailCSVInput();
+      } else {
+        return;
+      }
     })
   }
+
   ngOnInit() {
     this.githubService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository.split('/')[1])
       .subscribe(data => {
@@ -88,7 +97,6 @@ export class RepositorySendinviteComponent implements OnInit {
     this.formSent = false;
     if (this.singleRecipientForm.valid) {
       recipients = this.stringReplace(recipients);
-      console.log(recipients);
       this.sendInviteMail(recipients);
       this.singleRecipientForm.reset();
       this.formSent = true;
@@ -97,8 +105,8 @@ export class RepositorySendinviteComponent implements OnInit {
 
   sendMailCSVInput() {
     let recipients: string;
-      recipients = this.textContent;
-      this.sendInviteMail(recipients);
+    recipients = this.textContent;
+    this.sendInviteMail(recipients);
   }
 
   private sendInviteMail(recipient: string) {
@@ -133,7 +141,6 @@ export class RepositorySendinviteComponent implements OnInit {
   onFileLoad(fileLoadedEvent) {
     const csvContent = fileLoadedEvent.target.result;
     this.textContent = this.stringReplace(csvContent);
-    alert('The given recipients are: \n\n' + this.textContent + '\n\nPlease check if this is correct and correct your input if needed.');
   }
 
   onFileSelect(input: HTMLInputElement) {

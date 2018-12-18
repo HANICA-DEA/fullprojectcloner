@@ -8,12 +8,13 @@
 
 <mat-card>
   <p>Send invites manually:</p>
-  <form [formGroup]="singleRecipientForm" (ngSubmit)="onSubmit()" class="email-form">
+  <form [formGroup]="singleRecipientForm" class="example-form">
     <mat-form-field class="field">
       <textarea #textInput matInput placeholder="user e-mail" formControlName="email"></textarea>
     </mat-form-field>
     <div *ngIf="!formSent && submitted && singleRecipientForm.controls.email.errors" class="error">
       <div *ngIf="singleRecipientForm.controls.email.errors.required">Your e-mail is required</div>
+      <div *ngIf="singleRecipientForm.controls.email.errors.email">E-mail is not valid</div>
     </div>
     <br>
     <div class="submitbtn">
@@ -27,6 +28,7 @@
 <mat-card>
   <p>Send multiple invites:</p>
   <br>
+  <form [formGroup]="multiRecipientForm" #formDirective="ngForm" class="example-form">
     <input type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
            data-max-size="2048">
     <div class="submitbtn">
@@ -34,5 +36,6 @@
         invite
       </button>
     </div>
+  </form>
 </mat-card>
 
