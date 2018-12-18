@@ -26,7 +26,7 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
 import {CloneComponent} from './components/clone/clone.component';
-import {CsvDialogComponent} from "./dialogues/csv-dialog/csv-dialog.component";
+import {CsvDialogComponent} from './dialogues/csv-dialog/csv-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
