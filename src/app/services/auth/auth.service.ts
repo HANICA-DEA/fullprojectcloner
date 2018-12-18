@@ -29,8 +29,6 @@ export class AuthService {
         }
       });
   }
-
-  // word naar mijn idee geen gebruik van gemaakt |Kevin
   public checkLoginStatus() {
     return new Promise((resolve, reject) => {
       const unsubscribe = firebase.auth().onAuthStateChanged(user => {
@@ -42,19 +40,6 @@ export class AuthService {
       });
     });
   }
-
-  // public loginwithGithub() {
-  //   return new Promise<any>((resolve, reject) => {
-  //     this.loginwithGithubProvider().then(
-  //       res => {
-  //         resolve(res);
-  //       }, err => {
-  //         console.log(err);
-  //         reject(err);
-  //       });
-  //   });
-  // }
-
   public loginwithGithubProvider(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
@@ -122,5 +107,8 @@ export class AuthService {
     this._afAuth = value;
   }
 
+  public returnfalse() {
+    return false;
+  }
 
 }

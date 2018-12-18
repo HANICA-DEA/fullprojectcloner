@@ -9,8 +9,10 @@ import {RouterModule} from '@angular/router';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {HttpClient, HttpHandler} from '@angular/common/http';
+import {reject, resolve} from 'q';
 
 class MockAuthService  extends AuthService {
+
 }
 
 describe('LoginComponent', () => {
@@ -56,6 +58,18 @@ describe('LoginComponent', () => {
     expect(service instanceof MockAuthService).toBeTruthy();
   });
   it('Login should be successful', () => {
-    spyOn(service, 'loginwithGithubProvider').and.returnValue(true);
+    spyOn(service, 'loginwithGithubProvider').and.returnValue(Promise.resolve());
+    expect(component.loginError).toBeFalsy();
+    // expect(service.loginwithGithubProvider).toHaveBeenCalled();
+  });
+  it('Login should display error', (done) => {
+    spyOn(service, 'returnfalse').and.returnValue(Promise.reject('auth/popup-closed-by-user'));
+    component.signInWithGithub();
+
+    expect(component.loginError).toBe('The popup has been closed before authentication');
+  });
+  it('Login should display error', () => {
+    spyOn(service, 'loginwithGithubProvider').and.returnValue(resolve(''));
+    expect(component.loginError).toBeFalsy();
   });
 });
