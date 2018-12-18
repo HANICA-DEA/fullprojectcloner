@@ -45,7 +45,7 @@ export class RepositorySendinviteComponent implements OnInit {
 
   openDialog(): void {
 
-    let dialogRef = this.dialog.open(CsvDialogComponent, {
+    const dialogRef = this.dialog.open(CsvDialogComponent, {
       data: {
         textContent: this.stringReplace(this.textContent),
       }
@@ -56,7 +56,7 @@ export class RepositorySendinviteComponent implements OnInit {
       } else {
         return;
       }
-    })
+    });
   }
 
   ngOnInit() {
