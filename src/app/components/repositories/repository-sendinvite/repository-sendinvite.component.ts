@@ -44,7 +44,6 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   openDialog(): void {
-
     const dialogRef = this.dialog.open(CsvDialogComponent, {
       data: {
         textContent: this.stringReplace(this.textContent),

@@ -27,6 +27,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
 import {CloneComponent} from './components/clone/clone.component';
 import {CsvDialogComponent} from './dialogues/csv-dialog/csv-dialog.component';
+import {CloneDialogComponent} from './dialogues/clone-dialog/clone-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
@@ -41,7 +42,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     RepositoryButtonComponent,
     RepositorySendinviteComponent,
     CloneComponent,
-    CsvDialogComponent
+    CsvDialogComponent,
+    CloneDialogComponent
+
   ],
   imports: [
     BrowserModule,
@@ -53,8 +56,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -63,7 +66,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule
   ],
   entryComponents: [
-    CsvDialogComponent
+    CsvDialogComponent,
+    CloneDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

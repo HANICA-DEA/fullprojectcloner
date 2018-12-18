@@ -1,6 +1,4 @@
-import {CsvDialogComponent} from './csv-dialog.component';
-
-describe('CsvDialogComponent', () => {
+describe('CloneDialogComponent', () => {
 
   it('empty test', () => {
   });
