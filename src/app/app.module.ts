@@ -11,7 +11,7 @@ import {ContactComponent} from './components/contact/contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatSnackBarModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
@@ -26,7 +26,8 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
 import {CloneComponent} from './components/clone/clone.component';
-import {MatSnackBarModule} from '@angular/material';
+import {CsvDialogComponent} from "./dialogues/csv-dialog/csv-dialog.component";
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {MatSnackBarModule} from '@angular/material';
     RepositoryButtonComponent,
     RepositorySendinviteComponent,
     CloneComponent,
+    CsvDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,11 @@ import {MatSnackBarModule} from '@angular/material';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CsvDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

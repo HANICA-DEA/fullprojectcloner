@@ -34,7 +34,7 @@
     <input type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
            data-max-size="2048" formControlName="csv">
     <div class="submitbtn">
-      <button type="button" mat-raised-button class="send-button" (click)="sendMailCSVInput()">Send
+      <button type="button" mat-raised-button class="send-button" (click)="openDialog()">Send
         invite
       </button>
     </div>
