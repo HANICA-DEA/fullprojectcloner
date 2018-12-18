@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
-import {GithubService} from '../../services/github/github.service';
 import {DatabaseService} from '../../services/database/database.service';
 import {SendinviteService} from '../../services/sendinvite/sendinvite.service';
 import {CloneService} from '../../services/clone/clone.service';
 import {AuthdataDto} from '../../services/dto/authdata.dto';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-cloneinvite',
@@ -18,9 +18,10 @@ export class CloneComponent implements OnInit {
   issues: Object;
   requestData: Object;
   authData: AuthdataDto;
+  cloneButtonClicked = false;
 
   constructor(private route: ActivatedRoute, public authService: AuthService, private databaseService: DatabaseService,
-              private sendInviteService: SendinviteService, private cloneService: CloneService) {
+              private sendInviteService: SendinviteService, private cloneService: CloneService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -32,7 +33,12 @@ export class CloneComponent implements OnInit {
   }
 
   clone() {
+    this.cloneButtonClicked = true;
     this.cloneService.cloneProject(this.authData, this.requestData);
+    this.snackBar.open('Cloning project right now, you will receive an e-mail from GitHub when your project is ready', '', {
+      duration: 10000,
+      verticalPosition: 'top'
+    });
   }
 
   async initialiseRequestData() {
@@ -47,4 +53,5 @@ export class CloneComponent implements OnInit {
       }
     });
   }
+
 }
