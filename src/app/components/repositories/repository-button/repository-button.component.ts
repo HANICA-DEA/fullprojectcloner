@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 
@@ -16,11 +16,7 @@ export class RepositoryButtonComponent implements OnInit {
   public showAllRepositories: Boolean;
   chosenRepository: String;
 
-  checkboxForm: FormGroup;
-
-
   constructor(private formBuilder: FormBuilder) {
-    this.checkboxForm = this.formBuilder.group({});
     this.showAllRepositories = true;
     this.chosenRepository = null;
 
