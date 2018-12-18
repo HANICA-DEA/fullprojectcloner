@@ -23,7 +23,7 @@ export class CsvDialogComponent {
 
   onYesClick(): void {
     this.dialogRef.close();
-    this.repositorySendinviteComponent.sendToSelector(null)
+    this.repositorySendinviteComponent.sendMailCSVInput();
   }
 
 }

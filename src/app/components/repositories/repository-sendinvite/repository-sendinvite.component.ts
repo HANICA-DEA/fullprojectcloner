@@ -35,9 +35,7 @@ export class RepositorySendinviteComponent implements OnInit {
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: string;
-  private singleValidator: boolean;
-  private multiValidator: boolean;
-  csvNewContent: string;
+  textContent: string;
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
@@ -45,7 +43,8 @@ export class RepositorySendinviteComponent implements OnInit {
               public dialog: MatDialog
   ) {
     this.singleRecipientForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required// , Validators.email
+      ]],
     });
   }
 
@@ -90,25 +89,24 @@ export class RepositorySendinviteComponent implements OnInit {
     return this.inviteID;
   }
 
-  sendToSelector(searchedUser: string) {
-    let recipient: string;
-
+  sendMailTextInput(recipients: string) {
     this.submitted = true;
     this.formSent = false;
-    if (this.singleRecipientForm.invalid) {
-      return;
-    } else if (this.singleRecipientForm.valid) {
-      this.singleValidator = true;
-    } else if (this.multiRecipientForm.valid) {
-      this.multiValidator = true;
+    if (this.singleRecipientForm.valid) {
+      recipients = this.stringReplace(recipients);
+      console.log(recipients);
+      this.sendInviteMail(recipients);
+      this.singleRecipientForm.reset();
+      this.formGroupDirective.resetForm();
+      this.formSent = true;
     }
+  }
 
-    if (this.singleValidator) {
-      recipient = searchedUser;
-      this.sendInviteMail(recipient);
-    } else if (this.multiValidator) {
-      recipient = this.csvNewContent;
-      this.sendInviteMail(recipient);
+  sendMailCSVInput() {
+    let recipients: string;
+    if (this.multiRecipientForm.valid) {
+      recipients = this.textContent;
+      this.sendInviteMail(recipients);
     }
   }
 
@@ -127,9 +125,6 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository.split('/')[1]
       ));
     this.openSnackBar('Request has been sent!', 'close');
-    this.singleRecipientForm.reset();
-    this.formGroupDirective.resetForm();
-    this.formSent = true;
   }
 
   private randomStringGenerator() {
@@ -145,10 +140,9 @@ export class RepositorySendinviteComponent implements OnInit {
   }
 
   onFileLoad(fileLoadedEvent) {
-    let csvContent = fileLoadedEvent.target.result;
-    let re = /;/gi;
-    this.csvNewContent = csvContent.toString().replace(re, ",");
-    alert('The given recipients are: \n\n' + this.csvNewContent + '\n\nPlease check if this is correct and correct your input if needed.');
+    const csvContent = fileLoadedEvent.target.result;
+    this.textContent = this.stringReplace(csvContent);
+    alert('The given recipients are: \n\n' + this.textContent + '\n\nPlease check if this is correct and correct your input if needed.');
   }
 
   onFileSelect(input: HTMLInputElement) {
@@ -157,7 +151,12 @@ export class RepositorySendinviteComponent implements OnInit {
       const fileToRead = files[0];
       const fileReader = new FileReader();
       fileReader.onload = this.onFileLoad.bind(this);
-      fileReader.readAsText(fileToRead, "UTF-8");
+      fileReader.readAsText(fileToRead, 'UTF-8');
     }
+  }
+
+  private stringReplace(content: string) {
+    const re = /;/gi;
+    return content.toString().replace(re, ',');
   }
 }
