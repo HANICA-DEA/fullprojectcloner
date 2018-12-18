@@ -18,10 +18,10 @@
 
 <div *ngIf="authService.isLoggedIn">
   <mat-card>
-    <p>Are you sure you want to copy the following GitHub repository:</p>
+    <p>You're about to clone the following project:</p>
     <h3 class="reponame">{{requestData?._repositoryName}}</h3>
     <br>
-    <p>These issues will also be copied to your new repository:</p>
+    <p>These issues will be copied to your new project:</p>
 
     <div *ngFor="let issue of requestData?._issues">
       <p class="issuehead">{{issue?._number}}. {{issue?._title}}</p>
@@ -30,7 +30,7 @@
     </div>
     <br><br>
     <div *ngIf="requestData != null && !cloneButtonClicked">
-      <button mat-flat-button (click)="clone()" class="clonebutton">Clonen!</button>
+      <button mat-flat-button (click)="openDialog()" class="clonebutton">Clone</button>
     </div>
   </mat-card>
 </div>

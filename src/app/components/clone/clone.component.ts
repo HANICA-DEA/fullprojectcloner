@@ -5,7 +5,8 @@ import {DatabaseService} from '../../services/database/database.service';
 import {SendinviteService} from '../../services/sendinvite/sendinvite.service';
 import {CloneService} from '../../services/clone/clone.service';
 import {AuthdataDto} from '../../services/dto/authdata.dto';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {CloneDialogComponent} from "../../dialogues/clone-dialog/clone-dialog.component";
 
 @Component({
   selector: 'app-cloneinvite',
@@ -21,7 +22,23 @@ export class CloneComponent implements OnInit {
   cloneButtonClicked = false;
 
   constructor(private route: ActivatedRoute, public authService: AuthService, private databaseService: DatabaseService,
-              private sendInviteService: SendinviteService, private cloneService: CloneService, public snackBar: MatSnackBar) {
+              private sendInviteService: SendinviteService, private cloneService: CloneService, public snackBar: MatSnackBar,
+              public dialog: MatDialog) {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CloneDialogComponent, {
+      data: {
+        requestData: this.requestData,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clone();
+      } else {
+        return;
+      }
+    });
   }
 
   ngOnInit() {
@@ -35,7 +52,7 @@ export class CloneComponent implements OnInit {
   clone() {
     this.cloneButtonClicked = true;
     this.cloneService.cloneProject(this.authData, this.requestData);
-    this.snackBar.open('Cloning project right now, you will receive an e-mail from GitHub when your project is ready', '', {
+    this.snackBar.open('Your project is being cloned, you will receive an e-mail when the project has successfully been cloned. This can take up to 5 minutes.', 'close', {
       duration: 10000,
       verticalPosition: 'top'
     });
