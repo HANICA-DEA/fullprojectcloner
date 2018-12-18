@@ -1,41 +1,43 @@
-<div class="box">
-  <div class="left">
-    <mat-card class="matbox">
-      <p>Send one invite to a person here:</p>
-      <form [formGroup]="singleRecipientForm" #formDirective="ngForm" class="example-form">
-        <mat-form-field class="field">
+<mat-card>
+  <button mat-flat-button class="btn-back" (click)="goBack()" #backButton>Back</button>
 
-          <input #inputUser1 matInput placeholder="user e-mail" formControlName="email">
+  <p class="chosenrepo">You chose to clone this repository: <br><br></p>
+  <p class="repository">{{chosenRepository}}</p><br>
 
-        </mat-form-field>
-        <div *ngIf="!formSent && submitted && singleRecipientForm.controls.email.errors" class="error">
-          <div *ngIf="singleRecipientForm.controls.email.errors.required">Your e-mail is required</div>
-          <div *ngIf="singleRecipientForm.controls.email.errors.email">E-mail is not valid</div>
-        </div>
-        <br>
-        <div class="submitbtn">
-          <button type="submit" mat-raised-button (click)="sendToSelector(inputUser1.value)"
-                  class="send-button">Send invite
-          </button>
-        </div>
-      </form>
-    </mat-card>
-  </div>
+</mat-card>
 
-  <div class="right">
-    <mat-card class="matbox">
-      <p>Send multiple invites here:</p>
-      <br>
-      <form [formGroup]="multiRecipientForm" #formDirective="ngForm" class="example-form">
-        <input #inputUser2 type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
-               data-max-size="2048" formControlName="csv">
-        <div class="submitbtn">
-          <button type="submit" mat-raised-button class="send-button" (click)="sendToSelector(inputUser2.value)">Send
-            invite
-          </button>
-        </div>
-      </form>
-    </mat-card>
-  </div>
-</div>
+<mat-card>
+  <p>Send invites manually:</p>
+  <form [formGroup]="singleRecipientForm" #formDirective="ngForm" class="example-form">
+    <mat-form-field class="field">
+
+      <textarea #textInput matInput placeholder="user e-mail" formControlName="email"></textarea>
+
+    </mat-form-field>
+    <div *ngIf="!formSent && submitted && singleRecipientForm.controls.email.errors" class="error">
+      <div *ngIf="singleRecipientForm.controls.email.errors.required">Your e-mail is required</div>
+      <div *ngIf="singleRecipientForm.controls.email.errors.email">E-mail is not valid</div>
+    </div>
+    <br>
+    <div class="submitbtn">
+      <button type="submit" mat-raised-button (click)="sendMailTextInput(textInput.value)"
+              class="send-button">Send invite
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<mat-card>
+  <p>Send multiple invites:</p>
+  <br>
+  <form [formGroup]="multiRecipientForm" #formDirective="ngForm" class="example-form">
+    <input type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
+           data-max-size="2048" formControlName="csv">
+    <div class="submitbtn">
+      <button type="button" mat-raised-button class="send-button" (click)="sendMailCSVInput()">Send
+        invite
+      </button>
+    </div>
+  </form>
+</mat-card>
 
