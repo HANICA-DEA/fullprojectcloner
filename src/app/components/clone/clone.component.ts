@@ -52,7 +52,8 @@ export class CloneComponent implements OnInit {
   clone() {
     this.cloneButtonClicked = true;
     this.cloneService.cloneProject(this.authData, this.requestData);
-    this.snackBar.open('Your project is being cloned, you will receive an e-mail when the project has successfully been cloned. This can take up to 5 minutes.', 'close', {
+    this.snackBar.open('Your project is being cloned, you will receive an e-mail when the project has successfully been cloned. ' +
+      'This can take up to 5 minutes.', 'close', {
       duration: 10000,
       verticalPosition: 'top'
     });
