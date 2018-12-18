@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
 import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
@@ -23,15 +23,10 @@ export class RepositorySendinviteComponent implements OnInit {
   @Input() authData: AuthdataDto;
   @Output() valueChange = new EventEmitter();
   singleRecipientForm: FormGroup;
-  multiRecipientForm: FormGroup;
   goBackValue: boolean;
   formSent: boolean;
   submitted: boolean;
   issues: Array<IssueDto> = [];
-
-  @ViewChild(FormGroupDirective)
-  formGroupDirective: FormGroupDirective;
-
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: string;
@@ -43,8 +38,7 @@ export class RepositorySendinviteComponent implements OnInit {
               public dialog: MatDialog
   ) {
     this.singleRecipientForm = this.formBuilder.group({
-      email: ['', [Validators.required// , Validators.email
-      ]],
+      email: ['', [Validators.required]],
     });
   }
 
@@ -71,7 +65,7 @@ export class RepositorySendinviteComponent implements OnInit {
 
   initialiseIssues(issues: object) {
     const issueObject = JSON.parse(JSON.stringify(issues));
-    for (const issue of issueObject) {
+    for (const issue of issueObject.reverse()) {
       this.issues.push(new IssueDto(issue.number, issue.title, issue.body));
     }
   }
@@ -97,17 +91,14 @@ export class RepositorySendinviteComponent implements OnInit {
       console.log(recipients);
       this.sendInviteMail(recipients);
       this.singleRecipientForm.reset();
-      this.formGroupDirective.resetForm();
       this.formSent = true;
     }
   }
 
   sendMailCSVInput() {
     let recipients: string;
-    if (this.multiRecipientForm.valid) {
       recipients = this.textContent;
       this.sendInviteMail(recipients);
-    }
   }
 
   private sendInviteMail(recipient: string) {
