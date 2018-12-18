@@ -6,7 +6,7 @@ import {SendinviteService} from '../../services/sendinvite/sendinvite.service';
 import {CloneService} from '../../services/clone/clone.service';
 import {AuthdataDto} from '../../services/dto/authdata.dto';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {CloneDialogComponent} from "../../dialogues/clone-dialog/clone-dialog.component";
+import {CloneDialogComponent} from '../../dialogues/clone-dialog/clone-dialog.component';
 
 @Component({
   selector: 'app-cloneinvite',
@@ -16,7 +16,6 @@ import {CloneDialogComponent} from "../../dialogues/clone-dialog/clone-dialog.co
 export class CloneComponent implements OnInit {
 
   cloneID: string;
-  issues: Object;
   requestData: Object;
   authData: AuthdataDto;
   cloneButtonClicked = false;
