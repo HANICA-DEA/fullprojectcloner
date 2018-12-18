@@ -12,13 +12,12 @@ import {HttpClient, HttpHandler} from '@angular/common/http';
 import {reject, resolve} from 'q';
 
 class MockAuthService  extends AuthService {
-
 }
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let service: AuthService;
+  let authService: AuthService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,28 +47,42 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    service = TestBed.get(AuthService);
+    authService = TestBed.get(AuthService);
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
   it('Service injected via component should be and instance of MockAuthService', () => {
-    expect(service instanceof MockAuthService).toBeTruthy();
+    expect(authService instanceof MockAuthService).toBeTruthy();
   });
   it('Login should be successful', () => {
-    spyOn(service, 'loginwithGithubProvider').and.returnValue(Promise.resolve());
+    spyOn(authService, 'loginwithGithubProvider').and.returnValue(Promise.resolve());
     expect(component.loginError).toBeFalsy();
     // expect(service.loginwithGithubProvider).toHaveBeenCalled();
   });
-  it('Login should display error', (done) => {
-    spyOn(service, 'returnfalse').and.returnValue(Promise.reject('auth/popup-closed-by-user'));
-    component.signInWithGithub();
-
-    expect(component.loginError).toBe('The popup has been closed before authentication');
-  });
   it('Login should display error', () => {
-    spyOn(service, 'loginwithGithubProvider').and.returnValue(resolve(''));
+    spyOn(authService, 'loginwithGithubProvider').and.returnValue(resolve(''));
     expect(component.loginError).toBeFalsy();
   });
+  // Buttonchecks
+  it('Logginbutton calls signInWithGithub', async(() => {
+    spyOn(component, 'signInWithGithub');
+
+    const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
+    button.click();
+    fixture.whenStable().then(() => {
+      expect(component.signInWithGithub).toHaveBeenCalled();
+    });
+  }));
+
+  it('LogoutButton calls Logout', async(() => {
+    authService.setUserIsLoggedIn(true);
+    spyOn(component, 'logout');
+    const button = fixture.debugElement.nativeElement.querySelector('#logoutButton');
+    button.click();
+    fixture.whenStable().then(() => {
+      expect(component.logout).toHaveBeenCalled();
+    });
+  }));
 });

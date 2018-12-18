@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
             this.loginError = 'The popup has been closed before authentication';
           }
           if (err === Errorcode.FIREBASE_REQUEST_EXESS) {
-            console.log('ik ben hier 2');
             this.loginError = 'To many requests to the server';
           }
         }
