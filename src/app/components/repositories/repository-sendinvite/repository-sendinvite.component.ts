@@ -8,8 +8,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {SendinviteService} from '../../../services/sendinvite/sendinvite.service';
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 import {IssueDto} from '../../../services/dto/issueDto';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
+import {CsvDialogComponent} from '../../../dialogues/csv-dialog/csv-dialog.component';
 
 @Component({
   selector: 'app-repository-sendinvite',
@@ -41,12 +42,21 @@ export class RepositorySendinviteComponent implements OnInit {
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
+              public dialog: MatDialog
   ) {
     this.singleRecipientForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
 
+  openDialog(): void {
+    let dialogRef = this.dialog.open(CsvDialogComponent, {});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    })
+  }
   ngOnInit() {
     this.githubService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository.split('/')[1])
       .subscribe(data => {

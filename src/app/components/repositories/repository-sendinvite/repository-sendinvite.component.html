@@ -27,10 +27,11 @@
       <p>Send multiple invites here:</p>
       <br>
       <form [formGroup]="multiRecipientForm" #formDirective="ngForm" class="example-form">
-        <input #inputUser2 type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
+        <input type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
                data-max-size="2048" formControlName="csv">
         <div class="submitbtn">
-          <button type="submit" mat-raised-button class="send-button" (click)="sendToSelector(inputUser2.value)">Send
+          <button type="button" mat-raised-button class="send-button" (click)="openDialog()">Send
+            <!--sendToSelector(inputUser2.value)-->
             invite
           </button>
         </div>
