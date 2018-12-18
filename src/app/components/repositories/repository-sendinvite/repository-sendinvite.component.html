@@ -11,7 +11,7 @@
   <form [formGroup]="singleRecipientForm" #formDirective="ngForm" class="example-form">
     <mat-form-field class="field">
 
-      <textarea #textInput matInput placeholder="user e-mail" formControlName="email"></textarea>
+      <textarea #textInput1 matInput placeholder="user e-mail" formControlName="email"></textarea>
 
     </mat-form-field>
     <div *ngIf="!formSent && submitted && singleRecipientForm.controls.email.errors" class="error">

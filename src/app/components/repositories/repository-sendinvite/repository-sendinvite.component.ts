@@ -38,7 +38,7 @@ export class RepositorySendinviteComponent implements OnInit {
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: string;
-  private _textContent: string;
+  private textContent: string;
 
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
@@ -52,22 +52,24 @@ export class RepositorySendinviteComponent implements OnInit {
     });
   }
 
-  get textContent(): string {
-    return this._textContent;
-  }
 
   openDialog(): void {
+
     let dialogRef = this.dialog.open(CsvDialogComponent, {
       data: {
-        textContent: this._textContent
+        textContent: this.stringReplace(this.textContent),
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(this._textContent);
+      if (result) {
+        this.sendMailCSVInput();
+      } else {
+        return;
+      }
     })
   }
+
   ngOnInit() {
     this.githubService.getRepositoryIssues(this.authData.token, this.authData.username, this.chosenRepository.split('/')[1])
       .subscribe(data => {
@@ -106,7 +108,6 @@ export class RepositorySendinviteComponent implements OnInit {
     this.formSent = false;
     if (this.singleRecipientForm.valid) {
       recipients = this.stringReplace(recipients);
-      console.log(recipients);
       this.sendInviteMail(recipients);
       this.singleRecipientForm.reset();
       this.formGroupDirective.resetForm();
@@ -117,7 +118,6 @@ export class RepositorySendinviteComponent implements OnInit {
   sendMailCSVInput() {
     let recipients: string;
     recipients = this.textContent;
-    console.log(recipients + '1');
     this.sendInviteMail(recipients);
   }
 
@@ -152,7 +152,7 @@ export class RepositorySendinviteComponent implements OnInit {
 
   onFileLoad(fileLoadedEvent) {
     const csvContent = fileLoadedEvent.target.result;
-    this._textContent = this.stringReplace(csvContent);
+    this.textContent = this.stringReplace(csvContent);
   }
 
   onFileSelect(input: HTMLInputElement) {

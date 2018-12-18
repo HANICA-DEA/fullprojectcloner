@@ -1,6 +1,5 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {RepositorySendinviteComponent} from "../../components/repositories/repository-sendinvite/repository-sendinvite.component";
 
 
 @Component({
@@ -10,20 +9,17 @@ import {RepositorySendinviteComponent} from "../../components/repositories/repos
 
 export class CsvDialogComponent {
 
-
   constructor(
-    public repositorySendinviteComponent: RepositorySendinviteComponent, public dialogRef: MatDialogRef<CsvDialogComponent>,
+    public dialogRef: MatDialogRef<CsvDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onYesClick(): void {
-    this.repositorySendinviteComponent.sendMailCSVInput();
-    console.log('tester');
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
 }
