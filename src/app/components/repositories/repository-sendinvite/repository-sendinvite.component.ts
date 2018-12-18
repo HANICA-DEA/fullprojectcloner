@@ -12,12 +12,15 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
 import {CsvDialogComponent} from '../../../dialogues/csv-dialog/csv-dialog.component';
 
+
 @Component({
   selector: 'app-repository-sendinvite',
   templateUrl: './repository-sendinvite.component.html',
   styleUrls: ['./repository-sendinvite.component.sass']
 })
+
 export class RepositorySendinviteComponent implements OnInit {
+
   @Input() data: GithubService;
   @Input() chosenRepository: string;
   @Input() authData: AuthdataDto;
@@ -35,7 +38,8 @@ export class RepositorySendinviteComponent implements OnInit {
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
   private inviteID: string;
-  textContent: string;
+  private _textContent: string;
+
 
   constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
@@ -48,12 +52,20 @@ export class RepositorySendinviteComponent implements OnInit {
     });
   }
 
+  get textContent(): string {
+    return this._textContent;
+  }
+
   openDialog(): void {
-    let dialogRef = this.dialog.open(CsvDialogComponent, {});
+    let dialogRef = this.dialog.open(CsvDialogComponent, {
+      data: {
+        textContent: this._textContent
+      }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result);
+      console.log(this._textContent);
     })
   }
   ngOnInit() {
@@ -104,10 +116,9 @@ export class RepositorySendinviteComponent implements OnInit {
 
   sendMailCSVInput() {
     let recipients: string;
-    if (this.multiRecipientForm.valid) {
-      recipients = this.textContent;
-      this.sendInviteMail(recipients);
-    }
+    recipients = this.textContent;
+    console.log(recipients + '1');
+    this.sendInviteMail(recipients);
   }
 
   private sendInviteMail(recipient: string) {
@@ -141,8 +152,7 @@ export class RepositorySendinviteComponent implements OnInit {
 
   onFileLoad(fileLoadedEvent) {
     const csvContent = fileLoadedEvent.target.result;
-    this.textContent = this.stringReplace(csvContent);
-    alert('The given recipients are: \n\n' + this.textContent + '\n\nPlease check if this is correct and correct your input if needed.');
+    this._textContent = this.stringReplace(csvContent);
   }
 
   onFileSelect(input: HTMLInputElement) {

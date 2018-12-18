@@ -10,10 +10,9 @@ import {RepositorySendinviteComponent} from "../../components/repositories/repos
 
 export class CsvDialogComponent {
 
-  repositorySendinviteComponent: RepositorySendinviteComponent;
 
   constructor(
-    public dialogRef: MatDialogRef<CsvDialogComponent>,
+    public repositorySendinviteComponent: RepositorySendinviteComponent, public dialogRef: MatDialogRef<CsvDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -22,8 +21,9 @@ export class CsvDialogComponent {
   }
 
   onYesClick(): void {
-    this.dialogRef.close();
     this.repositorySendinviteComponent.sendMailCSVInput();
+    console.log('tester');
+    this.dialogRef.close();
   }
 
 }
