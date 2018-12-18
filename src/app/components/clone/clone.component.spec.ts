@@ -11,7 +11,7 @@ describe('CloneComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CloneComponent],
-      imports: [MatCardModule, LoginComponent],
+      imports: [MatCardModule, LoginComponent, ],
     })
       .compileComponents();
   }));
@@ -20,8 +20,5 @@ describe('CloneComponent', () => {
     fixture = TestBed.createComponent(CloneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
   });
 });

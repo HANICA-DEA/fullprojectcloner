@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {GithubService} from '../../services/github/github.service';
@@ -9,10 +8,11 @@ import {Errorcode} from './errorcode.enum';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.sass'],
+
 })
 export class LoginComponent implements OnInit {
-  public loginError: string;
+  public loginError: string | boolean = false;
 
   constructor(public authService: AuthService, public router: Router, private data: GithubService) {
   }
