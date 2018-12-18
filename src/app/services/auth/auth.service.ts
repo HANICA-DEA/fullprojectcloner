@@ -17,6 +17,7 @@ export class AuthService {
   // De noodzakelijke gegevens
   private _username;
   private _token;
+  userIsLoggedIn: boolean;
 
   constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
@@ -56,18 +57,20 @@ export class AuthService {
   // }
 
   public loginwithGithubProvider(): Promise<any> {
+    this.userIsLoggedIn = true;
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
       }, err => {
-          reject(err.code);
+        reject(err.code);
       });
     });
   }
 
   public logout(): Promise<boolean | Observable<never> | never> {
+    this.userIsLoggedIn = false;
     this.databaseService.deleteData('user', this.userDetails.uid);
     return this._afAuth.auth.signOut()
       .then((res) => this.router.navigate(['/'])
@@ -75,7 +78,8 @@ export class AuthService {
   }
 
   public get isLoggedIn(): boolean {
-    return this._userDetails != null;
+    return this.userIsLoggedIn;
+    // return this._userDetails != null;
   }
 
   get user(): Observable<firebase.User> {
@@ -113,13 +117,16 @@ export class AuthService {
     this._username = value;
   }
 
-
   get afAuth(): AngularFireAuth {
     return this._afAuth;
   }
 
   set afAuth(value: AngularFireAuth) {
     this._afAuth = value;
+  }
+
+  setUserIsLoggedIn(value: boolean) {
+    this.userIsLoggedIn = value;
   }
 
 
