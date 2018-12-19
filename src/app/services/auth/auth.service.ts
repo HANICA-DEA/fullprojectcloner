@@ -31,19 +31,6 @@ export class AuthService {
       });
   }
 
-  // word naar mijn idee geen gebruik van gemaakt |Kevin
-  // public checkLoginStatus() {
-  //   return new Promise((resolve, reject) => {
-  //     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-  //       this._userDetails = user;
-  //       unsubscribe();
-  //       resolve(user);
-  //     }, err => {
-  //       reject(err);
-  //     });
-  //   });
-  // }
-
   public loginwithGithubProvider(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
