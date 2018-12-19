@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   public signInWithGithub(): void {
     this.authService.loginwithGithubProvider()
-      .then(res => { this.loginError = null; })
+      .then( this.loginError = null)
       .catch(err => {
           if (err === Errorcode.FIREBASE_POPUP_CLOSED) {
             this.loginError = 'The popup has been closed before authentication';
@@ -37,7 +37,5 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-  public testmethod() {
-    this.loginError = this.authService.returnfalse();
-  }
+
 }

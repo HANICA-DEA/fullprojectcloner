@@ -90,23 +90,23 @@ describe('LoginComponent', () => {
     spyOn(componentService, 'loginwithGithubProvider').and.returnValue(true);
   });
 
-  it('Logginbutton calls signInWithGithub', async(() => {
-    spyOn(component, 'signInWithGithub');
-    const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
-    button.click();
-    fixture.whenStable().then(() => {
-      expect(component.signInWithGithub).toHaveBeenCalled();
-    });
-  }));
-
-
-  it('LogoutButton calls Logout', async(() => {
-    //componentService.setUserIsLoggedIn(true);
-    spyOn(component, 'logout');
-    const button = fixture.debugElement.nativeElement.querySelector('#logout');
-    button.click();
-    fixture.whenStable().then(() => {
-      expect(component.logout).toHaveBeenCalled();
-    });
-  }));
+  // it('Logginbutton calls signInWithGithub', async(() => {
+  //   spyOn(component, 'signInWithGithub');
+  //   const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
+  //   button.click();
+  //   fixture.whenStable().then(() => {
+  //     expect(component.signInWithGithub).toHaveBeenCalled();
+  //   });
+  // }));
+  //
+  //
+  // it('LogoutButton calls Logout', async(() => {
+  //   //componentService.setUserIsLoggedIn(true);
+  //   spyOn(component, 'logout');
+  //   const button = fixture.debugElement.nativeElement.querySelector('#logout');
+  //   button.click();
+  //   fixture.whenStable().then(() => {
+  //     expect(component.logout).toHaveBeenCalled();
+  //   });
+  // }));
 });
