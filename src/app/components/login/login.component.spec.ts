@@ -23,7 +23,9 @@ class MockAuthService implements Partial<AuthService> {
   }
 
   logout(): Promise<boolean | Observable<never> | never> {
-    return new Promise(function(resolve, reject) { resolve(); });
+    return new Promise(function (resolve, reject) {
+      resolve();
+    });
   }
 }
 
@@ -61,35 +63,28 @@ describe('LoginComponent', () => {
         ]
       }
     });
-
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     componentService = fixture.debugElement.injector.get(AuthService);
   }));
 
-  it("Service injected via component should be an instance of MockAuthService", () => {
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
+  it('Service injected via component should be an instance of MockAuthService', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
-
-  it("signInWithGithub() Should reset LoginError from false to null", async(() => {
+  it('signInWithGithub() Should reset LoginError from false to null', async(() => {
     expect(component.loginError).toEqual(false);
     component.signInWithGithub();
     expect(component.loginError).toBeNull();
   }));
-
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
+  it('signInWithGithub() Should sets POPUP_CLOSED error  ', async () => {
+    spyOn(componentService, 'loginwithGithubProvider')
+      .and.returnValue(Promise.reject('auth/popup-closed-by-user'));
+    component.signInWithGithub();
+    expect(() => component.signInWithGithub()).toThrowError('The popup has been closed before authentication');
   });
-
-  it('Service injected via component should be and instance of MockAuthService', () => {
-    expect(componentService instanceof MockAuthService).toBeTruthy();
-  });
-
-  it('Login should be successful', () => {
-    spyOn(componentService, 'loginwithGithubProvider').and.returnValue(true);
-  });
-
   // it('Logginbutton calls signInWithGithub', async(() => {
   //   spyOn(component, 'signInWithGithub');
   //   const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');

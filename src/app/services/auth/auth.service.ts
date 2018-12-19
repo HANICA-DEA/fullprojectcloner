@@ -6,6 +6,7 @@ import {Observable, throwError} from 'rxjs';
 import {UserDto} from '../dto/user.dto';
 import {DatabaseService} from '../database/database.service';
 import {AuthdataDto} from '../dto/authdata.dto';
+import {reject, resolve} from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -67,11 +68,13 @@ export class AuthService {
     });
   }
 
-  public logout(): Promise<boolean | Observable<never> | never> {
-    this.databaseService.deleteData('user', this.userDetails.uid);
+  public logout() {
     return this._afAuth.auth.signOut()
-      .then((res) => this.router.navigate(['/'])
-        .catch((err) => throwError('signout failed')));
+      .then((res) => {
+        resolve(res);
+        this.databaseService.deleteData('user', this.userDetails.uid);
+      })
+      .catch((err) => reject(err));
   }
 
   public get isLoggedIn(): boolean {

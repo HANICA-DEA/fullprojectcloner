@@ -20,6 +20,6 @@ export class DatabaseService {
   }
 
   async deleteData(subject: string, key: string) {
-    return await this.afs.collection('user').doc('YSMBUaJjjxS7wCCG7SxWyLqcpfI2').delete();
+    return await this.afs.collection(subject).doc(key).delete();
   }
 }
