@@ -3,8 +3,8 @@
     <h1>Welcome {{authService?.username}}</h1>
     <img src="{{ authService?.userDetails?.photoURL }} ">
     <br />
-    <button mat-flat-button id="logoutButton" class="btn-github" (click)="logout()"><i class="fab fa-github"></i> Stop authentication
-      github
+    <button mat-flat-button class="btn-github" id="logout" (click)="logout()">
+      <i class="fab fa-github"></i> Stop authentication Github
     </button>
   </div>
 
