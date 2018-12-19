@@ -1,6 +1,5 @@
 import {IssueDto} from './issueDto';
 
-
 export class SendinviteDto {
   private _URL: string;
   private _issues: Array<IssueDto>;

@@ -17,8 +17,8 @@ export class DatabaseService {
     const document = await this.afs.collection(subject).doc(key).ref.get();
     return document.data();
   }
-
+//
   async deleteData(subject: string, key: string) {
-    return await this.afs.collection('user').doc('YSMBUaJjjxS7wCCG7SxWyLqcpfI2').delete();
+    return await this.afs.collection(subject).doc(key).delete();
   }
 }
