@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 
 @Component({
-  selector: 'app-repository-button',
+  selector: 'app-repository-picker',
   templateUrl: './repository-picker.component.html',
   styleUrls: ['./repository-picker.component.sass']
 })
@@ -16,7 +15,7 @@ export class RepositoryPickerComponent implements OnInit {
   public showAllRepositories: Boolean;
   chosenRepository: String;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     this.showAllRepositories = true;
     this.chosenRepository = null;
   }

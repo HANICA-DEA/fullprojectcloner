@@ -13,7 +13,7 @@ import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
 import {CsvDialogComponent} from '../../../dialogues/csv-dialog/csv-dialog.component';
 
 @Component({
-  selector: 'app-repository-sendinvite',
+  selector: 'app-repository-invite',
   templateUrl: './repository-invite.component.html',
   styleUrls: ['./repository-invite.component.sass']
 })
