@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {PostrequestDto} from '../dto/postrequest.dto';
+import {catchError} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,9 @@ export class GithubService {
 
   getUser(token: string): Observable<Object> {
     const url = this.baseUrl + '/user?access_token=' + token;
-    return this.http.get(url);
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getRepositories(token: string, username: string): Observable<Object> {
@@ -37,7 +41,7 @@ export class GithubService {
 
   }
 
-  persistIssue(token: string, username: string, repository: string, content: Object) {
+  persistIssue(token: string, username: string, repository: string, content: Object): Promise<Object> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
@@ -53,5 +57,10 @@ export class GithubService {
     const url = this.baseUrl + '/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    // return an observable with a user-facing error message
+    return throwError(error);
   }
 }

@@ -14,14 +14,16 @@ export class CloneService {
 
   async cloneProject(auth: Authdata, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
+    // Maakt de repository aan
+
     await this.github.persistRepository(auth.token, request._repositoryName + '-' + auth.username)
       .then(async Reporesponse => {
+
         if (Reporesponse != null) {
           const impStarted = await this.github.importRepository
           (auth.token, auth.username, request._repositoryName, new ImportDto(request._URL))
             .toPromise();
-          if (impStarted != null) {
-          }
+
           for (const issue in request._issues) {
             if (issue != null) {
               const data = new IssuerequestDto(request._issues[issue]._body, request._issues[issue]._number, request._issues[issue]._title);
