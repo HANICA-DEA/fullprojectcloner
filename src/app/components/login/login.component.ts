@@ -19,16 +19,16 @@ export class LoginComponent implements OnInit {
 
   public signInWithGithub(): void {
     this.authService.loginwithGithubProvider()
-      .then(this.loginError = null)
+      .then(res => { this.loginError = null; })
       .catch(err => {
-        if (err === Errorcode.FIREBASE_POPUP_CLOSED) {
-        this.loginError = 'The popup has been closed before authentication';
+          if (err === Errorcode.FIREBASE_POPUP_CLOSED) {
+            this.loginError = 'The popup has been closed before authentication';
+          }
+          if (err === Errorcode.FIREBASE_REQUEST_EXESS) {
+            this.loginError = 'To many requests to the server';
+          }
         }
-        if (err === Errorcode.FIREBASE_REQUEST_EXESS) {
-          this.loginError = 'To many requests to the server';
-        }
-      }
-    );
+      );
   }
 
   public logout(): void {
@@ -36,5 +36,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  public testmethod() {
+    this.loginError = this.authService.returnfalse();
   }
 }
