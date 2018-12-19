@@ -21,10 +21,10 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {LoginComponent} from './components/login/login.component';
-import {RepositoryButtonComponent} from './components/repositories/repository-button/repository-button.component';
+import {RepositoryPickerComponent} from './components/repositories/repository-picker/repository-picker.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
-import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
+import {RepositoryInviteComponent} from './components/repositories/repository-invite/repository-invite.component';
 import {CloneComponent} from './components/clone/clone.component';
 import {CsvDialogComponent} from './dialogues/csv-dialog/csv-dialog.component';
 import {CloneDialogComponent} from './dialogues/clone-dialog/clone-dialog.component';
@@ -39,8 +39,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
-    RepositoryButtonComponent,
-    RepositorySendinviteComponent,
+    RepositoryPickerComponent,
+    RepositoryInviteComponent,
     CloneComponent,
     CsvDialogComponent,
     CloneDialogComponent

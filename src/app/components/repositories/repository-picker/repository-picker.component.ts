@@ -5,10 +5,10 @@ import {AuthdataDto} from '../../../services/dto/authdata.dto';
 
 @Component({
   selector: 'app-repository-button',
-  templateUrl: './repository-button.component.html',
-  styleUrls: ['./repository-button.component.sass']
+  templateUrl: './repository-picker.component.html',
+  styleUrls: ['./repository-picker.component.sass']
 })
-export class RepositoryButtonComponent implements OnInit {
+export class RepositoryPickerComponent implements OnInit {
 
   @Input() repositories: Object;
   @Input() data: GithubService;
@@ -19,8 +19,6 @@ export class RepositoryButtonComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
     this.showAllRepositories = true;
     this.chosenRepository = null;
-
-
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
 import {Headers, Http} from '@angular/http';
@@ -14,10 +14,10 @@ import {CsvDialogComponent} from '../../../dialogues/csv-dialog/csv-dialog.compo
 
 @Component({
   selector: 'app-repository-sendinvite',
-  templateUrl: './repository-sendinvite.component.html',
-  styleUrls: ['./repository-sendinvite.component.sass']
+  templateUrl: './repository-invite.component.html',
+  styleUrls: ['./repository-invite.component.sass']
 })
-export class RepositorySendinviteComponent implements OnInit {
+export class RepositoryInviteComponent implements OnInit {
   @Input() data: GithubService;
   @Input() chosenRepository: string;
   @Input() authData: AuthdataDto;
@@ -27,6 +27,9 @@ export class RepositorySendinviteComponent implements OnInit {
   formSent: boolean;
   submitted: boolean;
   issues: Array<IssueDto> = [];
+
+  @ViewChild('myInput')
+  myInput: ElementRef;
 
   INVITEMAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_p7M2HDMFWvTS8XR9XqrwmredHAogJmAU_r8GCX0f80V1g7o/exec';
   private inviteFormDto: InviteFormDto;
@@ -123,6 +126,7 @@ export class RepositorySendinviteComponent implements OnInit {
         this.chosenRepository.split('/')[1]
       ));
     this.openSnackBar('Request has been sent!', 'close');
+    this.myInput.nativeElement.value = "";
   }
 
   private randomStringGenerator() {
