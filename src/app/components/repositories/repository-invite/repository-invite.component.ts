@@ -4,7 +4,6 @@ import {GithubService} from '../../../services/github/github.service';
 import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../services/dto/inviteform.dto';
 import {AuthService} from '../../../services/auth/auth.service';
-import {AngularFirestore} from 'angularfire2/firestore';
 import {SendinviteService} from '../../../services/sendinvite/sendinvite.service';
 import {AuthdataDto} from '../../../services/dto/authdata.dto';
 import {IssueDto} from '../../../services/dto/issueDto';
@@ -36,7 +35,7 @@ export class RepositoryInviteComponent implements OnInit {
   private inviteID: string;
   textContent: string;
 
-  constructor(private sendInviteData: SendinviteService, private db: AngularFirestore,
+  constructor(private sendInviteData: SendinviteService,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
               public dialog: MatDialog
