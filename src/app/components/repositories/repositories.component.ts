@@ -19,7 +19,6 @@ export class RepositoriesComponent implements OnInit {
 
   async ngOnInit() {
     this.initialiserepos();
-
   }
 
   async initialiserepos() {

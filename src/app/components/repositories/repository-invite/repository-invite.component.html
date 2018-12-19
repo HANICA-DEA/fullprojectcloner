@@ -26,9 +26,9 @@
 </mat-card>
 
 <mat-card>
-  <p>Send multiple invites:</p>
+  <p>Send invites with a CSV-file:</p>
   <br>
-  <input type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
+  <input #myInput type="file" (change)="onFileSelect($event.target)" name="myfile" accept=".csv"
          data-max-size="2048">
   <div class="submitbtn">
     <button type="button" mat-raised-button class="send-button" (click)="openDialog()">Send
