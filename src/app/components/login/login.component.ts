@@ -22,22 +22,24 @@ export class LoginComponent implements OnInit {
       .then(this.loginError = null)
       .catch(err => {
           if (err === Errorcode.FIREBASE_POPUP_CLOSED) {
-            console.log('e');
-            const message = 'The popup has been closed before authentication';
-            this.loginError = message;
-            throw new Error(message);
+            this.loginError = 'The popup has been closed before authentication';
           }
           if (err === Errorcode.FIREBASE_REQUEST_EXESS) {
-            const message = 'To many requests to the server';
-            this.loginError = message;
-            throw new Error(message);
+            this.loginError = 'To many requests to the server';
           }
         }
       );
   }
 
   public logout(): void {
-    this.authService.logout();
+    this.authService.logout()
+      .then(this.loginError = null)
+      .catch(err => {
+          if (err === Errorcode.FIREBASE_NO_USER) {
+            this.loginError = 'No user found | Try to login/logout again';
+          }
+        }
+      );
   }
 
   ngOnInit() {
