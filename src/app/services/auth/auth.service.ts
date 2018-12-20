@@ -121,6 +121,4 @@ export class AuthService {
   set afAuth(value: AngularFireAuth) {
     this._afAuth = value;
   }
-
-
 }
