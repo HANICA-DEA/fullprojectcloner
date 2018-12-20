@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
-import {Observable, throwError} from 'rxjs';
-import {UserDto} from '../dto/user.dto';
+import {Observable} from 'rxjs';
+import {UserDto} from '../../entities/github/user.dto';
 import {DatabaseService} from '../database/database.service';
-import {AuthdataDto} from '../dto/authdata.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
 import {reject, resolve} from 'q';
 
 @Injectable({
@@ -15,7 +15,6 @@ export class AuthService {
   private _user: Observable<firebase.User>;
   private _userdata: UserDto;
   private _userDetails: firebase.User = null;
-  // De noodzakelijke gegevens
   private _username;
   private _token;
 
@@ -31,14 +30,14 @@ export class AuthService {
       });
   }
 
-  public loginwithGithubProvider(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  public loginWithGithubProvider(): Promise<any> {
+    return new Promise<any>((resolves, rejects) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
       }, err => {
-        reject(err);
+        rejects(err);
       });
     });
   }
