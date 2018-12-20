@@ -15,6 +15,7 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
@@ -56,7 +57,8 @@ import {MatSnackBarModule} from '@angular/material';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
