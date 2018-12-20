@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
 import {LoginComponent} from './login.component';
 import {AuthService} from '../../services/auth/auth.service';
 import {MatCardModule} from '@angular/material';
@@ -23,9 +23,7 @@ class MockAuthService implements Partial<AuthService> {
   }
 
   logout(): Promise<boolean | Observable<never> | never> {
-    return new Promise(function (resolve, reject) {
-      resolve();
-    });
+    return new Promise((resolve, reject) => resolve());
   }
 }
 
@@ -79,29 +77,37 @@ describe('LoginComponent', () => {
     component.signInWithGithub();
     expect(component.loginError).toBeNull();
   }));
-  it('signInWithGithub() Should sets POPUP_CLOSED error  ', async () => {
+
+  it('signInWithGithub() Should set POPUP_CLOSED error  ', fakeAsync(() => {
     spyOn(componentService, 'loginwithGithubProvider')
       .and.returnValue(Promise.reject('auth/popup-closed-by-user'));
+
     component.signInWithGithub();
-    expect(() => component.signInWithGithub()).toThrowError('The popup has been closed before authentication');
-  });
-  // it('Logginbutton calls signInWithGithub', async(() => {
-  //   spyOn(component, 'signInWithGithub');
-  //   const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
-  //   button.click();
-  //   fixture.whenStable().then(() => {
-  //     expect(component.signInWithGithub).toHaveBeenCalled();
-  //   });
-  // }));
-  //
-  //
-  // it('LogoutButton calls Logout', async(() => {
-  //   //componentService.setUserIsLoggedIn(true);
-  //   spyOn(component, 'logout');
-  //   const button = fixture.debugElement.nativeElement.querySelector('#logout');
-  //   button.click();
-  //   fixture.whenStable().then(() => {
-  //     expect(component.logout).toHaveBeenCalled();
-  //   });
-  // }));
+    flushMicrotasks();
+    expect(component.loginError).toBe('The popup has been closed before authentication');
+  }));
+
+  it('signInWithGithub() Should set FIREBASE_REQUEST_EXESS error  ', fakeAsync(() => {
+    spyOn(componentService, 'loginwithGithubProvider')
+      .and.returnValue(Promise.reject('auth/too-many-requests'));
+
+    component.signInWithGithub();
+    flushMicrotasks();
+    expect(component.loginError).toBe('To many requests to the server');
+  }));
+
+  it('Logout() Should reset LoginError from false to null', async(() => {
+    expect(component.loginError).toEqual(false);
+    component.logout();
+    expect(component.loginError).toBeNull();
+  }));
+
+  it('logout() Should sets FIREBASE_NO_USER error  ', fakeAsync(() => {
+    spyOn(componentService, 'logout')
+      .and.returnValue(Promise.reject('auth/null-user'));
+
+    component.logout();
+    flushMicrotasks();
+    expect(component.loginError).toBe('No user found | Try to login/logout again');
+  }));
 });
