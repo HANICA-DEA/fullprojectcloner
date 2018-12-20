@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GithubService} from '../../services/github/github.service';
 import {AuthService} from '../../services/auth/auth.service';
-import {AuthdataDto} from '../../services/dto/authdata.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
 import {DatabaseService} from '../../services/database/database.service';
 
 @Component({

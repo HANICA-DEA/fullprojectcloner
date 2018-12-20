@@ -26,8 +26,8 @@ import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositoryInviteComponent} from './components/repositories/repository-invite/repository-invite.component';
 import {CloneComponent} from './components/clone/clone.component';
-import {CsvDialogComponent} from './dialogues/csv-dialog/csv-dialog.component';
-import {CloneDialogComponent} from './dialogues/clone-dialog/clone-dialog.component';
+import {CsvDialogComponent} from './dialogues/csv/csvDialog.component';
+import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({

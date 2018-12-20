@@ -1,16 +1,16 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
+
 @Component({
-  templateUrl: './clone-dialog.component.html',
-  styleUrls: ['./clone-dialog.component.sass']
+  templateUrl: './csvDialog.component.html',
+  styleUrls: ['./csvDialog.component.sass']
 })
 
-export class CloneDialogComponent {
+export class CsvDialogComponent {
 
-  constructor(
-    public dialogRef: MatDialogRef<CloneDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(public dialogRef: MatDialogRef<CsvDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   onNoClick(): void {

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {Headers, Http} from '@angular/http';
-import {ContactFormDto} from '../../services/dto/contactform.dto';
+import {ContactFormDto} from '../../entities/contact/contactform.dto';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
