@@ -1,6 +1,6 @@
 import {ProviderdataDto} from './providerdata.dto';
 import {StsTokenManager} from './ststokenmanager.dto';
-import {Serializable} from './serializable';
+import {Serializable} from '../serializable';
 
 
 export class UserDto implements Serializable<UserDto> {

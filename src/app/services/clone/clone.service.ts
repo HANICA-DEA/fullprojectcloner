@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {GithubService} from '../github/github.service';
-import {ImportDto} from '../dto/import.dto';
-import {IssueDto} from '../dto/issueDto';
-import {IssuerequestDto} from '../dto/issuerequest.dto';
+import {ImportDto} from '../../entities/github/import.dto';
+import {IssuerequestDto} from '../../entities/github/issuerequest.dto';
 
 @Injectable({
   providedIn: 'root'

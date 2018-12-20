@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
 import {DatabaseService} from '../../services/database/database.service';
-import {SendinviteService} from '../../services/sendinvite/sendinvite.service';
+import {InviteService} from '../../services/invite/invite.service';
 import {CloneService} from '../../services/clone/clone.service';
-import {AuthdataDto} from '../../services/dto/authdata.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {CloneDialogComponent} from '../../dialogues/clone-dialog/clone-dialog.component';
+import {CloneDialogComponent} from '../../dialogues/clone/cloneDialog.component';
 
 @Component({
   selector: 'app-cloneinvite',
@@ -21,7 +21,7 @@ export class CloneComponent implements OnInit {
   cloneButtonClicked = false;
 
   constructor(private route: ActivatedRoute, public authService: AuthService, private databaseService: DatabaseService,
-              private sendInviteService: SendinviteService, private cloneService: CloneService, public snackBar: MatSnackBar,
+              private sendInviteService: InviteService, private cloneService: CloneService, public snackBar: MatSnackBar,
               public dialog: MatDialog) {
   }
 

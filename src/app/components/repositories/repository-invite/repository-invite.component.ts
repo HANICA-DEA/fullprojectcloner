@@ -2,14 +2,14 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
 import {Headers, Http} from '@angular/http';
-import {InviteFormDto} from '../../../services/dto/inviteform.dto';
+import {InviteFormDto} from '../../../entities/invite/inviteform.dto';
 import {AuthService} from '../../../services/auth/auth.service';
-import {SendinviteService} from '../../../services/sendinvite/sendinvite.service';
-import {AuthdataDto} from '../../../services/dto/authdata.dto';
-import {IssueDto} from '../../../services/dto/issueDto';
+import {InviteService} from '../../../services/invite/invite.service';
+import {AuthdataDto} from '../../../entities/auth/authdata.dto';
+import {IssueDto} from '../../../entities/github/issueDto';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {SendinviteDto} from '../../../services/dto/sendinvite.dto';
-import {CsvDialogComponent} from '../../../dialogues/csv-dialog/csv-dialog.component';
+import {SendinviteDto} from '../../../entities/invite/sendinvite.dto';
+import {CsvDialogComponent} from '../../../dialogues/csv/csvDialog.component';
 
 @Component({
   selector: 'app-repository-invite',
@@ -35,7 +35,7 @@ export class RepositoryInviteComponent implements OnInit {
   private inviteID: string;
   textContent: string;
 
-  constructor(private sendInviteData: SendinviteService,
+  constructor(private sendInviteData: InviteService,
               private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
               public authService: AuthService, private githubService: GithubService,
               public dialog: MatDialog
@@ -66,6 +66,7 @@ export class RepositoryInviteComponent implements OnInit {
         this.initialiseIssues(data);
       });
   }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
@@ -125,7 +126,7 @@ export class RepositoryInviteComponent implements OnInit {
         this.chosenRepository.split('/')[1]
       ));
     this.openSnackBar('Request has been sent!', 'close');
-    this.myInput.nativeElement.value = "";
+    this.myInput.nativeElement.value = '';
   }
 
   private randomStringGenerator() {

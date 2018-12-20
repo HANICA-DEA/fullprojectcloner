@@ -1,4 +1,4 @@
-import {CloneDialogComponent} from './clone-dialog.component';
+import {CloneDialogComponent} from './cloneDialog.component';
 
 describe('CloneDialogComponent', () => {
 

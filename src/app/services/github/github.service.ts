@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Headers, Http} from '@angular/http';
-import {PostrequestDto} from '../dto/postrequest.dto';
-import {resolve} from 'q';
+import {PostrequestDto} from '../../entities/github/postrequest.dto';
 
 @Injectable({
   providedIn: 'root'

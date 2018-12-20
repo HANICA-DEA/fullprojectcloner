@@ -1,4 +1,4 @@
-import {Serializable} from './serializable';
+import {Serializable} from '../serializable';
 
 export class ProviderdataDto implements Serializable<ProviderdataDto> {
   private _uid: string;

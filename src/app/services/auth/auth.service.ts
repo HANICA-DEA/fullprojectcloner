@@ -3,9 +3,9 @@ import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {UserDto} from '../dto/user.dto';
+import {UserDto} from '../../entities/github/user.dto';
 import {DatabaseService} from '../database/database.service';
-import {AuthdataDto} from '../dto/authdata.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
 
 @Injectable({
   providedIn: 'root'

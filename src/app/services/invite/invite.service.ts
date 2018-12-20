@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {sha256} from 'js-sha256';
-import {SendinviteDto} from '../dto/sendinvite.dto';
+import {SendinviteDto} from '../../entities/invite/sendinvite.dto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SendinviteService {
+export class InviteService {
   private _hash: string;
 
   constructor(private _db: AngularFirestore) {

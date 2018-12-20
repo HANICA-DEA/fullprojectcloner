@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GithubService} from '../../../services/github/github.service';
-import {AuthdataDto} from '../../../services/dto/authdata.dto';
+import {AuthdataDto} from '../../../entities/auth/authdata.dto';
 
 @Component({
   selector: 'app-repository-picker',
