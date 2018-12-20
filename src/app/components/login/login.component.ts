@@ -19,13 +19,18 @@ export class LoginComponent implements OnInit {
 
   public signInWithGithub(): void {
     this.authService.loginwithGithubProvider()
-      .then( this.loginError = null)
+      .then(this.loginError = null)
       .catch(err => {
           if (err === Errorcode.FIREBASE_POPUP_CLOSED) {
-            this.loginError = 'The popup has been closed before authentication';
+            console.log('e');
+            const message = 'The popup has been closed before authentication';
+            this.loginError = message;
+            throw new Error(message);
           }
           if (err === Errorcode.FIREBASE_REQUEST_EXESS) {
-            this.loginError = 'To many requests to the server';
+            const message = 'To many requests to the server';
+            this.loginError = message;
+            throw new Error(message);
           }
         }
       );
