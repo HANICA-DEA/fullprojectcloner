@@ -18,6 +18,7 @@ export class AuthService {
   // De noodzakelijke gegevens
   private _username;
   private _token;
+  userIsLoggedIn: boolean;
 
   constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
@@ -66,6 +67,9 @@ export class AuthService {
           reject(err.code);
       });
     });
+    if(this.userDetails != null){
+      this.userIsLoggedIn = true;
+    }
   }
 
   public logout() {
@@ -75,10 +79,11 @@ export class AuthService {
         this.databaseService.deleteData('user', this.userDetails.uid);
       })
       .catch((err) => reject(err));
+    this.userIsLoggedIn = false;
   }
 
   public get isLoggedIn(): boolean {
-    return this._userDetails != null;
+    return this.userIsLoggedIn;
   }
 
   get user(): Observable<firebase.User> {
@@ -124,4 +129,6 @@ export class AuthService {
   set afAuth(value: AngularFireAuth) {
     this._afAuth = value;
   }
+
+
 }
