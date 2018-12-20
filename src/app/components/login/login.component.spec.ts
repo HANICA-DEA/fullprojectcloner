@@ -16,10 +16,6 @@ import {any} from 'codelyzer/util/function';
 class MockAuthService implements Partial<AuthService> {
   userIsLoggedIn: boolean;
 
-  isAuthenticated() {
-    return 'Mocked';
-  }
-
   public get isLoggedIn(): boolean {
     return this.userIsLoggedIn;
   }
