@@ -14,16 +14,26 @@ import {promise} from 'selenium-webdriver';
 import {any} from 'codelyzer/util/function';
 
 class MockAuthService implements Partial<AuthService> {
+  userIsLoggedIn: boolean;
+
   isAuthenticated() {
     return 'Mocked';
   }
 
-  loginwithGithubProvider() {
+  public get isLoggedIn(): boolean {
+    return this.userIsLoggedIn;
+  }
+
+  loginwithGithubProvider(): Promise<any> {
     return new Promise((resolve, reject) => resolve());
   }
 
-  logout(): Promise<boolean | Observable<never> | never> {
-    return new Promise((resolve, reject) => resolve());
+  public get isLoggedIn(): boolean {
+    return this.userIsLoggedIn;
+  }
+
+  logout(): Promise<any> {
+  return new Promise((resolve, reject) => resolve());
   }
 }
 
@@ -65,13 +75,29 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
     componentService = fixture.debugElement.injector.get(AuthService);
   }));
-
+  // Instance and HTML tests
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
   it('Service injected via component should be an instance of MockAuthService', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
+  it('Logginbutton calls signInWithGithub', async(() => {
+    spyOn(component, 'signInWithGithub');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
+    button.click();
+    expect(component.signInWithGithub).toHaveBeenCalled();
+  }));
+
+  it('LogoutButton calls Logout', async(() => {
+    componentService.userIsLoggedIn = true;
+    spyOn(component, 'logout');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#logout');
+    button.click();
+    expect(component.logout).toHaveBeenCalled();
+  }));
   it('signInWithGithub() Should reset LoginError from false to null', async(() => {
     expect(component.loginError).toEqual(false);
     component.signInWithGithub();

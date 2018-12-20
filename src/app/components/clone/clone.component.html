@@ -16,7 +16,7 @@
   <app-login></app-login>
 </div>
 
-<div *ngIf="authService.isLoggedIn">
+<div *ngIf="authService.userIsLoggedIn">
   <mat-card>
     <p>Are you sure you want to copy the following GitHub repository:</p>
     <p>{{requestData._repositoryName}}</p>
