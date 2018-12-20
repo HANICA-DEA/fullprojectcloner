@@ -3,9 +3,10 @@ import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {UserDto} from '../../entities/github/user.dto';
+import {UserDto} from '../dto/user.dto';
 import {DatabaseService} from '../database/database.service';
-import {AuthdataDto} from '../../entities/auth/authdata.dto';
+import {AuthdataDto} from '../dto/authdata.dto';
+import {reject, resolve} from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -30,31 +31,6 @@ export class AuthService {
       });
   }
 
-  // word naar mijn idee geen gebruik van gemaakt |Kevin
-  public checkLoginStatus() {
-    return new Promise((resolve, reject) => {
-      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-        this._userDetails = user;
-        unsubscribe();
-        resolve(user);
-      }, err => {
-        reject(err);
-      });
-    });
-  }
-
-  // public loginwithGithub() {
-  //   return new Promise<any>((resolve, reject) => {
-  //     this.loginwithGithubProvider().then(
-  //       res => {
-  //         resolve(res);
-  //       }, err => {
-  //         console.log(err);
-  //         reject(err);
-  //       });
-  //   });
-  // }
-
   public loginwithGithubProvider(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
@@ -62,17 +38,18 @@ export class AuthService {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
       }, err => {
-        console.log(err);
         reject(err);
       });
     });
   }
 
-  public logout(): Promise<boolean | Observable<never> | never> {
-    this.databaseService.deleteData('user', this.userDetails.uid);
+  public logout() {
     return this._afAuth.auth.signOut()
-      .then((res) => this.router.navigate(['/'])
-        .catch((err) => throwError('signout failed')));
+      .then((res) => {
+        resolve(res);
+        this.databaseService.deleteData('user', this.userDetails.uid);
+      })
+      .catch((err) => reject(err));
   }
 
   public get isLoggedIn(): boolean {
@@ -122,6 +99,4 @@ export class AuthService {
   set afAuth(value: AngularFireAuth) {
     this._afAuth = value;
   }
-
-
 }

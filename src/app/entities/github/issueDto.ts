@@ -1,7 +1,7 @@
 export class IssueDto {
   private _number: number;
   private _title: string;
-  private _body: string;
+  _body: string;
 
   constructor(number: number, title: string, body: string) {
     this._number = number;
