@@ -16,10 +16,6 @@ import {any} from 'codelyzer/util/function';
 class MockAuthService implements Partial<AuthService> {
   userIsLoggedIn: boolean;
 
-  public get isLoggedIn(): boolean {
-    return this.userIsLoggedIn;
-  }
-
   loginwithGithubProvider(): Promise<any> {
     return new Promise((resolve, reject) => resolve());
   }
@@ -29,7 +25,7 @@ class MockAuthService implements Partial<AuthService> {
   }
 
   logout(): Promise<any> {
-  return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve());
   }
 }
 
@@ -37,8 +33,6 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let componentService: AuthService;
-  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-  const ghServiceSpy = jasmine.createSpyObj('GithubService', ['methodName']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -50,20 +44,12 @@ describe('LoginComponent', () => {
       declarations: [
         LoginComponent
       ],
-      providers: [
-        AuthService,
-        AngularFirestore,
-        AngularFireAuth,
-        HttpClient,
-        HttpHandler
-      ]
+      providers: [AuthService]
     });
     TestBed.overrideComponent(LoginComponent, {
       set: {
         providers: [
-          {provide: AuthService, useClass: MockAuthService},
-          {provide: Router, useValue: routerSpy},
-          {provide: GithubService, useValue: ghServiceSpy},
+          {provide: AuthService, useClass: MockAuthService}
         ]
       }
     });

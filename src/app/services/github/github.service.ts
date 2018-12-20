@@ -38,7 +38,7 @@ export class GithubService {
 
   }
 
-  persistIssue(token: string, username: string, repository: string, content: Object) {
+  persistIssue(token: string, username: string, repository: string, content: Object): Promise<Object> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
