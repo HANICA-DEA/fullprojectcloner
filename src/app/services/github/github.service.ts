@@ -10,22 +10,22 @@ import {resolve} from 'q';
 })
 export class GithubService {
 
-  constructor(private http: HttpClient) {
+  constructor(private _http: HttpClient) {
   }
 
   getUser(token: string): Observable<Object> {
     const url = 'https://api.github.com/user?access_token=' + token;
-    return this.http.get(url);
+    return this._http.get(url);
   }
 
   getRepositories(token: string, username: string): Observable<Object> {
     const url = 'https://api.github.com/users/' + username + '/repos?access_token=' + token;
-    return this.http.get(url);
+    return this._http.get(url);
   }
 
   getRepositoryIssues(token: string, username: string, repository: string): Observable<Object> {
     const url = 'https://api.github.com/repos/' + username + '/' + repository + '/issues?access_token=' + token;
-    return this.http.get(url);
+    return this._http.get(url);
   }
 
   importRepository(token: string, username: string, repository: string, content: Object): Observable<Object> {
@@ -34,7 +34,7 @@ export class GithubService {
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
     const url = 'https://api.github.com/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
-    return this.http.put(url, JSON.stringify(content), {headers: headers});
+    return this._http.put(url, JSON.stringify(content), {headers: headers});
 
   }
 
@@ -44,7 +44,7 @@ export class GithubService {
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
     const url = 'https://api.github.com/repos/' + username + '/' + repository + '/issues?access_token=' + token;
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this._http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
 
   persistRepository(token: string, name: string): Promise<Object> {
@@ -53,8 +53,6 @@ export class GithubService {
     });
     const url = 'https://api.github.com/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this._http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
-
-
 }
