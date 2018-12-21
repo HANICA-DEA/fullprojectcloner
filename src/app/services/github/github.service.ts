@@ -40,6 +40,8 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
+
+    console.log('en nu hier');
     const url = this._baseUrl + '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
     return this.http.put(url, JSON.stringify(content), {headers: headers});
   }
@@ -63,8 +65,8 @@ export class GithubService {
   }
 
   handleError(error: HttpErrorResponse) {
-    console.log('eyo captain jack');
     // return an observable with a user-facing error message
+    console.log('en nu daar');
     return throwError(error);
   }
 

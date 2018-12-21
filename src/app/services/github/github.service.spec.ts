@@ -103,19 +103,18 @@ describe('GithubService', () => {
       const token = 'abc';
       const repository = 'repo';
 
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github.barred-rock-preview'
-      });
-
       sut.importRepository(token, username, repository, {}).subscribe(resp => {
           expect(<any>resp).toEqual(httpResponseMock);
-          console.log(resp);
         }
       );
       const req = httpMock.expectOne(sut.baseUrl +
         '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token);
+
       expect(req.request.method).toBe('PUT');
+      expect(req.request.responseType).toEqual('json');
+
+      expect(req.request.headers.get('Content-Type')).toBe('application/json');
+      expect(req.request.headers.get('Accept')).toBe('application/vnd.github.barred-rock-preview');
 
       req.flush(httpResponseMock);
     }));
@@ -126,20 +125,22 @@ describe('GithubService', () => {
       const repository = 'repo';
 
       const mockErrorResponse = {message: 'bad request'};
-      sut.getRepositoryIssues(token, username, repository).subscribe(() => {
+      sut.importRepository(token, username, repository, {}).subscribe(() => {
       }, err => {
         expect(err.error.message).toEqual(mockErrorResponse.message);
         expect(err.status).toEqual(400);
+
         done();
       });
 
-      const req = httpMock.expectOne(`${sut.baseUrl}/repos/` + username + '/' + repository + '/issues?access_token=' + token);
+      const req = httpMock.expectOne(sut.baseUrl +
+        '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token);
+
       req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
+      //expect( function() { sut.importRepository(token, username, repository, {}); } ).toThrow(new Error('bad request'));
       httpMock.verify();
     });
   });
-
-
 });
 
 
