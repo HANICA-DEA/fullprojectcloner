@@ -9,25 +9,25 @@ import {catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class GithubService {
-  baseUrl = 'https://api.github.com';
+  private _baseUrl = 'https://api.github.com';
 
   constructor(private http: HttpClient) {
   }
 
   getUser(token: string): Observable<Object> {
-    const url = this.baseUrl + '/user?access_token=' + token;
+    const url = this._baseUrl + '/user?access_token=' + token;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
 
   getRepositories(token: string, username: string): Observable<Object> {
-    const url = this.baseUrl + '/users/' + username + '/repos?access_token=' + token;
+    const url = this._baseUrl + '/users/' + username + '/repos?access_token=' + token;
     return this.http.get(url);
   }
 
   getRepositoryIssues(token: string, username: string, repository: string): Observable<Object> {
-    const url = this.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
+    const url = this._baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
     return this.http.get(url);
   }
 
@@ -36,7 +36,7 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
-    const url = this.baseUrl + '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
+    const url = this._baseUrl + '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
     return this.http.put(url, JSON.stringify(content), {headers: headers});
 
   }
@@ -46,7 +46,7 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
-    const url = this.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
+    const url = this._baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
 
@@ -54,7 +54,7 @@ export class GithubService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    const url = this.baseUrl + '/user/repos?access_token=' + token;
+    const url = this._baseUrl + '/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
@@ -62,5 +62,14 @@ export class GithubService {
   private handleError(error: HttpErrorResponse) {
     // return an observable with a user-facing error message
     return throwError(error);
+  }
+
+
+  get baseUrl(): string {
+    return this._baseUrl;
+  }
+
+  set baseUrl(value: string) {
+    this._baseUrl = value;
   }
 }
