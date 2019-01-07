@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {GithubService} from '../github/github.service';
 import {ImportDto} from '../../entities/github/import.dto';
 import {IssuerequestDto} from '../../entities/github/issuerequest.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CloneService {
   constructor(private github: GithubService) {
   }
 
-  async cloneProject(auth: Authdata, requestData: Object) {
+  async cloneProject(auth: AuthdataDto, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
     // Maakt de repository aan
 
