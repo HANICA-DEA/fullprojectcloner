@@ -14,18 +14,18 @@ import {promise} from 'selenium-webdriver';
 import {any} from 'codelyzer/util/function';
 
 class MockAuthService implements Partial<AuthService> {
-  userIsLoggedIn: boolean;
-
+ private _isLoggedIn: boolean;
   loginwithGithubProvider(): Promise<any> {
     return new Promise((resolve, reject) => resolve());
   }
 
-  public get isLoggedIn(): boolean {
-    return this.userIsLoggedIn;
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
   }
 
   logout(): Promise<any> {
-  return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve());
   }
 }
 
@@ -75,8 +75,11 @@ describe('LoginComponent', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
 
-  it('Logginbutton calls signInWithGithub', async(() => {
+  it('Loginbutton calls signInWithGithub', async(() => {
+    spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(false);
+    console.log(componentService.isLoggedIn);
     spyOn(component, 'signInWithGithub');
+
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
     button.click();
@@ -84,7 +87,7 @@ describe('LoginComponent', () => {
   }));
 
   it('LogoutButton calls Logout', async(() => {
-    componentService.userIsLoggedIn = true;
+    spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(true);
     spyOn(component, 'logout');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#logout');
