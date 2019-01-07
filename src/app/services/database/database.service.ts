@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {AuthdataDto} from '../dto/authdata.dto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,6 @@ export class DatabaseService {
     const document = await this.afs.collection(subject).doc(key).ref.get();
     return document.data();
   }
-
   async deleteData(subject: string, key: string) {
     return await this.afs.collection(subject).doc(key).delete();
   }

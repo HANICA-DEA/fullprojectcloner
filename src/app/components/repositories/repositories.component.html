@@ -3,10 +3,15 @@
   <span class="line"></span>
 </p>
 
+<p class="description">
+  Please check if FullProjectCloner has been installed on your GitHub profile before continuing.
+</p>
+
+
 <div class="auth_button">
   <a href="https://github.com/apps/fullprojectcloner/" target="_blank">
     <button class="install_button" mat-flat-button><i class="fas fa-download"></i>
-      Install our application on github here.&nbsp;&nbsp;
+      &nbsp;&nbsp;Check if our application has been installed&nbsp;&nbsp;
     </button>
   </a>
 </div>
@@ -17,5 +22,5 @@
 </div>
 
 <div *ngIf="repoInfoReady();">
-  <app-repository-button [repositories]="repositories" [authData]="authData"></app-repository-button>
+  <app-repository-picker [repositories]="repositories" [authData]="authData"></app-repository-picker>
 </div>

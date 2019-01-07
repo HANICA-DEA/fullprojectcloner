@@ -3,9 +3,9 @@ import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {UserDto} from '../dto/user.dto';
+import {UserDto} from '../../entities/github/user.dto';
 import {DatabaseService} from '../database/database.service';
-import {AuthdataDto} from '../dto/authdata.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
 import {reject, resolve} from 'q';
 
 @Injectable({
@@ -32,21 +32,17 @@ export class AuthService {
       });
   }
 
-
-
   public loginwithGithubProvider(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
+        this.userIsLoggedIn = true;
       }, err => {
-          reject(err.code);
+        reject(err.code);
       });
     });
-    if (this.userDetails != null) {
-      this.userIsLoggedIn = true;
-    }
   }
 
   public logout() {
@@ -61,7 +57,7 @@ export class AuthService {
   }
 
   public get isLoggedIn(): boolean {
-    return this.userIsLoggedIn;
+    return this._userDetails != null;
   }
 
   get user(): Observable<firebase.User> {
@@ -107,6 +103,4 @@ export class AuthService {
   set afAuth(value: AngularFireAuth) {
     this._afAuth = value;
   }
-
-
 }

@@ -1,5 +1,4 @@
-import {IssueDto} from './issueDto';
-
+import {IssueDto} from '../github/issueDto';
 
 export class SendinviteDto {
   private _URL: string;

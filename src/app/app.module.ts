@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -21,13 +22,16 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
+import {RepositoryPickerComponent} from './components/repositories/repository-picker/repository-picker.component';
 import {LoginComponent} from './components/login/login.component';
-import {RepositoryButtonComponent} from './components/repositories/repository-button/repository-button.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
-import {RepositorySendinviteComponent} from './components/repositories/repository-sendinvite/repository-sendinvite.component';
+import {RepositoryInviteComponent} from './components/repositories/repository-invite/repository-invite.component';
 import {CloneComponent} from './components/clone/clone.component';
 import {MatSnackBarModule} from '@angular/material';
+import {CsvDialogComponent} from './dialogues/csv/csvDialog.component';
+import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,9 +42,11 @@ import {MatSnackBarModule} from '@angular/material';
     RepositoriesComponent,
     ContactComponent,
     LoginComponent,
-    RepositoryButtonComponent,
-    RepositorySendinviteComponent,
+    RepositoryPickerComponent,
+    RepositoryInviteComponent,
     CloneComponent,
+    CsvDialogComponent,
+    CloneDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +57,7 @@ import {MatSnackBarModule} from '@angular/material';
     BrowserAnimationsModule,
     MatExpansionModule,
     MatCardModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     HttpModule,
@@ -58,7 +65,12 @@ import {MatSnackBarModule} from '@angular/material';
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CsvDialogComponent,
+    CloneDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

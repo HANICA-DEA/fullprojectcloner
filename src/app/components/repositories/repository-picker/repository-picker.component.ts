@@ -1,14 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
-import {AuthdataDto} from '../../../services/dto/authdata.dto';
+import {AuthdataDto} from '../../../entities/auth/authdata.dto';
 
 @Component({
-  selector: 'app-repository-button',
-  templateUrl: './repository-button.component.html',
-  styleUrls: ['./repository-button.component.sass']
+  selector: 'app-repository-picker',
+  templateUrl: './repository-picker.component.html',
+  styleUrls: ['./repository-picker.component.sass']
 })
-export class RepositoryButtonComponent implements OnInit {
+export class RepositoryPickerComponent implements OnInit {
 
   @Input() repositories: Object;
   @Input() data: GithubService;
@@ -16,15 +15,9 @@ export class RepositoryButtonComponent implements OnInit {
   public showAllRepositories: Boolean;
   chosenRepository: String;
 
-  checkboxForm: FormGroup;
-
-
-  constructor(private formBuilder: FormBuilder) {
-    this.checkboxForm = this.formBuilder.group({});
+  constructor() {
     this.showAllRepositories = true;
     this.chosenRepository = null;
-
-
   }
 
   ngOnInit() {

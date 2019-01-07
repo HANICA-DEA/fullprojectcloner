@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../services/auth/auth.service';
-import {GithubService} from '../../services/github/github.service';
 import {DatabaseService} from '../../services/database/database.service';
-import {SendinviteService} from '../../services/sendinvite/sendinvite.service';
+import {InviteService} from '../../services/invite/invite.service';
 import {CloneService} from '../../services/clone/clone.service';
-import {AuthdataDto} from '../../services/dto/authdata.dto';
+import {AuthdataDto} from '../../entities/auth/authdata.dto';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {CloneDialogComponent} from '../../dialogues/clone/cloneDialog.component';
 
 @Component({
   selector: 'app-cloneinvite',
@@ -15,12 +16,28 @@ import {AuthdataDto} from '../../services/dto/authdata.dto';
 export class CloneComponent implements OnInit {
 
   cloneID: string;
-  issues: Object;
   requestData: Object;
   authData: AuthdataDto;
+  cloneButtonClicked = false;
 
   constructor(private route: ActivatedRoute, public authService: AuthService, private databaseService: DatabaseService,
-              private sendInviteService: SendinviteService, private cloneService: CloneService) {
+              private sendInviteService: InviteService, private cloneService: CloneService, public snackBar: MatSnackBar,
+              public dialog: MatDialog) {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CloneDialogComponent, {
+      data: {
+        requestData: this.requestData,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clone();
+      } else {
+        return;
+      }
+    });
   }
 
   ngOnInit() {
@@ -32,7 +49,13 @@ export class CloneComponent implements OnInit {
   }
 
   clone() {
+    this.cloneButtonClicked = true;
     this.cloneService.cloneProject(this.authData, this.requestData);
+    this.snackBar.open('Your project is being cloned, you will receive an e-mail when the project has successfully been cloned. ' +
+      'This can take up to 5 minutes.', 'close', {
+      duration: 10000,
+      verticalPosition: 'top'
+    });
   }
 
   async initialiseRequestData() {
@@ -47,4 +70,5 @@ export class CloneComponent implements OnInit {
       }
     });
   }
+
 }
