@@ -4,6 +4,7 @@ import {async} from 'q';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Observable} from 'rxjs';
 import {HttpHeaders} from '@angular/common/http';
+import {fail} from 'assert';
 
 describe('GithubService', () => {
   let sut: GithubService;
@@ -143,22 +144,50 @@ describe('GithubService', () => {
 
   describe('#persistIssue', () => {
 
-    it('should resolve promise', async () => {
+    it('should resolve promise', done => {
+        const username = 'Kevin';
+        const token = 'abc';
+        const repository = 'repo';
+        const promise = sut.persistIssue(token, username, repository, {});
+
+        const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token);
+        promise.then(function () {
+          done(); // Success
+        }).catch();
+        {
+          fail('promise should not be rejected');
+        }
+
+        expect(req.request.method).toBe('POST');
+        expect(req.request.responseType).toEqual('json');
+
+        expect(req.request.headers.get('Content-Type')).toBe('application/json');
+        expect(req.request.headers.get('Accept')).toBe('application/vnd.github.barred-rock-preview');
+        req.flush(httpResponseMock);
+      }
+    );
+    it('should reject promise', done => {
       const username = 'Kevin';
       const token = 'abc';
       const repository = 'repo';
-      sut.persistIssue(token, username, repository, {});
+      const mockErrorResponse = {message: 'bad request'};
+
+      const promise = sut.persistIssue(token, username, repository, {});
 
       const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token);
+      promise.then(function () {
+        fail('promise should not be resolved');
+      }).catch();
+      {
+        done();
+      }
 
       expect(req.request.method).toBe('POST');
       expect(req.request.responseType).toEqual('json');
 
       expect(req.request.headers.get('Content-Type')).toBe('application/json');
       expect(req.request.headers.get('Accept')).toBe('application/vnd.github.barred-rock-preview');
-
-
-      req.flush(httpResponseMock);
+      req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
     });
   });
 });
