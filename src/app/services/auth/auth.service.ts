@@ -20,7 +20,7 @@ export class AuthService {
   private _token;
   userIsLoggedIn: boolean;
 
-  constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
+  constructor(private _afAuth: AngularFireAuth, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
     this._user.subscribe(
       (user) => {
@@ -32,30 +32,7 @@ export class AuthService {
       });
   }
 
-  // word naar mijn idee geen gebruik van gemaakt |Kevin
-  public checkLoginStatus() {
-    return new Promise((resolve, reject) => {
-      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-        this._userDetails = user;
-        unsubscribe();
-        resolve(user);
-      }, err => {
-        reject(err);
-      });
-    });
-  }
 
-  // public loginwithGithub() {
-  //   return new Promise<any>((resolve, reject) => {
-  //     this.loginwithGithubProvider().then(
-  //       res => {
-  //         resolve(res);
-  //       }, err => {
-  //         console.log(err);
-  //         reject(err);
-  //       });
-  //   });
-  // }
 
   public loginwithGithubProvider(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -67,7 +44,7 @@ export class AuthService {
           reject(err.code);
       });
     });
-    if(this.userDetails != null){
+    if (this.userDetails != null) {
       this.userIsLoggedIn = true;
     }
   }
@@ -75,6 +52,7 @@ export class AuthService {
   public logout() {
     return this._afAuth.auth.signOut()
       .then((res) => {
+        console.log(res);
         resolve(res);
         this.databaseService.deleteData('user', this.userDetails.uid);
       })

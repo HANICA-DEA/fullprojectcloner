@@ -14,7 +14,7 @@ import {Errorcode} from './errorcode.enum';
 export class LoginComponent implements OnInit {
   public loginError: string | boolean = false;
 
-  constructor(public authService: AuthService, public router: Router, private data: GithubService) {
+  constructor(public authService: AuthService) {
   }
 
   public signInWithGithub(): void {
