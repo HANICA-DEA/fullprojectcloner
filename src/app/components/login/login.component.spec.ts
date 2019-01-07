@@ -16,10 +16,6 @@ import {any} from 'codelyzer/util/function';
 class MockAuthService implements Partial<AuthService> {
   userIsLoggedIn: boolean;
 
-  public get isLoggedIn(): boolean {
-    return this.userIsLoggedIn;
-  }
-
   loginwithGithubProvider(): Promise<any> {
     return new Promise((resolve, reject) => resolve());
   }
@@ -75,9 +71,11 @@ describe('LoginComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
   it('Service injected via component should be an instance of MockAuthService', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
+
   it('Logginbutton calls signInWithGithub', async(() => {
     spyOn(component, 'signInWithGithub');
     fixture.detectChanges();
@@ -94,6 +92,7 @@ describe('LoginComponent', () => {
     button.click();
     expect(component.logout).toHaveBeenCalled();
   }));
+
   it('signInWithGithub() Should reset LoginError from false to null', async(() => {
     expect(component.loginError).toEqual(false);
     component.signInWithGithub();

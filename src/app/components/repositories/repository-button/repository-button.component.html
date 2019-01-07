@@ -1,10 +1,10 @@
 <div *ngIf="showAllRepositories">
   <form [formGroup]="checkboxForm">
-    <div *ngFor="let repository of repositories; index as i">
-      <button class="repository-button" mat-flat-button (click)="chooseRepository(repository?.full_name)">
+    <!--<div *ngFor="let repository of repositories; index as i">-->
+      <button class="repository-button" id="repository-button" mat-flat-button (click)="chooseRepository(repository?.full_name)">
         {{repository?.full_name}}
       </button>
-    </div>
+    <!--</div>-->
   </form>
 </div>
 
