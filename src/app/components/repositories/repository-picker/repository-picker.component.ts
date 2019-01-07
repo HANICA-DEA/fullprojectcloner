@@ -12,8 +12,8 @@ export class RepositoryPickerComponent implements OnInit {
   @Input() repositories: Object;
   @Input() data: GithubService;
   @Input() authData: AuthdataDto;
-  public showAllRepositories: Boolean;
-  chosenRepository: String;
+  public showAllRepositories: boolean;
+  chosenRepository: string;
 
   constructor() {
     this.showAllRepositories = true;
@@ -23,7 +23,7 @@ export class RepositoryPickerComponent implements OnInit {
   ngOnInit() {
   }
 
-  chooseRepository(repositoryName: String) {
+  chooseRepository(repositoryName: string) {
     this.showAllRepositories = false;
     this.chosenRepository = repositoryName;
   }

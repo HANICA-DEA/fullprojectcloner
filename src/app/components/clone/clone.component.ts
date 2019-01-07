@@ -20,8 +20,8 @@ export class CloneComponent implements OnInit {
   authData: AuthdataDto;
   cloneButtonClicked = false;
 
-  constructor(private route: ActivatedRoute, public authService: AuthService, private databaseService: DatabaseService,
-              private sendInviteService: InviteService, private cloneService: CloneService, public snackBar: MatSnackBar,
+  constructor(private readonly route: ActivatedRoute, public authService: AuthService, private readonly databaseService: DatabaseService,
+              private readonly sendInviteService: InviteService, private readonly cloneService: CloneService, public snackBar: MatSnackBar,
               public dialog: MatDialog) {
   }
 
