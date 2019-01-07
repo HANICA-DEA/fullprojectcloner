@@ -54,8 +54,7 @@ export class ContactComponent implements OnInit {
 
       const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
       this.http.post(this.MAIL_SCRIPT_URL, this.contactFormDto, {headers: headers})
-        .subscribe((response) => {
-          console.log(response);
+        .subscribe(() => {
         });
       this.openSnackBar('Contact form has been sent!', 'close');
       this.contactForm.reset();
