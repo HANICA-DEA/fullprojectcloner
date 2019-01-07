@@ -9,7 +9,7 @@ import {AuthdataDto} from '../../entities/auth/authdata.dto';
 })
 export class CloneService {
 
-  constructor(private github: GithubService) {
+  constructor(private readonly github: GithubService) {
   }
 
   async cloneProject(auth: AuthdataDto, requestData: Object) {
@@ -20,7 +20,7 @@ export class CloneService {
       .then(async Reporesponse => {
 
         if (Reporesponse != null) {
-          const impStarted = await this.github.importRepository
+          await this.github.importRepository
           (auth.token, auth.username, request._repositoryName, new ImportDto(request._URL))
             .toPromise();
 
