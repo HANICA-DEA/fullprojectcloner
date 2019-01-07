@@ -148,15 +148,13 @@ describe('GithubService', () => {
         const username = 'Kevin';
         const token = 'abc';
         const repository = 'repo';
-        const promise = sut.persistIssue(token, username, repository, {});
+        sut.persistIssue(token, username, repository, {}).then(() => {
+          done();
+        }).catch(() => {
+          fail('promise should not be rejected');
+        });
 
         const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token);
-        promise.then(function () {
-          done(); // Success
-        }).catch();
-        {
-          fail('promise should not be rejected');
-        }
 
         expect(req.request.method).toBe('POST');
         expect(req.request.responseType).toEqual('json');
@@ -175,12 +173,6 @@ describe('GithubService', () => {
       const promise = sut.persistIssue(token, username, repository, {});
 
       const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token);
-      promise.then(function () {
-        fail('promise should not be resolved');
-      }).catch();
-      {
-        done();
-      }
 
       expect(req.request.method).toBe('POST');
       expect(req.request.responseType).toEqual('json');
@@ -188,6 +180,12 @@ describe('GithubService', () => {
       expect(req.request.headers.get('Content-Type')).toBe('application/json');
       expect(req.request.headers.get('Accept')).toBe('application/vnd.github.barred-rock-preview');
       req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
+
+      promise.then(function () {
+        fail('promise should not be resolved');
+      }).catch(() => {
+        done();
+      });
     });
   });
 });

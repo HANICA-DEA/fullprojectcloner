@@ -44,9 +44,6 @@ export class GithubService {
 
   getRepositoryIssues(token: string, username: string, repository: string): Observable<Object> {
     const url = this._baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
-    console.log(this.http.get(url).pipe(
-      catchError(GithubService.handleError)
-    ));
     return this.http.get(url).pipe(
       catchError(GithubService.handleError)
     );
