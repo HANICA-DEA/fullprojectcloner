@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule, MatFormFieldModule} from '@angular/material';
 import {RepositoryPickerComponent} from './repository-picker.component';
@@ -31,16 +31,16 @@ describe('RepositoryPickerComponent', () => {
   });
 
 
-  // xit('repositorybutton calls chooserepository', async(() => {
-  //   // Hoe vul ik in godsnaam repositories met iets waardoor de test slaagt ):
-  //   // object: Object = "hoi";
-  //   component.showAllRepositories = true;
-  //   // component.repositories = object;
-  //   spyOn(component, 'chooseRepository');
-  //   fixture.detectChanges();
-  //   const button = fixture.debugElement.nativeElement.querySelector('#repository-button');
-  //   button.click();
-  //   expect(component.chooseRepository).toHaveBeenCalled();
-  // }));
+  xit('repositorybutton calls chooserepository', async(() => {
+    // Hoe vul ik in godsnaam repositories met iets waardoor de test slaagt ):
+    // object: Object = "hoi";
+    component.showAllRepositories = true;
+    // component.repositories = object;
+    spyOn(component, 'chooseRepository');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#repository-button');
+    button.click();
+    expect(component.chooseRepository).toHaveBeenCalled();
+  }));
 
 });
