@@ -9,29 +9,46 @@ import {PostrequestDto} from '../dto/postrequest.dto';
   providedIn: 'root'
 })
 export class GithubService {
+
   private _baseUrl = 'https://api.github.com';
 
   constructor(private http: HttpClient) {
   }
 
-  getUser(token: string): Observable<Object> {
-    const url = this._baseUrl + '/user?access_token=' + token;
-    return this.http.get(url).pipe(
-      catchError(this.handleError)
-    );
+  get baseUrl(): string {
+    return this._baseUrl;
   }
+
+  set baseUrl(value: string) {
+    this._baseUrl = value;
+  }
+
+  static handleError(error: HttpErrorResponse): Observable<never> {
+    // return an observable with a user-facing error message
+    return throwError(error);
+  }
+
+  // getUser(token: string): Observable<Object> {
+  //   const url = this._baseUrl + '/user?access_token=' + token;
+  //   return this.http.get(url).pipe(
+  //     catchError(this.handleError)
+  //   );
+  // }
 
   getRepositories(token: string, username: string): Observable<Object> {
     const url = this._baseUrl + '/users/' + username + '/repos?access_token=' + token;
     return this.http.get(url).pipe(
-      catchError(this.handleError)
+      catchError(GithubService.handleError)
     );
   }
 
   getRepositoryIssues(token: string, username: string, repository: string): Observable<Object> {
     const url = this._baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
+    console.log(this.http.get(url).pipe(
+      catchError(GithubService.handleError)
+    ));
     return this.http.get(url).pipe(
-      catchError(this.handleError)
+      catchError(GithubService.handleError)
     );
   }
 
@@ -41,7 +58,6 @@ export class GithubService {
       'Accept': 'application/vnd.github.barred-rock-preview'
     });
 
-    console.log('en nu hier');
     const url = this._baseUrl + '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
     return this.http.put(url, JSON.stringify(content), {headers: headers});
   }
@@ -62,19 +78,5 @@ export class GithubService {
     const url = this._baseUrl + '/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
-  }
-
-  handleError(error: HttpErrorResponse) {
-    // return an observable with a user-facing error message
-    console.log('en nu daar');
-    return throwError(error);
-  }
-
-  get baseUrl(): string {
-    return this._baseUrl;
-  }
-
-  set baseUrl(value: string) {
-    this._baseUrl = value;
   }
 }

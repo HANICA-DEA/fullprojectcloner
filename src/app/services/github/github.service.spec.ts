@@ -129,7 +129,6 @@ describe('GithubService', () => {
       }, err => {
         expect(err.error.message).toEqual(mockErrorResponse.message);
         expect(err.status).toEqual(400);
-
         done();
       });
 
@@ -137,11 +136,31 @@ describe('GithubService', () => {
         '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token);
 
       req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
-      //expect( function() { sut.importRepository(token, username, repository, {}); } ).toThrow(new Error('bad request'));
       httpMock.verify();
     });
   });
-});
 
+
+  describe('#persistIssue', () => {
+
+    it('should resolve promise', async () => {
+      const username = 'Kevin';
+      const token = 'abc';
+      const repository = 'repo';
+      sut.persistIssue(token, username, repository, {});
+
+      const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token);
+
+      expect(req.request.method).toBe('POST');
+      expect(req.request.responseType).toEqual('json');
+
+      expect(req.request.headers.get('Content-Type')).toBe('application/json');
+      expect(req.request.headers.get('Accept')).toBe('application/vnd.github.barred-rock-preview');
+
+
+      req.flush(httpResponseMock);
+    });
+  });
+});
 
 

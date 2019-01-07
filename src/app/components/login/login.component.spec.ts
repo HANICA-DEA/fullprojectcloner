@@ -64,7 +64,7 @@ describe('LoginComponent', () => {
   it('Service injected via component should be an instance of MockAuthService', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
-  it('Logginbutton calls signInWithGithub', async(() => {
+  it('Loginbutton calls signInWithGithub', async(() => {
     spyOn(component, 'signInWithGithub');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
