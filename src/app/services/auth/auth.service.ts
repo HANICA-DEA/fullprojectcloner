@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as firebase from 'firebase';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {UserDto} from '../../entities/github/user.dto';
 import {DatabaseService} from '../database/database.service';
 import {AuthdataDto} from '../../entities/auth/authdata.dto';
@@ -15,10 +15,12 @@ export class AuthService {
   private _user: Observable<firebase.User>;
   private _userdata: UserDto;
   private _userDetails: firebase.User = null;
+  // De noodzakelijke gegevens
   private _username;
   private _token;
+  userIsLoggedIn: boolean;
 
-  constructor(private _afAuth: AngularFireAuth, private router: Router, private databaseService: DatabaseService) {
+  constructor(private _afAuth: AngularFireAuth, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
     this._user.subscribe(
       (user) => {
@@ -30,14 +32,15 @@ export class AuthService {
       });
   }
 
-  public loginWithGithubProvider(): Promise<any> {
-    return new Promise<any>((resolves, rejects) => {
+  public loginwithGithubProvider(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
       this._afAuth.auth.signInWithPopup(
         new firebase.auth.GithubAuthProvider()).then(res => {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
+        this.userIsLoggedIn = true;
       }, err => {
-        rejects(err);
+        reject(err.code);
       });
     });
   }
@@ -45,10 +48,12 @@ export class AuthService {
   public logout() {
     return this._afAuth.auth.signOut()
       .then((res) => {
+        console.log(res);
         resolve(res);
         this.databaseService.deleteData('user', this.userDetails.uid);
       })
       .catch((err) => reject(err));
+    this.userIsLoggedIn = false;
   }
 
   public get isLoggedIn(): boolean {

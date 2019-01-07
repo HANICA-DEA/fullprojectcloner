@@ -11,21 +11,24 @@ import {ContactComponent} from './components/contact/contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatSnackBarModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
-import {LoginComponent} from './components/login/login.component';
 import {RepositoryPickerComponent} from './components/repositories/repository-picker/repository-picker.component';
+import {LoginComponent} from './components/login/login.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositoryInviteComponent} from './components/repositories/repository-invite/repository-invite.component';
 import {CloneComponent} from './components/clone/clone.component';
+import {MatSnackBarModule} from '@angular/material';
 import {CsvDialogComponent} from './dialogues/csv/csvDialog.component';
 import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -44,7 +47,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     CloneComponent,
     CsvDialogComponent,
     CloneDialogComponent
-
   ],
   imports: [
     BrowserModule,
@@ -56,13 +58,14 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatExpansionModule,
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
+    MatFormFieldModule,
     MatDialogModule
   ],
   entryComponents: [

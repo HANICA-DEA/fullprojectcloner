@@ -6,7 +6,5 @@ describe('DatabaseService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DatabaseService = TestBed.get(DatabaseService);
-    expect(service).toBeTruthy();
   });
 });

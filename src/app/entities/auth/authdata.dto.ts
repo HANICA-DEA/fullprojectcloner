@@ -1,4 +1,4 @@
-export class AuthdataDto implements Authdata {
+export class AuthdataDto  {
   public _token: string;
   public _username: string;
 

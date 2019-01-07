@@ -16,7 +16,7 @@
   <app-login></app-login>
 </div>
 
-<div *ngIf="authService.isLoggedIn">
+<div *ngIf="authService.userIsLoggedIn">
   <mat-card>
     <p>You're about to clone the following project:</p>
     <h3 class="reponame">{{requestData?._repositoryName}}</h3>
