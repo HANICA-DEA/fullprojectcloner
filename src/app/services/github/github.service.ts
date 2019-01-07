@@ -75,4 +75,47 @@ export class GithubService {
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
+
+  getProjects(token: string, name: string, repository: string): Observable<Object> {
+    const headers = new HttpHeaders({
+      'Accept': 'application/vnd.github.inertia-preview+json'
+    });
+    const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
+    return this.http.get(url, {headers: headers});
+  }
+
+  getUsingUrl(token: string, sourceUrl: string) {
+    const headers = new HttpHeaders({
+      'Accept': 'application/vnd.github.inertia-preview+json'
+    });
+    const url = sourceUrl + '?access_token=' + token;
+    return this.http.get(url, {headers: headers});
+  }
+
+  persistProject(token: string, name: string, repository: string, content: Object) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.github.inertia-preview+json'
+    });
+    const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
+    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+  }
+
+  persistColumn(token: string, projectId: number, content: Object) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.github.inertia-preview+json'
+    });
+    const url = 'https://api.github.com/projects/' + projectId + '/columns?access_token=' + token;
+    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+  }
+
+  persistCard(token: string, columnId: number, content: Object) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.github.inertia-preview+json'
+    });
+    const url = 'https://api.github.com/projects/columns/' + columnId + '/cards?access_token=' + token;
+    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+  }
 }

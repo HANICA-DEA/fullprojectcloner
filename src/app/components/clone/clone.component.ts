@@ -33,7 +33,7 @@ export class CloneComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.clone();
+        this.cloneFullProject();
       } else {
         return;
       }
@@ -48,9 +48,9 @@ export class CloneComponent implements OnInit {
     this.initialiseAuth();
   }
 
-  clone() {
+  cloneFullProject() {
     this.cloneButtonClicked = true;
-    this.cloneService.cloneProject(this.authData, this.requestData);
+    this.cloneService.cloneFullProject(this.authData, this.requestData);
     this.snackBar.open('Your project is being cloned, you will receive an e-mail when the project has successfully been cloned. ' +
       'This can take up to 5 minutes.', 'close', {
       duration: 10000,
@@ -70,5 +70,4 @@ export class CloneComponent implements OnInit {
       }
     });
   }
-
 }
