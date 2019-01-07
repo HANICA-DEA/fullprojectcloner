@@ -18,7 +18,6 @@ export class AuthService {
   // De noodzakelijke gegevens
   private _username;
   private _token;
-  userIsLoggedIn: boolean;
 
   constructor(private _afAuth: AngularFireAuth, private databaseService: DatabaseService) {
     this._user = _afAuth.authState;
@@ -38,7 +37,6 @@ export class AuthService {
         new firebase.auth.GithubAuthProvider()).then(res => {
         const data = new AuthdataDto(res.additionalUserInfo.username, res.credential['accessToken']);
         this.databaseService.pushToDatabase('user', res.user.uid, data);
-        this.userIsLoggedIn = true;
       }, err => {
         reject(err.code);
       });
@@ -48,12 +46,10 @@ export class AuthService {
   public logout() {
     return this._afAuth.auth.signOut()
       .then((res) => {
-        console.log(res);
-        resolve(res);
         this.databaseService.deleteData('user', this.userDetails.uid);
+        resolve(res);
       })
       .catch((err) => reject(err));
-    this.userIsLoggedIn = false;
   }
 
   public get isLoggedIn(): boolean {
