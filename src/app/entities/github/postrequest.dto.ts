@@ -1,11 +1,11 @@
 export class PostrequestDto {
-  private name: string;
-  private description: string;
-  private homepage: string;
-  private is_private: boolean;
-  private has_issues: boolean;
-  private has_projects: boolean;
-  private has_wiki: boolean;
+  private readonly name: string;
+  private readonly description: string;
+  private readonly homepage: string;
+  private readonly is_private: boolean;
+  private readonly has_issues: boolean;
+  private readonly has_projects: boolean;
+  private readonly has_wiki: boolean;
 
   constructor(name: string, description: string, homepage:
     string , is_private: boolean, has_issues: boolean, has_projects: boolean, has_wiki: boolean) {

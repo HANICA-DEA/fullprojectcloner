@@ -14,7 +14,7 @@ export class RepositoriesComponent implements OnInit {
   repositories: Object;
   authData: AuthdataDto;
 
-  constructor(private data: GithubService, public authService: AuthService, private dbService: DatabaseService) {
+  constructor(private readonly data: GithubService, public authService: AuthService, private readonly dbService: DatabaseService) {
   }
 
   async ngOnInit() {
