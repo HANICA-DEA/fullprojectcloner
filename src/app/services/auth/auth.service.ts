@@ -15,7 +15,7 @@ export class AuthService {
   private _user: Observable<firebase.User>;
   private _userdata: UserDto;
   private _userDetails: firebase.User = null;
-  // De noodzakelijke gegevens
+
   private _username;
   private _token;
 
