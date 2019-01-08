@@ -12,7 +12,7 @@ export class CloneService {
   constructor(private readonly github: GithubService) {
   }
 
-  async cloneFullProject(auth: Authdata, requestData: Object) {
+  async cloneFullProject(auth: AuthdataDto, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
     const token = auth.token;
     const recipientName = auth.username;

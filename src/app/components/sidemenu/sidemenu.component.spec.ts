@@ -24,7 +24,7 @@ describe('SidemenuComponent', () => {
   });
 
 
-  it('empty test', () => {
+  it('date should be up to date', () => {
     component.ngOnInit();
     const currentYear = new Date().getFullYear();
     expect(component.currentYear).toEqual(currentYear);
