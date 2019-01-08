@@ -31,6 +31,8 @@ import {MatSnackBarModule} from '@angular/material';
 import {CsvDialogComponent} from './dialogues/csv/csvDialog.component';
 import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     CloneDialogComponent
   ],
   imports: [
+    BrowserDynamicTestingModule,
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
