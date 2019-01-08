@@ -23,7 +23,7 @@ export class CloneService {
     await this.github.persistRepository(token, newRepositoryName)
       .then(async Reporesponse => {
         if (Reporesponse != null) {
-          const impStarted = await this.github.importRepository
+          await this.github.importRepository
           (token, recipientName, sourceReposioryName, new ImportDto(request._URL))
             .toPromise();
         }

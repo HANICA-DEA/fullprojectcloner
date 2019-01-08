@@ -50,7 +50,6 @@ import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/tes
     CloneDialogComponent
   ],
   imports: [
-    BrowserDynamicTestingModule,
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
