@@ -9,9 +9,6 @@ import {Router, RouterModule} from '@angular/router';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {HttpClient, HttpHandler} from '@angular/common/http';
 import {GithubService} from '../../services/github/github.service';
-import {Observable} from 'rxjs';
-import {promise} from 'selenium-webdriver';
-import {any} from 'codelyzer/util/function';
 
 class MockAuthService implements Partial<AuthService> {
  private _isLoggedIn: boolean;
@@ -67,10 +64,12 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
     componentService = fixture.debugElement.injector.get(AuthService);
   }));
+
   // Instance and HTML tests
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
   it('Service injected via component should be an instance of MockAuthService', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
@@ -79,7 +78,6 @@ describe('LoginComponent', () => {
     spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(false);
     console.log(componentService.isLoggedIn);
     spyOn(component, 'signInWithGithub');
-
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
     button.click();
