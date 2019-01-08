@@ -11,18 +11,18 @@ import {HttpClient, HttpHandler} from '@angular/common/http';
 import {GithubService} from '../../services/github/github.service';
 
 class MockAuthService implements Partial<AuthService> {
-  userIsLoggedIn: boolean;
-
+ private _isLoggedIn: boolean;
   loginwithGithubProvider(): Promise<any> {
     return new Promise((resolve, reject) => resolve());
   }
 
-  public get isLoggedIn(): boolean {
-    return this.userIsLoggedIn;
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
   }
 
   logout(): Promise<any> {
-  return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve());
   }
 }
 
@@ -74,7 +74,9 @@ describe('LoginComponent', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
 
-  it('Logginbutton calls signInWithGithub', async(() => {
+  it('Loginbutton calls signInWithGithub', async(() => {
+    spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(false);
+    console.log(componentService.isLoggedIn);
     spyOn(component, 'signInWithGithub');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
@@ -82,14 +84,14 @@ describe('LoginComponent', () => {
     expect(component.signInWithGithub).toHaveBeenCalled();
   }));
 
-  // it('LogoutButton calls Logout', async(() => {
-  //   componentService.userIsLoggedIn = true;
-  //   spyOn(component, 'logout');
-  //   fixture.detectChanges();
-  //   const button = fixture.debugElement.nativeElement.querySelector('#logout');
-  //   button.click();
-  //   expect(component.logout).toHaveBeenCalled();
-  // }));
+  it('LogoutButton calls Logout', async(() => {
+    spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(true);
+    spyOn(component, 'logout');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#logout');
+    button.click();
+    expect(component.logout).toHaveBeenCalled();
+  }));
 
   it('signInWithGithub() Should reset LoginError from false to null', async(() => {
     expect(component.loginError).toEqual(false);
