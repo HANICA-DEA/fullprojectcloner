@@ -23,7 +23,6 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {RepositoryPickerComponent} from './components/repositories/repository-picker/repository-picker.component';
 import {LoginComponent} from './components/login/login.component';
-import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositoryInviteComponent} from './components/repositories/repository-invite/repository-invite.component';
 import {CloneComponent} from './components/clone/clone.component';
@@ -31,7 +30,6 @@ import {MatSnackBarModule} from '@angular/material';
 import {CsvDialogComponent} from './dialogues/csv/csvDialog.component';
 import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
 
 @NgModule({
