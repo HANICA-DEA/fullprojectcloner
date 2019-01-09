@@ -227,6 +227,50 @@ describe('GithubService', () => {
       });
     });
   });
+  describe('#persistProject', () => {
+    it('should resolve promise', done => {
+        const token = 'abc';
+        const repository = 'repo';
+        const name = 'jim';
+        sut.persistProject(token, name, repository, {}).then(() => {
+          done();
+        }).catch(() => {
+          fail('promise should not be rejected');
+        });
+
+        const req = httpMock.expectOne(sut.baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token);
+
+        expect(req.request.method).toBe('POST');
+        expect(req.request.responseType).toEqual('json');
+
+        expect(req.request.headers.get('Content-Type')).toBe('application/json');
+        expect(req.request.headers.get('Accept')).toBe('application/vnd.github.inertia-preview+json');
+        req.flush(httpResponseMock);
+      }
+    );
+    it('should reject promise', done => {
+      const token = 'abc';
+      const repository = 'repo';
+      const name = 'jim';
+      const mockErrorResponse = {message: 'bad request'};
+
+      const promise = sut.persistProject(token, name, repository, {});
+
+      const req = httpMock.expectOne(sut.baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.responseType).toEqual('json');
+
+      expect(req.request.headers.get('Content-Type')).toBe('application/json');
+      expect(req.request.headers.get('Accept')).toBe('application/vnd.github.inertia-preview+json');
+      req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
+
+      promise.then(function () {
+        fail('promise should not be resolved');
+      }).catch(() => {
+        done();
+      });
+    });
+  });
 });
 
 
