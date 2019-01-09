@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
 import {CsvDialogComponent} from './csvDialog.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('CsvDialogComponent', () => {
   let component: CsvDialogComponent;

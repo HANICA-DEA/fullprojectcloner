@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CloneDialogComponent} from './cloneDialog.component';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('CloneDialogComponent', () => {
   let component: CloneDialogComponent;
