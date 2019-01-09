@@ -37,7 +37,6 @@ export class CloneService {
     for (let projectCount = 0; projectCount < Object.keys(projects).length; projectCount++) {
       const projectContent = {name: projects[projectCount].name, body: projects[projectCount].body};
       await this.github.persistProject(token, recipientName, newRepositoryName, projectContent).then(async response => {
-        console.log(response);
         projectId = JSON.parse(JSON.stringify(response)).id;
       });
       const columns = await this.github.getUsingUrl(token, projects[projectCount].columns_url).toPromise();

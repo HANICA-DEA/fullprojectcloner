@@ -9,7 +9,6 @@ import {AuthService} from '../../services/auth/auth.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {HttpClient, HttpHandler} from '@angular/common/http';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
 
@@ -24,7 +23,6 @@ describe('CloneComponent', () => {
         BrowserAnimationsModule,
         MatCardModule,
         RouterTestingModule,
-        BrowserDynamicTestingModule,
         AngularFireModule.initializeApp(environment.firebase),
         MatSnackBarModule,
         MatDialogModule
@@ -50,3 +48,4 @@ describe('CloneComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

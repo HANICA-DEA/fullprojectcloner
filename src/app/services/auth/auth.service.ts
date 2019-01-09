@@ -13,14 +13,14 @@ import {promise} from 'selenium-webdriver';
   providedIn: 'root'
 })
 export class AuthService {
-  private _user: Observable<firebase.User>;
+  private readonly _user: Observable<firebase.User>;
   private _userdata: UserDto;
   private _userDetails: firebase.User = null;
 
   private _username;
   private _token;
 
-  constructor(private _afAuth: AngularFireAuth, private databaseService: DatabaseService) {
+  constructor(private _afAuth: AngularFireAuth, private readonly databaseService: DatabaseService) {
     this._user = _afAuth.authState;
     this._user.subscribe(
       (user) => {

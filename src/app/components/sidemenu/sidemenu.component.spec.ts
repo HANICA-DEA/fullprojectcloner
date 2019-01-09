@@ -30,3 +30,4 @@ describe('SidemenuComponent', () => {
     expect(component.currentYear).toEqual(currentYear);
   });
 });
+

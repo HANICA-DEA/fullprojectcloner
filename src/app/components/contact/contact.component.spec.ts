@@ -2,9 +2,8 @@ import {ContactComponent} from './contact.component';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule, MatFormFieldModule, MatInputModule, MatSnackBarModule} from '@angular/material';
-import {HttpClient, HttpHandler} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpModule} from '@angular/http';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;
@@ -18,7 +17,7 @@ describe('ContactComponent', () => {
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        HttpModule,
+        HttpClientModule,
         MatSnackBarModule,
         BrowserAnimationsModule
       ],
@@ -38,11 +37,4 @@ describe('ContactComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Submit calls onSubmit()', async(() => {
-    spyOn(component, 'onSubmit');
-    fixture.detectChanges();
-    const button = fixture.debugElement.nativeElement.querySelector('#submit');
-    button.click();
-    expect(component.onSubmit).toHaveBeenCalled();
-  }));
 });
