@@ -11,7 +11,7 @@ export class GithubService {
 
   private _baseUrl = 'https://api.github.com';
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
   get baseUrl(): string {

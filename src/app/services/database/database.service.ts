@@ -7,7 +7,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 })
 
 export class DatabaseService {
-  constructor(private afs: AngularFirestore) {
+  constructor(private readonly afs: AngularFirestore) {
   }
 
   pushToDatabase(subject: string, key: string, object: Object): void {
@@ -19,6 +19,6 @@ export class DatabaseService {
     return document.data();
   }
   async deleteData(subject: string, key: string) {
-    return await this.afs.collection(subject).doc(key).delete();
+    return this.afs.collection(subject).doc(key).delete();
   }
 }
