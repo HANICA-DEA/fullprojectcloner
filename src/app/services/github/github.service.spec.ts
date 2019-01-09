@@ -188,6 +188,47 @@ describe('GithubService', () => {
       });
     });
   });
+  describe('#persistRepository', () => {
+
+    it('should resolve promise', done => {
+        const token = 'abc';
+        const repository = 'repo';
+        sut.persistRepository(token, repository).then(() => {
+          done();
+        }).catch(() => {
+          fail('promise should not be rejected');
+        });
+
+        const req = httpMock.expectOne(sut.baseUrl + '/user/repos?access_token=' + token);
+
+        expect(req.request.method).toBe('POST');
+        expect(req.request.responseType).toEqual('json');
+
+        expect(req.request.headers.get('Content-Type')).toBe('application/json');
+        req.flush(httpResponseMock);
+      }
+    );
+    it('should reject promise', done => {
+      const token = 'abc';
+      const repository = 'repo';
+      const mockErrorResponse = {message: 'bad request'};
+
+      const promise = sut.persistRepository(token, repository);
+
+      const req = httpMock.expectOne(sut.baseUrl + '/user/repos?access_token=' + token);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.responseType).toEqual('json');
+
+      expect(req.request.headers.get('Content-Type')).toBe('application/json');
+      req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
+
+      promise.then(function () {
+        fail('promise should not be resolved');
+      }).catch(() => {
+        done();
+      });
+    });
+  });
 });
 
 
