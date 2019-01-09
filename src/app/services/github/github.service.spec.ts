@@ -143,7 +143,6 @@ describe('GithubService', () => {
 
 
   describe('#persistIssue', () => {
-
     it('should resolve promise', done => {
         const username = 'Kevin';
         const token = 'abc';
@@ -189,7 +188,6 @@ describe('GithubService', () => {
     });
   });
   describe('#persistRepository', () => {
-
     it('should resolve promise', done => {
         const token = 'abc';
         const repository = 'repo';
