@@ -355,6 +355,39 @@ describe('GithubService', () => {
       });
     });
   });
+  describe('#getProjects', () => {
+    it('should return an Observable', fakeAsync(() => {
+      const username = 'jim';
+      const token = 'abc';
+      const repository = 'repo';
+
+      sut.getProjects(token, username, repository).subscribe(issues => {
+          expect(<any>issues).toEqual(httpResponseMock);
+        }
+      );
+      const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/projects?access_token=' + token);
+      expect(req.request.method).toBe('GET');
+      req.flush(httpResponseMock);
+    }));
+
+    it('should throw Observable error', (done) => {
+      const username = 'jim';
+      const token = 'abc';
+      const repository = 'repo';
+
+      const mockErrorResponse = {message: 'bad request'};
+      sut.getProjects(token, username, repository).subscribe(() => {
+      }, err => {
+        expect(err.error.message).toEqual(mockErrorResponse.message);
+        expect(err.status).toEqual(400);
+        done();
+      });
+
+      const req = httpMock.expectOne(sut.baseUrl + '/repos/' + username + '/' + repository + '/projects?access_token=' + token);
+      req.flush({message: mockErrorResponse.message}, {status: 400, statusText: ''});
+      httpMock.verify();
+    });
+  });
 });
 
 
