@@ -55,8 +55,8 @@ import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
     MatExpansionModule,
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
