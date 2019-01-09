@@ -34,7 +34,7 @@ describe('DatabaseService', () => {
     angularFireStoreMock = TestBed.get(AngularFirestore);
   });
   describe('pushToDatabase', function () {
-    it('should receive right input', function () {
+    xit('should receive right input', function () {
 
     });
   });
