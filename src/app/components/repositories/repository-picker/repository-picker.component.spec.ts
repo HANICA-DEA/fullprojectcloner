@@ -31,16 +31,14 @@ describe('RepositoryPickerComponent', () => {
   });
 
 
-  // xit('repositorybutton calls chooserepository', async(() => {
-  //   // Hoe vul ik in godsnaam repositories met iets waardoor de test slaagt ):
-  //   // object: Object = "hoi";
-  //   component.showAllRepositories = true;
-  //   // component.repositories = object;
-  //   spyOn(component, 'chooseRepository');
-  //   fixture.detectChanges();
-  //   const button = fixture.debugElement.nativeElement.querySelector('#repository-button');
-  //   button.click();
-  //   expect(component.chooseRepository).toHaveBeenCalled();
-  // }));
+  it('repository-button calls chooserepository', async(() => {
+    component.showAllRepositories = true;
+    component.repositories = ['test', 'test'];
+    spyOn(component, 'chooseRepository');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#repository-button');
+    button.click();
+    expect(component.chooseRepository).toHaveBeenCalled();
+  }));
 
 });
