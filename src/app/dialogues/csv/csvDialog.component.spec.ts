@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
-import {CsvDialogComponent} from "./csvDialog.component";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CsvDialogComponent} from './csvDialog.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('CsvDialogComponent', () => {
   let component: CsvDialogComponent;
@@ -51,13 +51,13 @@ describe('CsvDialogComponent', () => {
   }));
 
   it('dialog should be closed after onYesClick()', () => {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    const spy = spyOn(component.dialogRef, 'close').and.callThrough();
     component.onYesClick();
     expect(spy).toHaveBeenCalled();
   });
 
   it('dialog should be closed after onNoClick()', () => {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    const spy = spyOn(component.dialogRef, 'close').and.callThrough();
     component.onNoClick();
     expect(spy).toHaveBeenCalled();
   });

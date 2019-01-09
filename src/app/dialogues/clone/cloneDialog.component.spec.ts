@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {CloneDialogComponent} from "./cloneDialog.component";
+import {CloneDialogComponent} from './cloneDialog.component';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('CloneDialogComponent', () => {
   let component: CloneDialogComponent;
@@ -51,13 +51,13 @@ describe('CloneDialogComponent', () => {
   }));
 
   it('dialog should be closed after onYesClick()', () => {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    const spy = spyOn(component.dialogRef, 'close').and.callThrough();
     component.onYesClick();
     expect(spy).toHaveBeenCalled();
   });
 
   it('dialog should be closed after onNoClick()', () => {
-    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    const spy = spyOn(component.dialogRef, 'close').and.callThrough();
     component.onNoClick();
     expect(spy).toHaveBeenCalled();
   });
