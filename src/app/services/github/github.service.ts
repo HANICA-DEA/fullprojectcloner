@@ -80,7 +80,7 @@ export class GithubService {
     const headers = new HttpHeaders({
       'Accept': 'application/vnd.github.inertia-preview+json'
     });
-    const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
+    const url = this._baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token;
     return this.http.get(url, {headers: headers});
   }
 
@@ -97,7 +97,7 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.inertia-preview+json'
     });
-    const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
+    const url = this._baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
 
@@ -106,7 +106,7 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.inertia-preview+json'
     });
-    const url = 'https://api.github.com/projects/' + projectId + '/columns?access_token=' + token;
+    const url = this._baseUrl + '/projects/' + projectId + '/columns?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
 
@@ -115,7 +115,7 @@ export class GithubService {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.github.inertia-preview+json'
     });
-    const url = 'https://api.github.com/projects/columns/' + columnId + '/cards?access_token=' + token;
+    const url = this._baseUrl + '/projects/columns/' + columnId + '/cards?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
   }
 }
