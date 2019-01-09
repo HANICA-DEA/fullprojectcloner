@@ -323,7 +323,7 @@ describe('GithubService', () => {
           fail('promise should not be rejected');
         });
 
-        const req = httpMock.expectOne(sut.baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token);
+        const req = httpMock.expectOne(sut.baseUrl + '/projects/columns/' + columnId + '/cards?access_token=' + token);
 
         expect(req.request.method).toBe('POST');
         expect(req.request.responseType).toEqual('json');
@@ -335,13 +335,12 @@ describe('GithubService', () => {
     );
     it('should reject promise', done => {
       const token = 'abc';
-      const repository = 'repo';
-      const name = 'jim';
+      const columnId = 5;
       const mockErrorResponse = {message: 'bad request'};
 
-      const promise = sut.persistProject(token, name, repository, {});
+      const promise = sut.persistCard(token, columnId, {});
 
-      const req = httpMock.expectOne(sut.baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token);
+      const req = httpMock.expectOne(sut.baseUrl + '/projects/columns/' + columnId + '/cards?access_token=' + token);
       expect(req.request.method).toBe('POST');
       expect(req.request.responseType).toEqual('json');
 
