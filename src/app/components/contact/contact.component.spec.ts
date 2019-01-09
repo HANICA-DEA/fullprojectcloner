@@ -38,11 +38,4 @@ describe('ContactComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Submit calls onSubmit()', async(() => {
-    spyOn(component, 'onSubmit');
-    fixture.detectChanges();
-    const button = fixture.debugElement.nativeElement.querySelector('#submit');
-    button.click();
-    expect(component.onSubmit).toHaveBeenCalled();
-  }));
 });

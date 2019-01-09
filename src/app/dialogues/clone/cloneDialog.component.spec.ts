@@ -18,7 +18,12 @@ describe('CloneDialogComponent', () => {
       ],
       providers: [
         {provide: MatDialogTitle, useValue: {}},
-        {provide: MatDialogRef, useValue: {}},
+        {
+          provide: MatDialogRef, useValue: {
+            close: () => {
+            }
+          }
+        },
         {provide: MAT_DIALOG_DATA, useValue: []}]
     });
     fixture = TestBed.createComponent(CloneDialogComponent);
@@ -27,6 +32,34 @@ describe('CloneDialogComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('No calls onNoClick()', async(() => {
+    spyOn(component, 'onNoClick');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#no');
+    button.click();
+    expect(component.onNoClick).toHaveBeenCalled();
+  }));
+
+  it('Yes calls onYesClick()', async(() => {
+    spyOn(component, 'onYesClick');
+    fixture.detectChanges();
+    const button = fixture.debugElement.nativeElement.querySelector('#yes');
+    button.click();
+    expect(component.onYesClick).toHaveBeenCalled();
+  }));
+
+  it('dialog should be closed after onYesClick()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onYesClick();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('dialog should be closed after onNoClick()', () => {
+    let spy = spyOn(component.dialogRef, 'close').and.callThrough();
+    component.onNoClick();
+    expect(spy).toHaveBeenCalled();
   });
 
 });
