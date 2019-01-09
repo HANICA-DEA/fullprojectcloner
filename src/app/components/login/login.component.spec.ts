@@ -51,15 +51,15 @@ describe('LoginComponent', () => {
         HttpHandler
       ]
     });
-    TestBed.overrideComponent(LoginComponent, {
-      set: {
-        providers: [
-          {provide: AuthService, useClass: MockAuthService},
-          {provide: Router, useValue: routerSpy},
-          {provide: GithubService, useValue: ghServiceSpy},
-        ]
-      }
-    });
+  TestBed.overrideComponent(LoginComponent, {
+    set: {
+      providers: [
+        {provide: AuthService, useClass: MockAuthService},
+        {provide: Router, useValue: routerSpy},
+        {provide: GithubService, useValue: ghServiceSpy},
+      ]
+    }
+  });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     componentService = fixture.debugElement.injector.get(AuthService);
