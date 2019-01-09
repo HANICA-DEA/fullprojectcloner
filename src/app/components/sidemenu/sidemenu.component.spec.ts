@@ -7,26 +7,20 @@ describe('SidemenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-
-      ],
       declarations: [
         SidemenuComponent,
       ]
     });
-
     fixture = TestBed.createComponent(SidemenuComponent);
     component = fixture.componentInstance;
   }));
-
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
-
-
   it('empty test', () => {
     component.ngOnInit();
     const currentYear = new Date().getFullYear();
     expect(component.currentYear).toEqual(currentYear);
   });
 });
+

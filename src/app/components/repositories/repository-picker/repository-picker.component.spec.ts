@@ -30,7 +30,6 @@ describe('RepositoryPickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   xit('repositorybutton calls chooserepository', async(() => {
     // Hoe vul ik in godsnaam repositories met iets waardoor de test slaagt ):
     // object: Object = "hoi";
