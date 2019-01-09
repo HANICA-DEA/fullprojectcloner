@@ -1,5 +1,5 @@
 <mat-card>
-  <div *ngIf="authService.userIsLoggedIn; else loginTemplate">
+  <div *ngIf="authService.isLoggedIn; else loginTemplate">
     <h1>Welcome {{authService?.username}}</h1>
     <img src="{{ authService?.userDetails?.photoURL }} ">
     <br />

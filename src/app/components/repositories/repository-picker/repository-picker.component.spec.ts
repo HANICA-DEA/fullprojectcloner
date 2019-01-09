@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule, MatFormFieldModule} from '@angular/material';
 import {RepositoryPickerComponent} from './repository-picker.component';
@@ -30,11 +30,10 @@ describe('RepositoryPickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('repositorybutton calls chooserepository', async(() => {
-    // Hoe vul ik in godsnaam repositories met iets waardoor de test slaagt ):
-    // object: Object = "hoi";
+
+  it('repository-button calls chooserepository', async(() => {
     component.showAllRepositories = true;
-    // component.repositories = object;
+    component.repositories = ['test', 'test'];
     spyOn(component, 'chooseRepository');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#repository-button');

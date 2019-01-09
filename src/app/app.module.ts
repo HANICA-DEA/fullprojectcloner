@@ -23,12 +23,12 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {environment} from '../environments/environment';
 import {RepositoryPickerComponent} from './components/repositories/repository-picker/repository-picker.component';
 import {LoginComponent} from './components/login/login.component';
-import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {RepositoryInviteComponent} from './components/repositories/repository-invite/repository-invite.component';
 import {CloneComponent} from './components/clone/clone.component';
 import {CsvDialogComponent} from './dialogues/csv/csvDialog.component';
 import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +57,6 @@ import {CloneDialogComponent} from './dialogues/clone/cloneDialog.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    HttpModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

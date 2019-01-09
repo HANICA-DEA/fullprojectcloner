@@ -21,6 +21,6 @@
   <app-login></app-login>
 </div>
 
-<div *ngIf="repoInfoReady();">
+<div *ngIf="repoInfoReady() && authService.isLoggedIn;">
   <app-repository-picker [repositories]="repositories" [authData]="authData"></app-repository-picker>
 </div>

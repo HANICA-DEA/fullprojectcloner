@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
-import {Headers, Http} from '@angular/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ContactFormDto} from '../../entities/contact/contactform.dto';
 import {MatSnackBar} from '@angular/material';
 
@@ -21,7 +21,7 @@ export class ContactComponent implements OnInit {
   formSent = false;
   MAIL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrBysjuMbBGdWRyaOXpW2PwkavvyLePxSmQeJC5CdAQEHS3ys/exec';
 
-  constructor(private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar) {
+  constructor(private readonly formBuilder: FormBuilder, private readonly http: HttpClient, public snackBar: MatSnackBar) {
     this.contactForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -52,10 +52,9 @@ export class ContactComponent implements OnInit {
         this.contactForm.controls.message.value
       );
 
-      const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+      const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
       this.http.post(this.MAIL_SCRIPT_URL, this.contactFormDto, {headers: headers})
-        .subscribe((response) => {
-          console.log(response);
+        .subscribe(() => {
         });
       this.openSnackBar('Contact form has been sent!', 'close');
       this.contactForm.reset();

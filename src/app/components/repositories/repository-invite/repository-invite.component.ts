@@ -1,7 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GithubService} from '../../../services/github/github.service';
-import {Headers, Http} from '@angular/http';
 import {InviteFormDto} from '../../../entities/invite/inviteform.dto';
 import {AuthService} from '../../../services/auth/auth.service';
 import {InviteService} from '../../../services/invite/invite.service';
@@ -10,6 +9,7 @@ import {IssueDto} from '../../../entities/github/issueDto';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {SendinviteDto} from '../../../entities/invite/sendinvite.dto';
 import {CsvDialogComponent} from '../../../dialogues/csv/csvDialog.component';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-repository-invite',
@@ -35,9 +35,9 @@ export class RepositoryInviteComponent implements OnInit {
   private inviteID: string;
   textContent: string;
 
-  constructor(private sendInviteData: InviteService,
-              private formBuilder: FormBuilder, private http: Http, public snackBar: MatSnackBar,
-              public authService: AuthService, private githubService: GithubService,
+  constructor(private readonly sendInviteData: InviteService,
+              private readonly formBuilder: FormBuilder, private readonly http: HttpClient, public snackBar: MatSnackBar,
+              public authService: AuthService, private readonly githubService: GithubService,
               public dialog: MatDialog
   ) {
     this.singleRecipientForm = this.formBuilder.group({
@@ -129,16 +129,18 @@ export class RepositoryInviteComponent implements OnInit {
     this.myInput.nativeElement.value = '';
   }
 
-  private randomStringGenerator() {
-    return Math.random().toString(36).substring(7);
-  }
-
   sendInviteToUser(emailaddress: string, url: string, repositoryname: string, invitator: string) {
-    const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     this.inviteFormDto = new InviteFormDto(emailaddress, url, repositoryname, invitator);
     this.http.post(this.INVITEMAIL_SCRIPT_URL, this.inviteFormDto, {headers: headers})
       .subscribe((response) => {
       });
+  }
+
+  private randomStringGenerator() {
+    const maxRadix = 36;
+    const stringLength = 7;
+    return Math.random().toString(maxRadix).substring(stringLength);
   }
 
   onFileLoad(fileLoadedEvent) {
