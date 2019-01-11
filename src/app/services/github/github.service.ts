@@ -22,6 +22,15 @@ export class GithubService {
     this._baseUrl = value;
   }
 
+  barredRockHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github.barred-rock-preview'
+  });
+  inertiaPreviewHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github.inertia-preview+json'
+  });
+
   static handleError(error: HttpErrorResponse): Observable<never> {
     // return an observable with a user-facing error message
     return throwError(error);
@@ -49,73 +58,43 @@ export class GithubService {
   }
 
   importRepository(token: string, username: string, repository: string, content: Object): Observable<Object> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github.barred-rock-preview'
-    });
-
     const url = this._baseUrl + '/repos/' + username + '/' + repository + '-' + username + '/import?access_token=' + token;
-    return this.http.put(url, JSON.stringify(content), {headers: headers});
+    return this.http.put(url, JSON.stringify(content), {headers: this.barredRockHeader});
   }
 
   persistIssue(token: string, username: string, repository: string, content: Object): Promise<Object> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github.barred-rock-preview'
-    });
     const url = this._baseUrl + '/repos/' + username + '/' + repository + '/issues?access_token=' + token;
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this.http.post(url, JSON.stringify(content), {headers: this.barredRockHeader}).toPromise();
   }
 
   persistRepository(token: string, name: string): Promise<Object> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
     const url = this._baseUrl + '/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this.http.post(url, JSON.stringify(content), {headers: this.barredRockHeader}).toPromise();
   }
 
   getProjects(token: string, name: string, repository: string): Observable<Object> {
-    const headers = new HttpHeaders({
-      'Accept': 'application/vnd.github.inertia-preview+json'
-    });
     const url = this._baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token;
-    return this.http.get(url, {headers: headers});
+    return this.http.get(url, {headers: this.inertiaPreviewHeader});
   }
 
   getUsingUrl(token: string, sourceUrl: string) {
-    const headers = new HttpHeaders({
-      'Accept': 'application/vnd.github.inertia-preview+json'
-    });
     const url = sourceUrl + '?access_token=' + token;
-    return this.http.get(url, {headers: headers});
+    return this.http.get(url, {headers: this.inertiaPreviewHeader});
   }
 
   persistProject(token: string, name: string, repository: string, content: Object) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github.inertia-preview+json'
-    });
     const url = this._baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token;
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 
   persistColumn(token: string, projectId: number, content: Object) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github.inertia-preview+json'
-    });
     const url = this._baseUrl + '/projects/' + projectId + '/columns?access_token=' + token;
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 
   persistCard(token: string, columnId: number, content: Object) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/vnd.github.inertia-preview+json'
-    });
     const url = this._baseUrl + '/projects/columns/' + columnId + '/cards?access_token=' + token;
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 }
