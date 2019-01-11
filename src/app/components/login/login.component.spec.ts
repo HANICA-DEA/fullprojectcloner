@@ -9,23 +9,20 @@ import {Router, RouterModule} from '@angular/router';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {HttpClient, HttpHandler} from '@angular/common/http';
 import {GithubService} from '../../services/github/github.service';
-import {Observable} from 'rxjs';
-import {promise} from 'selenium-webdriver';
-import {any} from 'codelyzer/util/function';
 
 class MockAuthService implements Partial<AuthService> {
-  userIsLoggedIn: boolean;
-
+ private _isLoggedIn: boolean;
   loginwithGithubProvider(): Promise<any> {
     return new Promise((resolve, reject) => resolve());
   }
 
-  public get isLoggedIn(): boolean {
-    return this.userIsLoggedIn;
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
   }
 
   logout(): Promise<any> {
-  return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve());
   }
 }
 
@@ -54,28 +51,32 @@ describe('LoginComponent', () => {
         HttpHandler
       ]
     });
-    TestBed.overrideComponent(LoginComponent, {
-      set: {
-        providers: [
-          {provide: AuthService, useClass: MockAuthService},
-          {provide: Router, useValue: routerSpy},
-          {provide: GithubService, useValue: ghServiceSpy},
-        ]
-      }
-    });
+  TestBed.overrideComponent(LoginComponent, {
+    set: {
+      providers: [
+        {provide: AuthService, useClass: MockAuthService},
+        {provide: Router, useValue: routerSpy},
+        {provide: GithubService, useValue: ghServiceSpy},
+      ]
+    }
+  });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     componentService = fixture.debugElement.injector.get(AuthService);
   }));
+
   // Instance and HTML tests
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
   it('Service injected via component should be an instance of MockAuthService', () => {
     expect(componentService instanceof MockAuthService).toBeTruthy();
   });
 
-  it('Logginbutton calls signInWithGithub', async(() => {
+  it('Loginbutton calls signInWithGithub', async(() => {
+    spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(false);
+    console.log(componentService.isLoggedIn);
     spyOn(component, 'signInWithGithub');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
@@ -84,7 +85,7 @@ describe('LoginComponent', () => {
   }));
 
   it('LogoutButton calls Logout', async(() => {
-    componentService.userIsLoggedIn = true;
+    spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(true);
     spyOn(component, 'logout');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#logout');

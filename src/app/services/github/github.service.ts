@@ -10,8 +10,16 @@ import {PostrequestDto} from '../../entities/github/postrequest.dto';
 export class GithubService {
 
   private _baseUrl = 'https://api.github.com';
+  barredRockHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github.barred-rock-preview'
+  });
+  inertiaPreviewHeader = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github.inertia-preview+json'
+  });
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
   }
 
   get baseUrl(): string {
@@ -22,26 +30,10 @@ export class GithubService {
     this._baseUrl = value;
   }
 
-  barredRockHeader = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Accept': 'application/vnd.github.barred-rock-preview'
-  });
-  inertiaPreviewHeader = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Accept': 'application/vnd.github.inertia-preview+json'
-  });
-
   static handleError(error: HttpErrorResponse): Observable<never> {
     // return an observable with a user-facing error message
     return throwError(error);
   }
-
-  // getUser(token: string): Observable<Object> {
-  //   const url = this._baseUrl + '/user?access_token=' + token;
-  //   return this.http.get(url).pipe(
-  //     catchError(this.handleError)
-  //   );
-  // }
 
   getRepositories(token: string, username: string): Observable<Object> {
     const url = this._baseUrl + '/users/' + username + '/repos?access_token=' + token;
@@ -74,7 +66,7 @@ export class GithubService {
   }
 
   getProjects(token: string, name: string, repository: string): Observable<Object> {
-    const url = this._baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token;
+    const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
     return this.http.get(url, {headers: this.inertiaPreviewHeader});
   }
 
@@ -84,17 +76,17 @@ export class GithubService {
   }
 
   persistProject(token: string, name: string, repository: string, content: Object) {
-    const url = this._baseUrl + '/repos/' + name + '/' + repository + '/projects?access_token=' + token;
+    const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 
   persistColumn(token: string, projectId: number, content: Object) {
-    const url = this._baseUrl + '/projects/' + projectId + '/columns?access_token=' + token;
+    const url = 'https://api.github.com/projects/' + projectId + '/columns?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 
   persistCard(token: string, columnId: number, content: Object) {
-    const url = this._baseUrl + '/projects/columns/' + columnId + '/cards?access_token=' + token;
+    const url = 'https://api.github.com/projects/columns/' + columnId + '/cards?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 }

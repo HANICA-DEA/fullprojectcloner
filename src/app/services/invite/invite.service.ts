@@ -9,7 +9,7 @@ import {SendinviteDto} from '../../entities/invite/sendinvite.dto';
 export class InviteService {
   private _hash: string;
 
-  constructor(private _db: AngularFirestore) {
+  constructor(private readonly _db: AngularFirestore) {
   }
 
   hashRandomString(randomString: string) {
