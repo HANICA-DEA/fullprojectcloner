@@ -80,22 +80,22 @@ export class GithubService {
     return this.http.get(url, {headers: this.inertiaPreviewHeader});
   }
 
-  getUsingUrl(token: string, sourceUrl: string) {
+  getUsingUrl(token: string, sourceUrl: string): Observable<Object> {
     const url = sourceUrl + '?access_token=' + token;
     return this.http.get(url, {headers: this.inertiaPreviewHeader});
   }
 
-  persistProject(token: string, name: string, repository: string, content: Object) {
+  persistProject(token: string, name: string, repository: string, content: Object): Promise<Object> {
     const url = 'https://api.github.com/repos/' + name + '/' + repository + '/projects?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 
-  persistColumn(token: string, projectId: number, content: Object) {
+  persistColumn(token: string, projectId: number, content: Object): Promise<Object> {
     const url = 'https://api.github.com/projects/' + projectId + '/columns?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
 
-  persistCard(token: string, columnId: number, content: Object) {
+  persistCard(token: string, columnId: number, content: Object): Promise<Object> {
     const url = 'https://api.github.com/projects/columns/' + columnId + '/cards?access_token=' + token;
     return this.http.post(url, JSON.stringify(content), {headers: this.inertiaPreviewHeader}).toPromise();
   }
