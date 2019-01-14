@@ -35,13 +35,6 @@ export class GithubService {
     return throwError(error);
   }
 
-  // getUser(token: string): Observable<Object> {
-  //   const url = this._baseUrl + '/user?access_token=' + token;
-  //   return this.http.get(url).pipe(
-  //     catchError(this.handleError)
-  //   );
-  // }
-
   getRepositories(token: string, username: string): Observable<Object> {
     const url = this._baseUrl + '/users/' + username + '/repos?access_token=' + token;
     return this.http.get(url).pipe(
@@ -67,12 +60,9 @@ export class GithubService {
   }
 
   persistRepository(token: string, name: string): Promise<Object> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
     const url = this._baseUrl + '/user/repos?access_token=' + token;
     const content = new PostrequestDto(name, '© Fullprojectcloner ' + name, 'https://github.com/', false, true, true, true);
-    return this.http.post(url, JSON.stringify(content), {headers: headers}).toPromise();
+    return this.http.post(url, JSON.stringify(content), {headers: this.barredRockHeader}).toPromise();
   }
 
   getProjects(token: string, name: string, repository: string): Observable<Object> {
