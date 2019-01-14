@@ -13,6 +13,6 @@
     <button mat-flat-button class="btn-github" id="signInWithGithub" (click)="signInWithGithub()">
       <i class="fab fa-github"></i> Authenticate with github
     </button>
-    <p class="authError">{{this?.loginError}}</p>
+    <p *ngIf="this?.loginError" class="authError">{{this?.loginError}}</p>
   </ng-template>
 </mat-card>

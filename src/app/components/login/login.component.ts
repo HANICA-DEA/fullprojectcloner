@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
-import {Router} from '@angular/router';
-import {GithubService} from '../../services/github/github.service';
 import {Errorcode} from './errorcode.enum';
 
 
