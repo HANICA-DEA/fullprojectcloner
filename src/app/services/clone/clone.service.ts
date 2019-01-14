@@ -11,7 +11,7 @@ export class CloneService {
   constructor(private readonly github: GithubService) {
   }
 
-  async importRepository(auth: Authdata, requestData: Object) {
+  async importRepository(auth: AuthdataDto, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
     const token = auth.token;
     const sourceRepository = request._repositoryName;
@@ -26,7 +26,7 @@ export class CloneService {
       });
   }
 
-  async importProjectBoard(auth: Authdata, requestData: Object) {
+  async importProjectBoard(auth: AuthdataDto, requestData: Object) {
     const request = JSON.parse(JSON.stringify(requestData));
     const token = auth.token;
     const recipient = auth.username;
@@ -83,7 +83,7 @@ export class CloneService {
     }
   }
 
-  async cloneFullProject(auth: Authdata, requestData: Object) {
+  async cloneFullProject(auth: AuthdataDto, requestData: Object) {
     await this.importRepository(auth, requestData);
     await this.importProjectBoard(auth, requestData);
   }
