@@ -15,7 +15,7 @@ export class ContactComponent implements OnInit {
   @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
 
-  private contactFormDto: ContactFormDto;
+  contactFormDto: ContactFormDto;
   contactForm: FormGroup;
   submitted = false;
   formSent = false;
