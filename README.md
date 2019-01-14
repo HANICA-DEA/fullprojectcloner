@@ -25,3 +25,17 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Google Firebase 
+
+To use a stand-alone database you can set one up at [Google Firebase](https://console.firebase.google.com/).
+
+## Google script 
+
+To use free mail script (up to 200 mails per day) you can set one up at [Google Script](https://script.google.com).
+
+
+
+
+
+
