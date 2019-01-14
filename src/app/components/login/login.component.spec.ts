@@ -76,7 +76,6 @@ describe('LoginComponent', () => {
 
   it('Loginbutton calls signInWithGithub', async(() => {
     spyOnProperty(componentService, 'isLoggedIn', 'get').and.returnValue(false);
-    console.log(componentService.isLoggedIn);
     spyOn(component, 'signInWithGithub');
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('#signInWithGithub');
