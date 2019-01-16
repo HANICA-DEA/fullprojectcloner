@@ -42,7 +42,7 @@ The application should now be able to send contact form messages to the address 
 ## 3. Deploy web app on GitHub pages
 Run this command in the terminal to generate files that can run on GitHub pages:
 `ng build --prod --output-path docs --base-href https://<user_name>.github.io`
-When the build is complete, make a copy of docs/index.html and name it docs/404.html
+When the build is complete, make a copy of `docs/index.html` and name it `docs/404.html`
 
 Now login to GitHub and create a new repository.
 When the setup repository page is viewed, click on `upload an existing file`.
