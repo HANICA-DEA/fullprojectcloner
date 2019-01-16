@@ -13,8 +13,36 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Setup Instruction (We suggest that you create a new google account for this application)
 
-## 1. Create a firestore database and 
-To use a stand-alone database you can set one up at [Google Firebase](https://console.firebase.google.com/).
+## 1. Create a firestore database
+To use a stand-alone NO-SQL database you can set one up at [Google Firebase](https://console.firebase.google.com/).
+### 1.1 Setup walkthrough
+1. Click on the `+` to create a new project.
+2. Add your project.
+   1. Enter the project name (Fullprojectcloner).
+   2. Set/edit the location to your own (for example the Netherlands).
+   3. Select `us-central` for cloud-firestore.
+   4. Accept the `therms and conditions`
+3. On this next page go to the **get started here** section and click on the `</>` symbol
+4. Copy the previewed codefragment. And add it in the *src/environments/environment.ts* of your project. (See *codefragment 1*) 
+5. Scroll down the console page and click `getting started` on the Database tab.
+6. Click on `Create database` on the Firestore section.
+7. Choose the security rules (*our current project has the test rules*). You can later change this in the rules tab. But it will need a few changes in DatabaseService.ts.
+8. Enjoy!
+``` javascript
+export const environment = {
+     production: false,
+     firebase: {
+       apiKey: YOUR_API_KEY,
+       authDomain: YOUR_AUTH_DOMAIN,
+       databaseURL: YOUR_DATABASE_URL,
+       projectId: YOUR_PROJECT_ID,
+       storageBucket: "",
+       messagingSenderId: YOUR_MESSAGING_SENDER_ID
+     }
+   }; 
+```
+
+*Codefragment 1 Environment settings*
 
 
 ## 2. Create google scripts for the app to be able to send e-mails
