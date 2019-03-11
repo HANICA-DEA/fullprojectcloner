@@ -27,7 +27,7 @@ before_install:
 
 
 script:
-  - ng -v
+  - ng version
   - ng lint
   - npm run test-coverage
   - ng build --configuration production --base-href "/fullprojectcloner/"
