@@ -1,4 +1,4 @@
-# Fullprojectcloner [![Build Status](https://travis-ci.org/HANICA-DEA/fullprojectcloner.svg?branch=master)](https://travis-ci.org/HANICA-DEA/fullprojectcloner)
+# Fullprojectcloner [![Build Status](https://travis-ci.org/HANICA-DEA/fullprojectcloner.svg?branch=master)](https://travis-ci.org/HANICA-DEA/fullprojectcloner) [![Coverage Status](https://coveralls.io/repos/github/HANICA-DEA/fullprojectcloner/badge.svg?branch=master)](https://coveralls.io/github/HANICA-DEA/fullprojectcloner?branch=master)
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
 ## Development server
