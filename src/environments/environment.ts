@@ -6,12 +6,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyAbdkvK_HB1gqNZ7xoeL8IEEcbmkNyGatQ',
-    authDomain: 'fullprojectcloner.firebaseapp.com',
-    databaseURL: 'https://fullprojectcloner.firebaseio.com',
-    projectId: 'fullprojectcloner',
-    storageBucket: 'fullprojectcloner.appspot.com',
-    messagingSenderId: '242723023957'}
+    apiKey: 'AIzaSyCEv0xpdRwMUNgx_aYufzD_9uA399cMBQ4',
+    authDomain: 'fullprojectcloner-6b288.firebaseapp.com',
+    databaseURL: 'https://fullprojectcloner-6b288.firebaseio.com',
+    projectId: 'fullprojectcloner-6b288',
+    storageBucket: 'fullprojectcloner-6b288.appspot.com',
+    messagingSenderId: '349208428839'}
 };
 
 /*
