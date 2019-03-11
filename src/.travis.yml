@@ -1,0 +1,45 @@
+language: node_js
+sudo: true
+
+node_js:
+  - '9.9'
+
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+cache:
+  directories:
+    - "node_modules"
+
+branches:
+  only:
+    - development
+
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+
+script:
+  - ng -v
+  - ng lint
+  - npm run test-coverage
+  - ng build --configuration production --base-href "/fullprojectcloner/"
+
+after_success:
+  npm run coveralls
+
+deploy:
+  provider: pages
+  local-dir: dist
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: false
+  on:
+    branch: development
