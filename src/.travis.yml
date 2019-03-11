@@ -19,7 +19,7 @@ cache:
 
 branches:
   only:
-    - development
+    - master
 
 before_install:
   - export DISPLAY=:99.0
@@ -42,4 +42,4 @@ deploy:
   github-token: $GH_TOKEN
   keep-history: false
   on:
-    branch: development
+    branch: master
